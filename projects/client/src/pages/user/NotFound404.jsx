@@ -1,27 +1,36 @@
 import React from "react";
-import { Box, Image, Link as ChakraLink, Center, Flex, Button, MenuItem, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Image,
+  Link as ChakraLink,
+  Center,
+  Flex,
+  Button,
+  MenuItem,
+  Text,
+} from "@chakra-ui/react";
 import "./404.css";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 
 const NotFoundPage = () => {
   return (
-    <Box className="bg-purple" w={"100%"} h={"auto"}>
+    <Box className="bg-purple"  >
       <Box className="stars">
         <Flex
           className="central-body"
           alignContent={"center"}
-          align="center" // Center the children vertically
-          justify="center" // Center the children horizontally
-          flexDirection="column" // Stack children vertically
-          h="100vh" // Ensure the central-body takes up the full height
+          align="center"
+          justify="center"
+          flexDirection="column"
+          h="98vh"
         >
           <Image
             className="image-404"
-            src="LOGO.png"
-            width="10%"
+            src="EcoGroceriesApp_withoutSlogan.png"
+            width="12%"
             height="auto"
           />
-          <Text fontWeight={'bold'} fontSize={'4xl'} color="white">
+          <Text fontWeight={"bold"} fontSize={"4xl"} color="white">
             PAGE NOT FOUND
           </Text>
           <Image
@@ -31,10 +40,11 @@ const NotFoundPage = () => {
             alt="404"
           />
           <ChakraLink
-            as={Link} to="/" 
+            as={Link}
+            to="/"
             textColor={"white"}
             className="btn-go-home"
-            target="_blank"
+            // target="_blank"
           >
             GO BACK HOME
           </ChakraLink>
@@ -43,19 +53,25 @@ const NotFoundPage = () => {
           <Center className="box_astronaut">
             <Image
               className="object_rocket"
-              src="1.png"
+              src="images/beef.png"
               width="10%"
               height="auto"
             />
             <Image
               className="object_astronaut"
-              src="6.png"
+              src="images/carrot.png"
               width="10%"
               height="auto"
             />
             <Image
               className="object_astronaut"
-              src="3.png"
+              src="images/grape.png"
+              width="10%"
+              height="auto"
+            />
+            <Image
+              className="object_astronaut"
+              src="images/lobster.png"
               width="10%"
               height="auto"
             />
@@ -91,19 +107,36 @@ const NotFoundPage = () => {
             />
             <Image
               className="object_rocket"
-              src="4.png"
+              src="images/crab.png"
               width="10%"
               height="auto"
             />
             <Image
               className="object_astronaut"
-              src="5.png"
+              src="images/egg.png"
               width="10%"
+              height="auto"
+            />
+            <Image
+              className="object_astronaut"
+              src="images/apple.png"
+              width="5%"
+              height="auto"
+            />
+            <Image
+              className="object_astronaut"
+              src="images/paprika.png"
+              width="7%"
               height="auto"
             />
           </Box>
         </Box>
-        <Box className="glowing_stars">
+        <Box className="glowing_stars" >
+          <Box className="star"></Box>
+          <Box className="star"></Box>
+          <Box className="star"></Box>
+          <Box className="star"></Box>
+          <Box className="star"></Box>
           <Box className="star"></Box>
           <Box className="star"></Box>
           <Box className="star"></Box>

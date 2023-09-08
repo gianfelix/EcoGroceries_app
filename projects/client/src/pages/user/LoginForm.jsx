@@ -3,8 +3,13 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { ExternalLinkIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import {useNavigate} from 'react-router-dom'
+import {
+  ExternalLinkIcon,
+  Icon,
+  ViewIcon,
+  ViewOffIcon,
+} from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
 
 // import { loginSuccess } from "../../redux/AuthReduser";
 // import { useDispatch } from "react-redux";
@@ -21,12 +26,15 @@ import {
   Link as LinkChakra,
   Center,
   Image,
+  Flex,
 } from "@chakra-ui/react";
+import { FaArrowLeft } from "react-icons/fa";
+import Navbar from "../../components/Navbar";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate()
-//   const dispatch = useDispatch()
+  const navigate = useNavigate();
+  //   const dispatch = useDispatch()
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -34,13 +42,14 @@ const LoginForm = () => {
 
   return (
     <Box>
-      <Box>
-          <Center>
-            <Image src="LOGO.png" width="10%" height="auto"/>
-          </Center>
+      <Navbar />
+      <Box mt={10}>
+        <Center>
+          <Image src="EcoGroceriesApp.png" width="13%" height="auto" />
+        </Center>
         <Box m="auto" p={6} w={"30%"}>
           <Heading as="h2" size="lg" mb={6} textAlign={"center"}>
-            Log in to your account
+            Login to your account
           </Heading>
           <Formik
             initialValues={{
@@ -58,7 +67,7 @@ const LoginForm = () => {
                 )
                 .required("Password is required"),
             })}
-            onSubmit={(values, { setSubmitting }) => { 
+            onSubmit={(values, { setSubmitting }) => {
               axios
                 .post(
                   "https://minpro-blog.purwadhikabootcamp.com/api/auth/login",
@@ -69,10 +78,10 @@ const LoginForm = () => {
                 )
                 .then(function (response) {
                   console.log(JSON.stringify(response.data));
-                //   dispatch(loginSuccess(response.data.token))
+                  //   dispatch(loginSuccess(response.data.token))
 
                   // alert(response.data.message)
-                  navigate('/')
+                  navigate("/");
                   setSubmitting(false);
                 })
                 .catch(function (error) {
@@ -111,11 +120,7 @@ const LoginForm = () => {
                       size="sm"
                       onClick={handleTogglePassword}
                     >
-                      {showPassword ? (
-                        <ViewOffIcon  />
-                      ) : (
-                        <ViewIcon  />
-                      )}
+                      {showPassword ? <ViewOffIcon /> : <ViewIcon />}
                     </Button>
                   </InputRightElement>
                 </InputGroup>
@@ -129,24 +134,24 @@ const LoginForm = () => {
                 // variant={"outline"}
                 // borderColor={"black"}
               >
-                Log in
+                Login
               </Button>
             </Form>
           </Formik>
           <Text>
             Forgot your password?{" "}
-            <LinkChakra textColor={'teal'}>
-            <Link to="/forgotpass" Color={"teal"}>
-              Reset Password <ExternalLinkIcon mx="2px" />
-            </Link>
+            <LinkChakra textColor={"teal"}>
+              <Link to="/forgot-password" Color={"teal"}>
+                Reset Password <ExternalLinkIcon mx="2px" />
+              </Link>
             </LinkChakra>
           </Text>
           <Text>
             Don't have an account?{" "}
-            <LinkChakra textColor={'teal'}>
-            <Link to="/register" >
-              Sign up here <ExternalLinkIcon mx="2px" />
-            </Link>
+            <LinkChakra textColor={"teal"}>
+              <Link to="/register">
+                Sign up here <ExternalLinkIcon mx="2px" />
+              </Link>
             </LinkChakra>
           </Text>
         </Box>

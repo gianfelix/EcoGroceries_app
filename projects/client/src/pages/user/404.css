@@ -211,7 +211,8 @@ li a:hover {
 .box_astronaut{
     z-index: 110 !important;
     position: absolute;
-    top: 60%;
+    top: 30%;
+    left: 20%;
     right: 20%;
     will-change: transform;
     animation: move-astronaut 50s infinite linear both alternate;

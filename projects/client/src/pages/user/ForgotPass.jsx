@@ -4,6 +4,7 @@ import { Box, FormControl, useToast, FormLabel, Input, Button, Heading, Text, Li
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import Navbar from "../../components/Navbar";
 
 const ForgotPassword = () => {
   const toast = useToast();
@@ -37,9 +38,10 @@ const ForgotPassword = () => {
 
   return (
     <Box>
-      <Box>
+      <Navbar/>
+      <Box mt={20}>
           <Center>
-            <Image src="LOGO.png" width="10%" height="auto"/>
+            <Image src="EcoGroceriesApp.png" width="13%" height="auto"/>
           </Center>
         <Box m="auto" p={6} w={"30%"}>
           <Heading as="h2" size="lg" mb={6} textAlign={"center"}>
@@ -68,7 +70,7 @@ const ForgotPassword = () => {
             Remember your password?{" "}
             <LinkChakra textColor={"teal"}>
               <Link to="/login" textColor={"teal"}>
-                Log in here <ExternalLinkIcon mx="2px" />
+                Login here <ExternalLinkIcon mx="2px" />
               </Link>
             </LinkChakra>
           </Text>

@@ -1,74 +1,53 @@
-import React, { useState, useEffect } from "react";
+import { Box, Button, Heading } from "@chakra-ui/react";
 
+import { useNavigate } from "react-router-dom";
 
-import { Box, Text } from "@chakra-ui/react";
-
-import LandingUnreachArea from "./LandingUnreachArea";
-import LandingJabodetabek from "./LandingJabodetabek";
-import LandingYkAround from "./LandingYkAround";
+import Testimonials from "../components/Testimonials";
+import StepBuy from "../components/StepBuy";
+import OurServices from "../components/OurServices";
+import Category from "../components/Category";
+import CaptionCarousel from "../components/CaptionCarousel";
+import Navbar from "../components/Navbar";
+import ProductLandingDef from "../components/ProductLandingDef";
+import Footer from "../components/Footer";
 
 const LandingPageMain = () => {
-  const [userLocation, setUserLocation] = useState(null);
+  const navigate = useNavigate();
+  navigate("/shop/");
 
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setUserLocation({ latitude, longitude });
-        },
-        (error) => {
-          console.error(error);
-        }
-      );
-    } else {
-      console.error("Geolocation is not supported by this browser.");
-    }
-  }, []);
-
-  console.log(userLocation);
-  if (!userLocation) {
-    return <div>Mengambil lokasi...</div>;
-  }
-
-  const inYogjakarta =
-    userLocation.latitude >= -8.206338 &&
-    userLocation.latitude <= -7.543457 &&
-    userLocation.longitude >= 110.011482 &&
-    userLocation.longitude <= 110.843268;
-
-  // const inJawaTimur =
-  //   userLocation.latitude >= -8.307721 &&
-  //   userLocation.latitude <= -6.687675 &&
-  //   userLocation.longitude >= 111.041809 &&
-  //   userLocation.longitude <= 114.52089;
-
-    const inJabodetabek =
-    userLocation.latitude >= -6.810784 &&
-    userLocation.latitude <= -5.491429 &&
-    userLocation.longitude >= 106.325163 &&
-    userLocation.longitude <= 107.326882;
-
-
-  return (
+  return ( 
     <>
-      {inYogjakarta ? (
-        <LandingYkAround />
-      ) : inJabodetabek ? (
-        <LandingJabodetabek />
-      ) : (
-        <LandingUnreachArea />
-      )}
+      <Box>
+        <Navbar />
+      </Box>
 
-      <Box mt={5} display={"flex"} justifyContent={"center"}>
-        <Box>
-          <Text>For Check Your Coordinate Location</Text>
-          <Text>Latitude: {userLocation.latitude}</Text>
-          <Text>Longitude: {userLocation.longitude}</Text>
-          <Text>
-            Coordinat: {userLocation.latitude}, {userLocation.longitude}
-          </Text>
+      <CaptionCarousel />
+
+      <OurServices />
+
+      <Category />
+
+      {/* Products Section */}
+      <Box py={8}>
+        <Heading as="h2" size="xl" textAlign="center" mb={4}>
+          Our Products
+        </Heading>
+        <Box mb={6}>
+          <ProductLandingDef />
+
+          <Box textAlign="center">
+            <Button colorScheme="teal" onClick={() => navigate("/shop")}>
+              Show More Products
+            </Button>
+          </Box>
         </Box>
+
+        <StepBuy />
+
+        <Testimonials />
+      </Box>
+      <Box>
+        <Footer/>
       </Box>
     </>
   );

@@ -21,6 +21,7 @@ import {
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import Navbar from "../../components/Navbar";
 
 const RegistrationForm = () => {
   // Validation schema using Yup
@@ -79,8 +80,10 @@ const RegistrationForm = () => {
 
   return (
     <Box>
-      <Center>
-        <Image src="LOGO.png" width="10%" height="auto"/>
+      <Navbar />
+      
+      <Center mt={10}>
+        <Image src="EcoGroceriesApp.png" width="13%" height="auto"/>
       </Center>
       <Box m="auto" px={6} w={"30%"}>
         <Heading as="h3" size="lg" textAlign="center">
