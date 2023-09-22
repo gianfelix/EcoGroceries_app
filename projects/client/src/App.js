@@ -1,8 +1,7 @@
 import axios from "axios";
-import logo from "./logo.svg";
 import "./App.css";
 import { useEffect, useState } from "react";
-import { Box, ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LandingPageMain from "./pages/LandingPageMain";
 import Shop from "./pages/Shop";
@@ -14,9 +13,15 @@ import DetailsPackages from "./pages/user/DetailsPackages";
 import NotFound404 from "./pages/user/NotFound404";
 import LoginForm from "./pages/user/LoginForm";
 import RegistrationForm from "./pages/user/RegistrationForm";
+import VerificationPage from "./pages/user/VerifyAccountPage.jsx";
 import LoginAdminForm from "./pages/admin/LoginAdminForm";
 import ForgotPassword from "./pages/user/ForgotPass";
+import ChangesPassword from "./pages/user/ChangePass";
+import ResetPassword from "./pages/user/ResetPass";
+
 import AdminLandingSuper from "./pages/admin/AdminSuper/AdminLandingSuper";
+import UserProfile from "./pages/user/UserProfile";
+
 
 
 function App() {
@@ -31,7 +36,7 @@ function App() {
     })();
   }, []);
   return (
-    <ChakraProvider>
+    <ChakraProvider >
       <Router>
         <Routes>
           <Route path="/" element={<LandingPageMain />} />
@@ -43,9 +48,13 @@ function App() {
           <Route path="/package/:id" element={<DetailsPackages />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegistrationForm />} />
+          <Route path="/verify/:token" element={<VerificationPage />} />
           <Route path="/forgot-password" element={<ForgotPassword/>}/>
+          <Route path="/changes-password" element={<ChangesPassword/>}/>
+          <Route path="/reset-password/:token" element={<ResetPassword/>}/>
           <Route path="/admin" element={<LoginAdminForm/>} />
           <Route path="/admin/super" element={<AdminLandingSuper />} />
+          <Route path="/UserProfile" element={<UserProfile/>}/>
           <Route path="/*" element={<NotFound404/>} />
         </Routes>
       </Router>

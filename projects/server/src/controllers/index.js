@@ -1,5 +1,7 @@
-// const authControllers = require('./authControllers');
-// const profileControllers = require('./profileControllers');
+const authControllers = require('./authControllers');
+const profileControllers = require('./profileControllers');
+const rajaOngkirControllers = require('./rajaOngkirControllers');
+const userAddressControllers = require('./userAddressControllers');
 // const productControllers = require('./productControllers');
 // const cashierControllers = require('./cashierControllers');
 // const categoriesController = require('./categoriesController');
@@ -7,8 +9,10 @@
 // const reportControllers = require('./reportControllers');
 
 module.exports = {
-  // authControllers,
-  // profileControllers,
+  authControllers,
+  profileControllers,
+  rajaOngkirControllers,
+  userAddressControllers,
   // productControllers,
   // categoriesController,
   // cartController,

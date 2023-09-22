@@ -2,12 +2,12 @@ import React from "react";
 import {
   Box,
   Center,
-  useColorModeValue,
   Heading,
   Text,
   Stack,
   Image,
   Button,
+  Flex,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
@@ -42,66 +42,90 @@ const ProductLandingDef = () => {
   // Taruh API disini
   const discountPercentage = 12; // 20% discount for example
 
+  const formatCurrencyIDR = (amount) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+    }).format(amount);
+  };
+
+  const checkAndNavigate = () => {
+    // Check if there is a token in local storage
+    const token = localStorage.getItem("token");
+    if (token) {
+      // Token exists, navigate to "/shop"
+      navigate("/shop");
+    } else {
+      // Token doesn't exist, navigate to "/login"
+      navigate("/login");
+    }
+  };
+
   return (
     <Center py={12}>
-      {PRODUCTS.map((product, index) => {
-        // Calculate the discounted price
-        const discountedPrice =
-          product.price - (product.price * discountPercentage) / 100;
+      <Stack
+        direction={{ base: "column", lg: "row" }} // Adjust direction based on screen size
+        spacing={4}
+        justify="center"
+      >
+        {PRODUCTS.map((product, index) => {
+          // Calculate the discounted price
+          const discountedPrice =
+            product.price - (product.price * discountPercentage) / 100;
 
-        return (
-          <>
+          return (
             <Box
               key={index}
               role={"group"}
-              p={6}
-              maxW={"330px"}
-              w={{ base: "200px", lg: "540px" }}
+              p={4}
+              maxW={"250px"} /* Adjust the maximum width */
+              w={{ base: "160px", lg: "250px" }} /* Adjust the width based on screen size */
               bg={"whiteAlpha.800"}
               boxShadow={"2xl"}
               rounded={"lg"}
               pos={"relative"}
               zIndex={1}
-              m={4}
+              // m={4}
             >
-              <Box rounded={"lg"} mt={-12} pos={"relative"} height={{ base: 48, lg: 64 }}>
+              <Flex justifyContent={"center"} rounded={"lg"} mt={-8} pos={"relative"} height={{ base: 32, lg: 40 }}>
                 <Image
                   rounded={"lg"}
-                  height={{ base: 48, lg: 64 }}
-                  width={{ base: 48, lg: 64 }}
+                  height={{ base: 32, lg: 40 }} /* Adjust the height */
+                  width={{ base: 32, lg: 40 }} /* Adjust the width */
                   objectFit={"cover"}
                   src={product.image}
                   alt={`Product ${index}`}
                 />
-              </Box>
-              <Stack pt={10} align={"center"}>
+              </Flex>
+              <Stack pt={4} align={"center"}>
                 <Heading
-                  fontSize={"2xl"}
+                  fontSize={"lg"} /* Adjust the font size */
                   fontFamily={"body"}
                   fontWeight={500}
                   color={"teal.600"}
                 >
                   {product.name}
                 </Heading>
-                <Stack direction={"row"} align={"center"}>
-                  <Box borderRadius={"lg"} bg={"gray.100"} color={"teal.600"}>
-                    <Text color={"red"} fontSize={{base: "smaller", lg: "sm"}}>{discountPercentage}%</Text>
-                  </Box>
-                  <Text fontWeight={800} fontSize={{base: "lg", lg: "3xl"}} color={"teal"}>
-                    Rp{discountedPrice} {/* Display discounted price */}
-                  </Text>
-                  <Text textDecoration={"line-through"} color={"gray.600"} fontSize={{base: "smaller", lg: "sm"}}>
-                    Rp{product.price} {/* Display original price */}
+                <Stack align={"center"} justify={'center'}>
+                  <Flex>
+                    <Text fontWeight={800} fontSize={"md"} color={"teal"}> {/* Adjust the font size */}
+                      {formatCurrencyIDR(discountedPrice)}
+                    </Text>
+                    <Text color={"red"} fontSize={"xs"}>{discountPercentage}%</Text> {/* Adjust the font size */}
+                  </Flex>
+                  <Text textDecoration={"line-through"} color={"gray.600"} fontSize={"xs"}>
+                    {formatCurrencyIDR(product.price)}
                   </Text>
                 </Stack>
-                <Button colorScheme="teal" onClick={() => navigate("/shop")}>
+                <Button colorScheme="teal" onClick={checkAndNavigate}>
                   Shop Now
                 </Button>
               </Stack>
             </Box>
-          </>
-        );
-      })}
+          );
+        })}
+      </Stack>
     </Center>
   );
 };

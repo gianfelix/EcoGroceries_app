@@ -13,7 +13,17 @@ import Footer from "../components/Footer";
 
 const LandingPageMain = () => {
   const navigate = useNavigate();
-  navigate("/shop/");
+  const checkAndNavigate = () => {
+    // Check if there is a token in local storage
+    const token = localStorage.getItem("token");
+    if (token) {
+      // Token exists, navigate to "/shop"
+      navigate("/shop");
+    } else {
+      // Token doesn't exist, navigate to "/login"
+      navigate("/login");
+    }
+  };
 
   return ( 
     <>
@@ -36,7 +46,7 @@ const LandingPageMain = () => {
           <ProductLandingDef />
 
           <Box textAlign="center">
-            <Button colorScheme="teal" onClick={() => navigate("/shop")}>
+            <Button colorScheme="teal" onClick={checkAndNavigate}>
               Show More Products
             </Button>
           </Box>

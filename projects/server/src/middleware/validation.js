@@ -1,99 +1,101 @@
 const { body, validationResult } = require("express-validator");
+const messages = require("../services/messages");
 
-const validateLogin = [
-  body("username")
-    .if(body("username").exists())
-    .exists()
+const vName = body("name")
     .notEmpty()
-    .withMessage("Username is required"),
-  body("email")
-    .if(body("email").exists())
-    .exists()
-    .notEmpty()
-    .withMessage("Email is required")
-    .isEmail()
-    .withMessage("Invalid email format"),
-  body("phone")
-    .if(body("phone").exists())
-    .exists()
-    .notEmpty()
-    .withMessage("Phone is required"),
-  body("password").notEmpty().withMessage("Password is required"),
-];
+    .withMessage("name is empty")
+    .bail()
+    .isLength({ min: 5 })
+    .withMessage("name length min 8");
 
-const validateRegister = [
-  body("username").notEmpty().withMessage("Username is required"),
-  body("email")
+const vEmail = body("email")
     .notEmpty()
-    .withMessage("Email is required")
+    .withMessage("Email is empty")
+    .bail()
+    .trim()
     .isEmail()
-    .withMessage("Invalid email format"),
-  body("phone")
-    .if(body("phone").exists())
-    .exists()
-    .withMessage("Phone is required"),
-  body("password")
-    .notEmpty()
-    .withMessage("Password is required")
-    .matches(/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{6,}$/)
+    .withMessage("Email is not valid");
+
+const vPassword = body("password").notEmpty().withMessage("Password is empty");
+const vOldPassword = body("old_password").notEmpty().withMessage("Old password is empty");
+
+const vSetPassword = vPassword
+    .bail()
+    .isStrongPassword({
+        minLength: 6,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+    })
     .withMessage(
-      "Password must be at least 6 characters, 1 symbol, and 1 uppercase"
-    ),
-];
+        "Password length min 8, uppercase min 1, number min 1, symbol min 1"
+    );
 
-const validateForgotPassword = [
-  body("email")
+const vConfirmPassword = body("confirm_password")
     .notEmpty()
-    .withMessage("Email is required")
-    .isEmail()
-    .withMessage("Invalid email format"),
-];
+    .withMessage("Confirm Password is empty");
 
-const validateResetPassword = [
-  body("password")
+const vPhone = body("phone")
     .notEmpty()
-    .withMessage("Password is required")
-    .matches(/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{6,}$/)
-    .withMessage(
-      "Password must be at least 6 characters, 1 symbol, and 1 uppercase"
-    ),
-  body("confirmPassword")
-    .notEmpty()
-    .withMessage("Confirm password is required")
-    .custom((value, { req }) => {
-      if (value !== req.body.password) {
-        throw new Error("Passwords must match");
-      }
-      return true;
-    }),
-];
+    .withMessage("Phone is Empty")
+    .bail()
+    .isMobilePhone()
+    .withMessage("Invalid phone number");
 
-const validateChangeUsername = [
-  body("newUsername").notEmpty().withMessage("New username is required"),
-];
+const vReferralBy = body("referred_by")
+    .optional()
+    // .isAlphanumeric()
+    // .withMessage("Referral code must be alphanumeric");
 
-const validateChangeEmail = [
-  body("newEmail")
-    .notEmpty()
-    .withMessage("Email is required")
-    .isEmail()
-    .withMessage("Invalid email format"),
-];
+const email = body("email").notEmpty().withMessage("email is empty");
 
-const validate = (req, res, next) => {
-  const { errors } = validationResult(req);
+const vGender = body("gender")
+    .optional()
+    .isBoolean()
+    .withMessage("Invalid gender");
 
-  if (errors.length > 0) return res.status(400).json({ message: errors });
+const vBirthdate = body("birthdate")
+    .optional()
+    .isDate()
+    .withMessage("Invalid birthdate");
 
-  next();
-};
+const vRegistrationFields = [vEmail, vName, vPhone, vSetPassword, vReferralBy];
+
+const vLoginFields = [email, vPassword];
+
+const vResetPasswordFields = [vSetPassword, vConfirmPassword];
+
+const vChangePasswordFields = [
+    vOldPassword,
+    ...vResetPasswordFields
+]
+
+const vProfileUpdateFields = [vName, vEmail, vPhone, vGender, vBirthdate];
+
+function vResult(req, res, next) {
+    const { errors } = validationResult(req);
+    if (errors.length > 0)
+        return res.status(400).json(
+            messages.response({
+                message: "Invalid input",
+                data: errors.map((error) => error["msg"]),
+            })
+        );
+    next();
+}
 
 module.exports = {
-  validateLogin,
-  validateRegister,
-  validateForgotPassword,
-  validateResetPassword,
-  validateChangeUsername,
-  validateChangeEmail,
-  validate,
+    vName,
+    vEmail,
+    vPhone,
+    vRegistrationFields,
+    vLoginFields,
+    vResetPasswordFields,
+    vChangePasswordFields,
+    vResult,
+    vReferralBy,
+    vGender,
+    vBirthdate,
+    vProfileUpdateFields,
 };

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-// import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ExternalLinkIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -18,15 +17,43 @@ import {
   Center,
   Image,
 } from "@chakra-ui/react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Formik, Field, Form } from "formik";
+import Swal from "sweetalert2";
 import * as Yup from "yup";
 import axios from "axios";
 import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
 
 const RegistrationForm = () => {
+  const navigate = useNavigate();
+
+  const handleAlertSuccess = () => {
+    // Show success notification
+    Swal.fire({
+      position: 'center-center',
+      icon: 'success',
+      title: "Your register is successfully😉! Please check your email to verify your account",
+      showConfirmButton: false,
+      timer: 5000
+    });
+  };
+
+  const handleAlertError = () => {
+    // Show error notification
+    Swal.fire({
+      title: 'The data you entered has been used😩, Please change it with other data',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    });
+  };
+
   // Validation schema using Yup
   const validationSchema = Yup.object().shape({
-    fullname: Yup.string().required("fullname is required"),
+    name: Yup.string().required("Name is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
     phone: Yup.string()
       .test("is-number", "Phone number must be a number", (value) =>
@@ -40,24 +67,18 @@ const RegistrationForm = () => {
         "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character"
       )
       .required("Password is required"),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match")
-      .required("Confirm Password is required"),
   });
 
   // Form submission
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
       const response = await axios.post(
-        "https://minpro-blog.purwadhikabootcamp.com/api/auth/",
+        "http://localhost:8000/api/auth/register",
         values
       );
-      console.log(response.data);
-      // Perform registration logic here
-
+      handleAlertSuccess();
+      navigate("/");
     } catch (error) {
-      console.error(error);
-      // Handle the error and set field errors if necessary
       if (error.response && error.response.data) {
         const { data } = error.response;
         if (data.errors && typeof data.errors === "object") {
@@ -66,6 +87,7 @@ const RegistrationForm = () => {
           });
         }
       }
+      handleAlertError();
     } finally {
       setSubmitting(false);
     }
@@ -81,9 +103,8 @@ const RegistrationForm = () => {
   return (
     <Box>
       <Navbar />
-      
-      <Center mt={10}>
-        <Image src="EcoGroceriesApp.png" width="13%" height="auto"/>
+      <Center mt={5}>
+        <Image src="EcoGroceriesApp.png" width="10%" height="auto"/>
       </Center>
       <Box m="auto" px={6} w={"30%"}>
         <Heading as="h3" size="lg" textAlign="center">
@@ -92,31 +113,31 @@ const RegistrationForm = () => {
         <Box maxW={"md"} mx={"auto"} mt="5" px="4">
           <Formik
             initialValues={{
-              fullname: "",
+              name: "",
               email: "",
               phone: "",
               password: "",
-              confirmPassword: "",
+              referred_by: "", // Initial value for referred_by
             }}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
             {(props) => (
               <Form>
-                <Stack spacing="2">
-                  <Field name="fullname">
+                <Stack spacing="1">
+                  <Field name="name">
                     {({ field, form }) => (
                       <FormControl
-                        isInvalid={form.errors.fullname && form.touched.fullname}
+                        isInvalid={form.errors.name && form.touched.name}
                       >
-                        <FormLabel htmlFor="fullname">Full Name</FormLabel>
+                        <FormLabel htmlFor="name">Full Name</FormLabel>
                         <Input
                           {...field}
-                          id="fullname"
-                          placeholder="Enter your fullname"
+                          id="name"
+                          placeholder="Enter your name"
                         />
                         <FormErrorMessage>
-                          {form.errors.fullname}
+                          {form.errors.name}
                         </FormErrorMessage>
                       </FormControl>
                     )}
@@ -188,41 +209,15 @@ const RegistrationForm = () => {
                       </FormControl>
                     )}
                   </Field>
-                  <Field name="confirmPassword">
+                  <Field name="referred_by">
                     {({ field, form }) => (
-                      <FormControl
-                        isInvalid={
-                          form.errors.confirmPassword &&
-                          form.touched.confirmPassword
-                        }
-                      >
-                        <FormLabel htmlFor="confirmPassword">
-                          Confirm Password
-                        </FormLabel>
-                        <InputGroup>
-                          <Input
-                            {...field}
-                            id="confirmPassword"
-                            type={showPassword ? "text" : "password"}
-                            placeholder="Confirm your password"
-                          />
-                          <InputRightElement width="3rem">
-                            <Button
-                              h="1.5rem"
-                              size="sm"
-                              onClick={togglePasswordVisibility}
-                            >
-                              {showPassword ? (
-                                <ViewOffIcon />
-                              ) : (
-                                <ViewIcon />
-                              )}
-                            </Button>
-                          </InputRightElement>
-                        </InputGroup>
-                        <FormErrorMessage>
-                          {form.errors.confirmPassword}
-                        </FormErrorMessage>
+                      <FormControl>
+                        <FormLabel htmlFor="referred_by">Referred By</FormLabel>
+                        <Input
+                          {...field}
+                          id="referred_by"
+                          placeholder="Enter who referred you (optional)"
+                        />
                       </FormControl>
                     )}
                   </Field>
@@ -239,7 +234,7 @@ const RegistrationForm = () => {
               </Form>
             )}
           </Formik>
-          <Text mt="4" textAlign="center">
+          <Text my="4" >
             Already have an account?{" "}
             <LinkChakra textColor={'teal'}>
             <Link to="/login">
@@ -249,6 +244,7 @@ const RegistrationForm = () => {
           </Text>
         </Box>
       </Box>
+      <Footer/>
     </Box>
   );
 };

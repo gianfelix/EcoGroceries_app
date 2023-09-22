@@ -19,9 +19,15 @@ import {
   Image,
 } from "@chakra-ui/react";
 import axios from "axios";
+import Footer from "../../components/Footer";
+import Navbar from "../../components/Navbar";
+import LOGO from "../../assets/EcoGroceriesApp.png";
+import Swal from "sweetalert2"
+
 
 const ResetPasswordPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const url = window.location.href.split("/")
   const token = url[url.length - 1];
   const navigate = useNavigate();
@@ -31,13 +37,38 @@ const ResetPasswordPage = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleAlertSuccess = () => {
+    // Show success notification
+    Swal.fire({
+      position: 'center-center',
+      icon: 'success',
+      title: "You've reseted your password successfully!",
+      showConfirmButton: false,
+      timer: 3000
+    });
+  };
+
+  const handleAlertError = () => {
+    // Show error notification
+    Swal.fire({
+      title: 'Make sure your password are correct😩',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    });
+  };
+
   const handleSubmit = (values, { setSubmitting }) => {
+    setIsSubmitting(true);
     axios
       .patch(
-        "https://minpro-blog.purwadhikabootcamp.com/api/auth/resetPass",
+        "http://localhost:8000/api/auth/reset",
         {
           password: values.password,
-          confirmPassword: values.confirmPassword,
+          confirm_password: values.confirm_password,
         },
         {
           headers: {
@@ -47,19 +78,28 @@ const ResetPasswordPage = () => {
       )
       .then(function (response) {
         console.log(response.data);
-        setSubmitting(false);
+        handleAlertSuccess();
         navigate("/login");
       })
       .catch(function (error) {
+        handleAlertError();
         console.log(error);
-        setSubmitting(false);
+      })
+      .finally(()=>{
+        setIsSubmitting(false); 
+        setSubmitting(false); 
       });
   };
 
   return (
     <Box>
-        <Center>
-           <Image src="LOGO.png" width="10%" height="auto"/>
+      <Navbar/>
+        <Center mt={'5'}>
+           <Image 
+           src={LOGO}
+          //  src="EcoGroceriesApp.png" 
+           width="13%" 
+           height="auto"/>
         </Center>
       <Box>
         <Box
@@ -73,7 +113,7 @@ const ResetPasswordPage = () => {
           <Formik
             initialValues={{
               password: "",
-              confirmPassword: "",
+              confirm_password: "",
             }}
             validationSchema={Yup.object({
               password: Yup.string()
@@ -82,7 +122,7 @@ const ResetPasswordPage = () => {
                   "Password must contain at least 6 characters, 1 symbol, and 1 uppercase letter"
                 )
                 .required("New Password is required"),
-              confirmPassword: Yup.string()
+              confirm_password: Yup.string()
                 .oneOf([Yup.ref("password"), null], "Passwords must match")
                 .required("Confirm Password is required"),
             })}
@@ -114,12 +154,12 @@ const ResetPasswordPage = () => {
                 </InputGroup>
                 <ErrorMessage name="password" component={Text} color="red" />
               </FormControl>
-              <FormControl id="confirmPassword" mb={6}>
+              <FormControl id="confirm_password" mb={6}>
                 <FormLabel>Confirm New Password</FormLabel>
                 <InputGroup>
                   <Field
                     type={showPassword ? "text" : "password"}
-                    name="confirmPassword"
+                    name="confirm_password"
                     as={Input}
                     placeholder="Enter your password"
                   />
@@ -137,13 +177,15 @@ const ResetPasswordPage = () => {
                     </Button>
                   </InputRightElement>
                 </InputGroup>
-                <ErrorMessage name="confirmPassword" component={Text} color="red" />
+                <ErrorMessage name="confirm_password" component={Text} color="red" />
               </FormControl>
               <Button
                 type="submit"
                 colorScheme="teal"
                 mb={6}
                 width="full"
+                isLoading={isSubmitting}
+                loadingText="Logging in..."
               >
                 Reset Password
               </Button>
@@ -159,6 +201,7 @@ const ResetPasswordPage = () => {
           </Text>
         </Box>
       </Box>
+      <Footer/>
     </Box>
   );
 };

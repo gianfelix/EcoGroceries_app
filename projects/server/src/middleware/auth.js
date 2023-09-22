@@ -1,26 +1,30 @@
-const jwt = require("jsonwebtoken");
 const path = require("path");
+const jwt = require("jsonwebtoken");
 require("dotenv").config({
-  path: path.resolve("../.env"),
+    path: path.resolve(__dirname, "../../.env"),
 });
 
-const verifyToken = (req, res, next) => {
-  let token = req.headers.authorization;
-  if (!token) return res.status(401).send("Please login first");
+const JWT_KEY = process.env.JWT_KEY;
 
-  try {
-    token = token.split(" ")[1];
+function mAuth(req, res, next) {
+    try {
+        let token = req.headers.authorization;
+        if (!token) return res.status(400).json({ message: "Access denied" });
+        
+        token = token.split(" ")[1];
+        if (!token || token == "null")
+            return res.status(400).json({ message: "Unauthorized request" });
+            
+        const account = jwt.verify(token, JWT_KEY);
 
-    if (token === null || !token) return res.status(401).send("Access denied");
+        if (!account)
+            return res.status(500).json({ message: "Token has been expired" });
 
-    let verifiedUser = jwt.verify(token, process.env.JWT_KEY);
-    if (!verifiedUser) return res.status(401).send("Unauthorized request");
+        req.account = account;
+        next();
+    } catch (error) {
+        res.status(500).json({ message: "Please Try Again" });
+    }
+}
 
-    req.user = verifiedUser;
-    next();
-  } catch (error) {
-    return res.status(400).send("Invalid Token/Token Expired");
-  }
-};
-
-module.exports = { verifyToken };
+module.exports = mAuth;

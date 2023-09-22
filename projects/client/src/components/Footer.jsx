@@ -13,6 +13,7 @@ import {
   VStack,
   Image,
 } from "@chakra-ui/react";
+import LOGO from "../../src/assets/EcoGroceriesApp.png";
 import {
   EmailIcon,
   FacebookIcon,
@@ -44,7 +45,8 @@ const Footer = () => {
             </Flex>
           </VStack>
           <Image
-            src="EcoGroceriesApp.png"
+            // src="EcoGroceriesApp.png"
+            src={LOGO}
             // bgSize={"cover"}
             // bgPosition={"center"}
             boxSize="125"

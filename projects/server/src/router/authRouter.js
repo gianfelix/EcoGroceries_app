@@ -1,16 +1,13 @@
-const express = require("express");
-const router = express.Router();
-// const { authControllers } = require('../controller');
-// const { verifyToken, validateLogin, validateRegister, validateForgotPassword, validateResetPassword,  validate } = require("../middleware")
+const router = require("express").Router();
+const { authControllers } = require('../controllers');
+const { auth, validation } = require("../middleware");
 
-// router.post("/auth/register", validateRegister, validate, authControllers.register);
-// router.put("/auth/forgot-password",  validate, validateForgotPassword, authControllers.forgotPassword);
-// router.patch("/auth/reset-password", verifyToken, validateResetPassword, validate, authControllers.resetPassword);
-// router.post("/auth/login",  authControllers.login);
-
-router.get("/tes", (req, res) => {
-    res.send(`jancookk`);
-  });
-  
+router.post("/register", validation.vRegistrationFields, validation.vResult, authControllers.register);
+// router.get("/user/:id", authControllers.getUserById);
+router.patch("/verify", auth, authControllers.verify);
+router.post("/login", validation.vLoginFields, validation.vResult, authControllers.login);
+router.get("/login", auth, authControllers.keepLogin);
+router.post("/forgot", authControllers.forgotPassword);
+router.patch("/reset", auth, validation.vResetPasswordFields, validation.vResult,authControllers.resetPassword);
 
 module.exports = router;

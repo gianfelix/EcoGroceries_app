@@ -9,22 +9,30 @@ app.use(
   cors({
     origin: [
       process.env.WHITELISTED_DOMAIN &&
-        process.env.WHITELISTED_DOMAIN.split(","),
+      process.env.WHITELISTED_DOMAIN.split(","),
     ],
   })
-);
+  );
 
-app.use(express.json());
-const db = require('./models')
-// db.sequelize.sync({alter: true})
+  app.use(express.json());
+  const db = require('./models')
+  // db.sequelize.sync({alter: true})
+  
+const {authRouter, profileRouter, rajaongkirRouter, addressRouter} = require('./router');
+const path = require("path");
 
-app.use('/api', apiRouter)
-const {authRouter} = require('./router')
+app.use('/api/auth', apiRouter,authRouter)
+app.use('/api/profile', apiRouter,profileRouter)
+app.use('/api/rajaongkir', apiRouter,rajaongkirRouter)
+app.use('/api/address', apiRouter,addressRouter)
+
+
 //#region API ROUTES
+app.use("/api/public", express.static(path.resolve(__dirname, "../public")))
 
 // ===========================
 // NOTE : Add your routes here
-apiRouter.use('/auth', authRouter)
+// apiRouter.use('/auth', authRouter)
 // app.get("/api", (req, res) => {
 //   res.send(`Hello, this is my API`);
 // });

@@ -5,13 +5,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import {
   ExternalLinkIcon,
-  Icon,
   ViewIcon,
   ViewOffIcon,
 } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 
-// import { loginSuccess } from "../../redux/AuthReduser";
+// import { loginSuccess } from "../../redux/AuthReduser"
 // import { useDispatch } from "react-redux";
 import {
   Box,
@@ -26,10 +25,10 @@ import {
   Link as LinkChakra,
   Center,
   Image,
-  Flex,
 } from "@chakra-ui/react";
-import { FaArrowLeft } from "react-icons/fa";
 import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
+import Swal from "sweetalert2"
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -38,6 +37,29 @@ const LoginForm = () => {
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
+  };
+  const handleLoginSuccess = () => {
+    // Show success notification
+    Swal.fire({
+      position: 'center-center',
+      icon: 'success',
+      title: 'Login Success',
+      showConfirmButton: false,
+      timer: 2500
+    });
+  };
+
+  const handleLoginError = () => {
+    // Show error notification
+    Swal.fire({
+      title: 'Make sure your email and password are correct😩',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    });
   };
 
   return (
@@ -68,28 +90,27 @@ const LoginForm = () => {
                 .required("Password is required"),
             })}
             onSubmit={(values, { setSubmitting }) => {
+              setSubmitting(true); // Set submitting to true when the form is being submitted.
               axios
-                .post(
-                  "https://minpro-blog.purwadhikabootcamp.com/api/auth/login",
-                  {
-                    email: values.email,
-                    password: values.password,
-                  }
-                )
+                .post("http://localhost:8000/api/auth/login", {
+                  email: values.email,
+                  password: values.password,
+                })
                 .then(function (response) {
-                  console.log(JSON.stringify(response.data));
-                  //   dispatch(loginSuccess(response.data.token))
-
-                  // alert(response.data.message)
+                  localStorage.setItem("token", response.data.data.token);
+                  handleLoginSuccess();
                   navigate("/");
-                  setSubmitting(false);
                 })
                 .catch(function (error) {
                   console.log(error);
-                  setSubmitting(false);
+                  handleLoginError();
+                })
+                .finally(() => {
+                  setSubmitting(false); 
                 });
             }}
           >
+            {({ isSubmitting }) => (
             <Form>
               <FormControl id="email" mb={3}>
                 <FormLabel>Email</FormLabel>
@@ -98,7 +119,6 @@ const LoginForm = () => {
                   name="email"
                   as={Input}
                   placeholder="Enter your email address"
-                  // borderColor={"black"}
                 />
                 <ErrorMessage name="email" component={Text} color="red" />
               </FormControl>
@@ -110,12 +130,9 @@ const LoginForm = () => {
                     name="password"
                     as={Input}
                     placeholder="Enter your password"
-                    // borderColor={"black"}
                   />
                   <InputRightElement width="3rem">
                     <Button
-                      // variant="link"
-                      // colorScheme="black"
                       h="1.5rem"
                       size="sm"
                       onClick={handleTogglePassword}
@@ -131,12 +148,13 @@ const LoginForm = () => {
                 colorScheme="teal"
                 mb={6}
                 width="full"
-                // variant={"outline"}
-                // borderColor={"black"}
+                isLoading={isSubmitting}
+                loadingText="Logging in..."
               >
                 Login
               </Button>
             </Form>
+            )}
           </Formik>
           <Text>
             Forgot your password?{" "}
@@ -156,6 +174,7 @@ const LoginForm = () => {
           </Text>
         </Box>
       </Box>
+      <Footer/>
     </Box>
   );
 };

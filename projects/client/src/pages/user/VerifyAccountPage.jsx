@@ -1,10 +1,13 @@
-import { Box, Heading, Text, Button, Flex, Link, Center, Image } from "@chakra-ui/react";
+import { Box, Heading, Text, Button, Link, Center, Image } from "@chakra-ui/react";
 import { Link as LinkChakra,} from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../../components/Navbar";
+import LOGO from "../../assets/EcoGroceriesApp.png";
+import Footer from "../../components/Footer";
+import Swal from "sweetalert2"
 
 
 
@@ -12,12 +15,38 @@ const VerificationPage = () => {
   const url = window.location.href.split("/");
   const token = url[url.length - 1];
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
 
-  const handleVerify = async () => {
+  const handleAlertSuccess = () => {
+    // Show success notification
+    Swal.fire({
+      position: 'center-center',
+      icon: 'success',
+      title: "Your verification is successfully!",
+      showConfirmButton: false,
+      timer: 3000
+    });
+  };
+
+  const handleAlertError = () => {
+    // Show error notification
+    Swal.fire({
+      title: 'Please try again😩',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    });
+  };
+
+  const handleVerify = async ({ setSubmitting }) => {
+    setIsSubmitting(true);
     try {
       const response = await axios.patch(
-        "https://minpro-blog.purwadhikabootcamp.com/api/auth/verify",
+        "http://localhost:8000/api/auth/verify",
         {},
         {
           headers: {
@@ -27,25 +56,26 @@ const VerificationPage = () => {
       );
 
       if (response.status === 200) {
-        console.log("Account verified successfully");
+        handleAlertSuccess();
         navigate("/login");
-
-        // Perform any additional actions after successful verification
       } else {
         console.log("Failed to verify account");
-        // Handle verification failure
       }
     } catch (error) {
+      handleAlertError();
       console.log("Error verifying account:", error);
-      // Handle error
-    }
-  };
+    } finally {
+      setIsSubmitting(false); 
+      setSubmitting(false); 
+    };
+  }; 
 
 
   return (
     <Box>
-          <Center>
-            <Image src="LOGO.png" width="10%" height="auto"/>
+        <Navbar />
+          <Center mt={5}>
+            <Image s src={LOGO} width="10%" height="auto"/>
           </Center>
       <Box m="auto" px={6} w={"80%"}>
         <Box
@@ -78,6 +108,8 @@ const VerificationPage = () => {
               textColor={"black"}
               variant={"outline"}
               borderColor={"black"}
+              isLoading={isSubmitting}
+              loadingText="Logging in..."
             >
               Verification email
             </Button>
@@ -85,13 +117,14 @@ const VerificationPage = () => {
           <Text>
             Didn't receive the email? Check your spam folder or{" "}
             <LinkChakra textColor={'teal'}>
-            <Link to="/contact-us">
+            <Link to="/contact">
               contact us <ExternalLinkIcon mx="2px" />
             </Link>
             </LinkChakra>
           </Text>
         </Box>
       </Box>
+      <Footer/>
     </Box>
   );
 };
