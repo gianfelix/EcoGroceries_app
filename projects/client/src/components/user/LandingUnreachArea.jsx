@@ -1,56 +1,84 @@
-import { Box, Heading, Button, Icon, Text } from "@chakra-ui/react";
+import { Box, Heading, Button, Icon, Text, Flex } from "@chakra-ui/react";
 import { FaPhone } from "react-icons/fa";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import YogyakartaArea from "./YogyakartaArea.jsx";
+import JabodetabekArea from "./JabodetabekArea.jsx";
 
 const LandingUnreachArea = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
+  // const goToYogyakartaPage = () => {
+  //   navigate("/shop/yk");
+  // };
+
+  // const goToJabodetabekPage = () => {
+  //   navigate("/shop/jkt");
+  // };
+
   return (
     <Box
-      pt={"10%"}
-      pb={"10%"}
-      display="flex"
-      justifyContent="center"
+      pt={"2%"}
+      pb={"2%"}
+      maxW={"container.lg"}
+      mx="auto"
       alignItems="center"
-      height="100%"
-      background="linear-gradient(to bottom, #F6F6F6, #EDEDED)"
+      backgroundColor="#c4fff2"
     >
       <Box
         textAlign="center"
         bg={"white"}
-        p={8}
+        p={5}
         borderRadius="lg"
         boxShadow="xl"
       >
-        <Heading fontSize="2xl" mb="4" color="teal.600">
-          Oops, We Can't Reach Your Area
+        <Heading fontSize="4xl" mb="1" color="teal.600">
+          Coming Soon!
         </Heading>
-        <Text fontSize="lg" mb="4" color="gray.600">
-          We're sorry, but currently, our store doesn't deliver to your
-          location.
-        </Text>
-        <Text fontSize="lg" mb="4" color="gray.600">
-          Please check back later or contact our customer service for
-          assistance.
+        <Heading fontSize="xl" mb="2" color="teal.600">
+          Our groceries will be available in your location
+        </Heading>
+        <Text fontSize="lg" mb="2" color="gray.600">
+        Please select your address within our current service area or contact our customer service
         </Text>
         <Button
           leftIcon={<Icon as={FaPhone} />}
           colorScheme="teal"
           variant="solid"
-          mt="4"
-          onClick={() => alert("Customer service number: 081234567890")}
+          onClick={() => alert("Customer service number: 081234567890 (Wa only)")}
         >
           Contact Customer Service
+        </Button>
+        {/* <Button
+          ml={5}
+          colorScheme="teal"
+          variant="outline"
+          mt="4"
+          onClick={goToYogyakartaPage}
+        >
+          Yogyakarta Groceries
         </Button>
         <Button
           ml={5}
           colorScheme="teal"
           variant="outline"
           mt="4"
-          onClick={() => navigate("/")}
+          onClick={goToJabodetabekPage}
         >
-          Back to Homepage
-        </Button>
+          Jabodetabek Groceries
+        </Button> */}
+        {/* Display the store area maps */}
+
+        <Flex justifyContent={"center"} gap={5} mt={2}>
+          <Box w={"full"}>
+            <Text fontWeight={"semibold"} color={"teal"}> Yogyakarta Area</Text>
+            <YogyakartaArea />
+          </Box>
+          <Box w={"full"}>
+            <Text fontWeight={"semibold"} color={"teal"}> Jabodetabek Area</Text>
+            <JabodetabekArea />
+          </Box>
+        </Flex>
       </Box>
     </Box>
   );

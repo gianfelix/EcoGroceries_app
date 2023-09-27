@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import LandingYkAround from "../components/user/LandingYkAround";
 import LandingJabodetabek from "../components/user/LandingJabodetabek";
 import LandingUnreachArea from "../components/user/LandingUnreachArea";
-import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { Box, Button, Flex, Select, Spinner, Text } from "@chakra-ui/react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import axios from "axios";
 
 const getReverseGeolocation = async (latitude, longitude) => {
   try {
@@ -24,6 +25,15 @@ const Shop = () => {
   const [userLocation, setUserLocation] = useState(null);
   const [userAddress, setUserAddress] = useState("");
   const navigate = useNavigate();
+  const [availableAddresses, setAvailableAddresses] = useState([]);
+  const [selectedAddress, setSelectedAddress] = useState(null);
+
+  const location = useLocation();
+  console.log("location", location);
+  const params = new URLSearchParams(location.search);
+  console.log("params", params);
+  const latitude = parseFloat(params.get("latitude")) || 0;
+  const longitude = parseFloat(params.get("longitude")) || 0;
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -52,18 +62,38 @@ const Shop = () => {
     }
   }, [navigate]);
 
+  useEffect(() => {
+    const fetchUserAddresses = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get("http://localhost:8000/api/address", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setAvailableAddresses(response.data.data);
+      } catch (error) {
+        console.error("Error fetching user addresses:", error);
+      }
+    };
+
+    if (userLocation) {
+      fetchUserAddresses();
+    }
+  }, [userLocation]);
+
   console.log(userLocation);
   if (!userLocation) {
     return (
       <>
-      <Box>
-        <Navbar />
-      </Box>
+        <Box>
+          <Navbar />
+        </Box>
         <Box
           w={"full"}
           h={"100%"}
-          mt={{base: "54%",md: "15%"}}
-          mb={{base: "53%",md: "15%"}}
+          mt={{ base: "54%", md: "15%" }}
+          mb={{ base: "53%", md: "15%" }}
           display={"flex"}
           justifyContent={"center"}
         >
@@ -81,49 +111,105 @@ const Shop = () => {
   //     userLocation.longitude <= 110.843268;
 
   const inYogjakarta =
-    userLocation.latitude >= -8.206338 &&
-    userLocation.latitude <= -7.543457 &&
-    userLocation.longitude >= 110.011482 &&
-    userLocation.longitude <= 110.843268;
+    (latitude >= -8.206338 &&
+      latitude <= -7.543457 &&
+      longitude >= 110.011482 &&
+      longitude <= 110.843268) ||
+    (userLocation.latitude >= -8.206338 &&
+      userLocation.latitude <= -7.843457 &&
+      userLocation.longitude >= 110.011482 &&
+      userLocation.longitude <= 110.843268);
 
   const inJabodetabek =
-    userLocation.latitude >= -6.810784 &&
+    (latitude >= -6.810784 &&
+    latitude <= -5.491429 &&
+    longitude >= 106.325163 &&
+    longitude <= 107.326882) || 
+    (userLocation.latitude >= -6.810784 &&
     userLocation.latitude <= -5.491429 &&
     userLocation.longitude >= 106.325163 &&
-    userLocation.longitude <= 107.326882;
+    userLocation.longitude <= 107.326882);
+
+  const handleAddressSelect = () => {
+    if (selectedAddress) {
+      const { latitude, longitude } = selectedAddress;
+      const url = `/shop?latitude=${latitude}&longitude=${longitude}`;
+      navigate(url);
+    } else {
+      console.error("No address selected.", selectedAddress);
+    }
+  };
 
   return (
     <>
       <Box>
         <Navbar />
       </Box>
-      <Flex
-        bg={"whiteAlpha.500"}
-        position={"absolute"}
-        top={"100px"}
-        left={"22%"}
-        right={"22%"}
-        justify={"center"}
-        mb={4}
-        color={"black"}
-        p={2}
-        borderRadius={"xl"}
-        alignItems="center" 
-      >
-        <Text>Your Current Position:</Text>
-        <Text fontWeight="bold" ml={2}>
-          {userAddress}
+
+      <Box bg={"#c4fff2"} pt={4} display={"flex"} justifyContent={"center"}>
+        <Text fontSize={"lg"} fontWeight="semibold">
+          Your Current Position
         </Text>
+        <Text fontSize={"lg"} fontWeight="bold">
+          : {userAddress}
+        </Text>
+      </Box>
+
+      <Flex bg={"#c4fff2"} pt={4} w={"100%"} px={"20%"}>
+        <Text minW={"130px"} fontSize="lg" pt={1} fontWeight={"semibold"}>
+          Select Address:
+        </Text>
+        <Select
+          placeholder="Select an address"
+          border={"1px solid"}
+          onChange={(event) => {
+            const selected = availableAddresses.find(
+              (address) => address.id === parseInt(event.target.value)
+            );
+            setSelectedAddress(selected);
+          }}
+        >
+          {availableAddresses.map((address) => (
+            <option key={address.id} value={address.id}>
+              {address.userName} - {address.userAddress}
+            </option>
+          ))}
+        </Select>
+        <Button
+          ml={5}
+          colorScheme="teal"
+          variant="solid"
+          onClick={() => handleAddressSelect()}
+        >
+          Go
+        </Button>
       </Flex>
-      {inYogjakarta ? (
-        <LandingYkAround />
-      ) : inJabodetabek ? (
-        <LandingJabodetabek />
-      ) : (
-        <LandingUnreachArea />
+
+      {selectedAddress && (
+        <Box bg={"#c4fff2"} pt={2} display="flex" justifyContent="center">
+          
+          <Text fontSize="lg" fontWeight="bold" ml={2}>
+            {selectedAddress.userName}:
+          </Text>
+          <Text fontSize="lg"  ml={2}>
+            (Latitude: {selectedAddress.latitude} Longitude:{" "}
+            {selectedAddress.longitude})
+          </Text>
+        </Box>
       )}
+      
+
+      {inYogjakarta ? (
+        (window.location.href = "/shop/yk")
+        ) : inJabodetabek ? (
+          (window.location.href = "/shop/jkt")
+          ) : (
+            <Box bg={"#c4fff2"}>
+            <LandingUnreachArea />
+            </Box>
+            )}
       <Box>
-        <Footer/>
+        <Footer />
       </Box>
     </>
   );

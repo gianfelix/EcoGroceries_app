@@ -2,14 +2,26 @@ import { Box, Flex, Icon, Link, Text, VStack } from "@chakra-ui/react";
 import React, { useState } from "react";
 import AdminManagement from "./AdminManagement";
 import ProductManagement from "./ProductManagement";
-import StockManagement from "./StockManagement";
-import StatusOrderManagement from "./StatusOrderManagement";
 import SalesReport from "./SalesReport";
 
-import { GrUserAdmin } from "react-icons/gr";
+import {
+  FiUser,
+  FiShoppingBag,
+  FiGrid,
+  FiBriefcase,
+  FiPercent,
+} from "react-icons/fi";
+import { GiBuyCard } from "react-icons/gi";
+import { TbReportAnalytics } from "react-icons/tb";
+import CategoryManagement from "./CategoryManagement";
+
+import StockProductJKTManagement from "../AdminBranch/TokoJabodetabek/StockProductJKTManagement";
+import StockProductYKManagement from "../AdminBranch/TokoYK/StockProductYKManagement";
+import VoucherPromo from "../AdminBranch/TokoJabodetabek/VoucherPromo";
+import TransactionOrder from "./TransactionOrder";
 
 const AdminLandingSuper = () => {
-  const [activePage, setActivePage] = useState("admin");
+  const [activePage, setActivePage] = useState("product");
 
   const renderpage = () => {
     switch (activePage) {
@@ -17,10 +29,16 @@ const AdminLandingSuper = () => {
         return <AdminManagement />;
       case "product":
         return <ProductManagement />;
-      case "stockHistory":
-        return <StockManagement />;
-      case "status":
-        return <StatusOrderManagement />;
+      case "category":
+        return <CategoryManagement />;
+      case "stockJKT":
+        return <StockProductJKTManagement />;
+      case "stockYK":
+        return <StockProductYKManagement />;
+      case "voucher-promo":
+        return <VoucherPromo />;
+      case "transactionOrder":
+        return <TransactionOrder />;
       case "report":
         return <SalesReport />;
 
@@ -63,7 +81,7 @@ const AdminLandingSuper = () => {
                   _hover={{ bg: "teal.600" }}
                 >
                   <Icon
-                    as={GrUserAdmin}
+                    as={FiUser}
                     w={{ base: 4, md: 6 }}
                     h={{ base: 4, md: 6 }}
                   />
@@ -71,7 +89,6 @@ const AdminLandingSuper = () => {
                     fontSize={{ base: "lg", md: "18" }}
                     fontWeight="bold"
                     ml={2}
-                    
                   >
                     Admin Management
                   </Text>
@@ -80,7 +97,7 @@ const AdminLandingSuper = () => {
               <Link
                 as={"button"}
                 colorScheme={"teal"}
-                onClick={() => setActivePage("stockHistory")}
+                onClick={() => setActivePage("product")}
               >
                 <Box
                   display={"flex"}
@@ -90,20 +107,24 @@ const AdminLandingSuper = () => {
                   bg={"teal.800"}
                   _hover={{ bg: "teal.600" }}
                 >
-                  <Icon />
+                  <Icon
+                    as={FiShoppingBag}
+                    w={{ base: 4, md: 6 }}
+                    h={{ base: 4, md: 6 }}
+                  />
                   <Text
                     fontSize={{ base: "lg", md: "18" }}
                     fontWeight="bold"
                     ml={2}
                   >
-                    Stock History Management
+                    Product Management
                   </Text>
                 </Box>
               </Link>
               <Link
                 as={"button"}
                 colorScheme={"teal"}
-                onClick={() => setActivePage("status")}
+                onClick={() => setActivePage("category")}
               >
                 <Box
                   display={"flex"}
@@ -113,13 +134,127 @@ const AdminLandingSuper = () => {
                   bg={"teal.800"}
                   _hover={{ bg: "teal.600" }}
                 >
-                  <Icon />
+                  <Icon
+                    as={FiGrid}
+                    w={{ base: 4, md: 6 }}
+                    h={{ base: 4, md: 6 }}
+                  />
                   <Text
                     fontSize={{ base: "lg", md: "18" }}
                     fontWeight="bold"
                     ml={2}
                   >
-                    Status Management
+                    Category Management
+                  </Text>
+                </Box>
+              </Link>
+              <Link
+                as={"button"}
+                colorScheme={"teal"}
+                onClick={() => setActivePage("stockJKT")}
+              >
+                <Box
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"flex-start"}
+                  p={"4"}
+                  bg={"teal.800"}
+                  _hover={{ bg: "teal.600" }}
+                >
+                  <Icon
+                    as={FiBriefcase}
+                    w={{ base: 4, md: 6 }}
+                    h={{ base: 4, md: 6 }}
+                    color={"whatsapp.400"}
+                  />
+                  <Text
+                    fontSize={{ base: "lg", md: "18" }}
+                    fontWeight="bold"
+                    ml={2}
+                  >
+                    Stock & Discount JKT Management
+                  </Text>
+                </Box>
+              </Link>
+              <Link
+                as={"button"}
+                colorScheme={"teal"}
+                onClick={() => setActivePage("stockYK")}
+              >
+                <Box
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"flex-start"}
+                  p={"4"}
+                  bg={"teal.800"}
+                  _hover={{ bg: "teal.600" }}
+                >
+                  <Icon
+                    as={FiBriefcase}
+                    w={{ base: 4, md: 6 }}
+                    h={{ base: 4, md: 6 }}
+                    color={"whatsapp.200"}
+                  />
+                  <Text
+                    fontSize={{ base: "lg", md: "18" }}
+                    fontWeight="bold"
+                    ml={2}
+                  >
+                    Stock & Discount YK Management
+                  </Text>
+                </Box>
+              </Link>
+              <Link
+                as={"button"}
+                colorScheme={"teal"}
+                onClick={() => setActivePage("voucher-promo")}
+              >
+                <Box
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"flex-start"}
+                  p={"4"}
+                  bg={"teal.800"}
+                  _hover={{ bg: "teal.600" }}
+                >
+                  <Icon
+                    as={FiPercent}
+                    w={{ base: 4, md: 6 }}
+                    h={{ base: 4, md: 6 }}
+                  />
+                  <Text
+                    fontSize={{ base: "lg", md: "18" }}
+                    fontWeight="bold"
+                    ml={2}
+                  >
+                    Voucher & Promo Management
+                  </Text>
+                </Box>
+              </Link>
+              <Link
+                as={"button"}
+                colorScheme={"teal"}
+                onClick={() => setActivePage("transactionOrder")}
+              >
+                <Box
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"flex-start"}
+                  p={"4"}
+                  bg={"teal.800"}
+                  _hover={{ bg: "teal.600" }}
+                >
+                  <Icon
+                    as={GiBuyCard}
+                    w={{ base: 4, md: 6 }}
+                    h={{ base: 4, md: 6 }}
+                  />
+                  <Text
+                    fontSize={{ base: "lg", md: "18" }}
+                    fontWeight="bold"
+                    ml={2}
+                  >
+                    Transaction Order Management
                   </Text>
                 </Box>
               </Link>
@@ -136,22 +271,25 @@ const AdminLandingSuper = () => {
                   bg={"teal.800"}
                   _hover={{ bg: "teal.600" }}
                 >
-                  <Icon />
+                  <Icon
+                    as={TbReportAnalytics}
+                    w={{ base: 4, md: 6 }}
+                    h={{ base: 4, md: 6 }}
+                  />
                   <Text
                     fontSize={{ base: "lg", md: "18" }}
                     fontWeight="bold"
                     ml={2}
                   >
-                    Sales Report Management
+                    Report Management
                   </Text>
                 </Box>
               </Link>
             </VStack>
           </Box>
-          <Box w={"full"} >
-            <Box w={"100%"} h={"87px"} bg={"teal.300"} >
+          <Box w={"full"}>
+            <Box w={"100%"} h={"87px"} bg={"teal.300"} d></Box>
 
-            </Box>
             {renderpage()}
           </Box>
         </Flex>

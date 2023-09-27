@@ -17,18 +17,27 @@ app.use(
   app.use(express.json());
   const db = require('./models')
   // db.sequelize.sync({alter: true})
+  const {vouchersControllers} = require("./controllers");
   
-const {authRouter, profileRouter, rajaongkirRouter, addressRouter} = require('./router');
+const {authRouter, profileRouter, rajaongkirRouter, addressRouter, categoriesRouter, productRouter, stockRouter, stockPromoRouter, vouchersRouter, transactionRouter} = require('./router');
 const path = require("path");
 
 app.use('/api/auth', apiRouter,authRouter)
 app.use('/api/profile', apiRouter,profileRouter)
 app.use('/api/rajaongkir', apiRouter,rajaongkirRouter)
 app.use('/api/address', apiRouter,addressRouter)
+app.use('/api/category', categoriesRouter)
+app.use('/api/product', productRouter)
+app.use('/api/stock-promo', stockPromoRouter)
+app.use('/api/stock', stockRouter)
+app.use('/api/vouchers', vouchersRouter)
+app.use('/api/transaction', transactionRouter)
 
 
 //#region API ROUTES
+// app.use("/public", express.static(path.resolve(__dirname,"../public")))
 app.use("/api/public", express.static(path.resolve(__dirname, "../public")))
+vouchersControllers.scheduleDeleteExpiredVouchers();
 
 // ===========================
 // NOTE : Add your routes here

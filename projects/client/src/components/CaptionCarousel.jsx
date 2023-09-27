@@ -4,8 +4,6 @@ import {
   IconButton,
   useBreakpointValue,
   Stack,
-  Heading,
-  Text,
   Container,
 } from "@chakra-ui/react";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
@@ -49,7 +47,13 @@ export default function CaptionCarousel() {
   ];
 
   return (
-    <Box position={"relative"} bg={"teal.50"} height={{base: "2xs", md: "md" ,lg: "lg"}} width={"full"} overflow={"hidden"}>
+    <Box
+      position={"relative"}
+      bg={"teal.50"}
+      height={{ base: "2xs", md: "md", lg: "lg" }}
+      width={"full"}
+      overflow={"hidden"}
+    >
       <link
         rel="stylesheet"
         type="text/css"
@@ -62,7 +66,7 @@ export default function CaptionCarousel() {
       />
       <IconButton
         aria-label="left-arrow"
-        size={{ base: "xs", md: "md" ,lg: "lg"}}
+        size={{ base: "xs", md: "md", lg: "lg" }}
         variant="solid"
         colorScheme="teal"
         opacity={0.9}
@@ -73,11 +77,11 @@ export default function CaptionCarousel() {
         zIndex={2}
         onClick={() => slider?.slickPrev()}
       >
-        <BiLeftArrowAlt size={{base: "sm", md: "md" ,lg: "lg"}} />
+        <BiLeftArrowAlt size={{ base: "sm", md: "md", lg: "lg" }} />
       </IconButton>
       <IconButton
         aria-label="right-arrow"
-        size={{ base: "xs", md: "md" ,lg: "lg"}}
+        size={{ base: "xs", md: "md", lg: "lg" }}
         variant="solid"
         colorScheme="teal"
         opacity={0.9}
@@ -88,21 +92,20 @@ export default function CaptionCarousel() {
         zIndex={2}
         onClick={() => slider?.slickNext()}
       >
-        <BiRightArrowAlt size={{base: "sm", md: "md" ,lg: "lg"}} />
+        <BiRightArrowAlt size={{ base: "sm", md: "md", lg: "lg" }} />
       </IconButton>
       <Slider {...settings} ref={(slider) => setSlider(slider)}>
         {cards.map((card, index) => (
           <Box
             key={index}
-            height={{base: "2xs", md: "md" ,lg: "lg"}}
+            height={{ base: "2xs", md: "md", lg: "lg" }}
             position="relative"
             backgroundPosition="center"
             backgroundRepeat="no-repeat"
             backgroundSize="cover"
             backgroundImage={`url(${card.image})`}
-            // w={{base: "100%", lg: "100%"}}
           >
-            <Container  size="container.lg" height="lg" position="relative">
+            <Container size="container.lg" height="lg" position="relative">
               <Stack
                 spacing={6}
                 w={"full"}
@@ -110,8 +113,7 @@ export default function CaptionCarousel() {
                 position="absolute"
                 top="50%"
                 transform="translate(0, -50%)"
-              >
-              </Stack>
+              ></Stack>
             </Container>
           </Box>
         ))}

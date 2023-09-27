@@ -30,7 +30,7 @@ const Navbar = () => {
     const token = localStorage.getItem("token");
     if (token) {
       // Token exists, navigate to "/shop"
-      navigate("/package");
+      navigate("/shop");
     } else {
       // Token doesn't exist, navigate to "/login"
       navigate("/login");
@@ -41,8 +41,8 @@ const Navbar = () => {
     // Check if there is a token in local storage
     const token = localStorage.getItem("token");
     if (token) {
-      // Token exists, navigate to "/shop"
-      navigate("/shop");
+      // Token exists, navigate to "/package"
+      navigate("/package");
     } else {
       // Token doesn't exist, navigate to "/login"
       navigate("/login");

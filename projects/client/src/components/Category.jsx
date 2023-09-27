@@ -3,86 +3,56 @@ import {
   Box,
   Center,
   Heading,
-  Image,
   VStack,
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const Category = () => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/category")
+      .then((response) => {
+        setCategories(response.data.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching categories:", error);
+      });
+  }, []);
+
+  const activeCategories = categories.filter((category) => category.isActive);
+
   return (
-    <Box py={8} bg="white">
-      <Heading as="h2" size="xl" textAlign="center" mb={4}>
-        Categories
-      </Heading>
-      <Wrap justify="center" spacing={8}>
-        <WrapItem>
-          <Center
-            bg="teal.200"
-            w={{ base: "140px", md: "200px" }} // Adjust the width based on screen size
-            h={{ base: "140px", md: "200px" }} // Adjust the height based on screen size
-            borderRadius="lg"
-            _hover={{ bg: "teal.400", transform: "scale(1.1)" }}
-          >
-            <VStack spacing={1}>
-              <Image src="vegetable.png" alt="Category 1" boxSize="80px" />
-              <Badge colorScheme="teal" fontSize={{ base: "lg", md: "xl" }}>
-                Vegetables
-              </Badge>
-            </VStack>
-          </Center>
-        </WrapItem>
-        <WrapItem>
-          <Center
-            bg="teal.200"
-            w={{ base: "140px", md: "200px" }} // Adjust the width based on screen size
-            h={{ base: "140px", md: "200px" }} // Adjust the height based on screen size
-            borderRadius="lg"
-            _hover={{ bg: "teal.400", transform: "scale(1.1)" }}
-          >
-            <VStack spacing={1}>
-              <Image src="fruits.png" alt="Category 2" boxSize="80px" />
-              <Badge colorScheme="teal" fontSize={{ base: "lg", md: "xl" }}>
-                Fruits
-              </Badge>
-            </VStack>
-          </Center>
-        </WrapItem>
-        <WrapItem>
-          <Center
-            bg="teal.200"
-            w={{ base: "140px", md: "200px" }} // Adjust the width based on screen size
-            h={{ base: "140px", md: "200px" }} // Adjust the height based on screen size
-            borderRadius="lg"
-            _hover={{ bg: "teal.400", transform: "scale(1.1)" }}
-          >
-            <VStack spacing={1}>
-              <Image src="proteins.png" alt="Category 3" boxSize="80px" />
-              <Badge colorScheme="teal" fontSize={{ base: "lg", md: "xl" }}>
-                Meat & Fish
-              </Badge>
-            </VStack>
-          </Center>
-        </WrapItem>
-        <WrapItem>
-          <Center
-            bg="teal.200"
-            w={{ base: "140px", md: "200px" }} // Adjust the width based on screen size
-            h={{ base: "140px", md: "200px" }} // Adjust the height based on screen size
-            borderRadius="lg"
-            _hover={{ bg: "teal.400", transform: "scale(1.1)" }}
-          >
-            <VStack spacing={1}>
-              <Image src="dairy.png" alt="Category 4" boxSize="80px" />
-              <Badge colorScheme="teal" fontSize={{ base: "lg", md: "xl" }}>
-                DAIRY
-              </Badge>
-            </VStack>
-          </Center>
-        </WrapItem>
-      </Wrap>
-    </Box>
+    <>
+      <Box py={8} bg="white">
+        <Heading as="h2" size="xl" textAlign="center" mb={8}>
+          Categories
+        </Heading>
+        <Wrap justify="center" spacing={8}>
+          {activeCategories.map((category) => (
+            <WrapItem key={category.id}>
+              <Center
+                bg="teal.200"
+                w="200px"
+                h="80px"
+                borderRadius="lg"
+                _hover={{ bg: "teal.400", transform: "scale(1.1)" }}
+              >
+                <VStack spacing={1}>
+                  <Badge colorScheme="teal" fontSize={"xl"}>
+                    {category.category}
+                  </Badge>
+                </VStack>
+              </Center>
+            </WrapItem>
+          ))}
+        </Wrap>
+      </Box>
+    </>
   );
 };
 

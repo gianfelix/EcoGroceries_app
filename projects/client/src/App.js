@@ -21,6 +21,10 @@ import ResetPassword from "./pages/user/ResetPass";
 
 import AdminLandingSuper from "./pages/admin/AdminSuper/AdminLandingSuper";
 import UserProfile from "./pages/user/UserProfile";
+import LandingYkAround from "./components/user/LandingYkAround";
+import LandingJabodetabek from "./components/user/LandingJabodetabek";
+import AdminLandingJabodetabek from "./pages/admin/AdminBranch/TokoJabodetabek/AdminLandingJabodetabek";
+import AdminLandingYogyakarta from "./pages/admin/AdminBranch/TokoYK/AdminLandingYogyakarta";
 
 
 
@@ -43,6 +47,8 @@ function App() {
           <Route path="/about" element={<AboutEcoGroceries />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/shop/yk" element={<LandingYkAround />} />
+          <Route path="/shop/jkt" element={<LandingJabodetabek />} />
           <Route path="/product/:id" element={<DetailsProducts />} />
           <Route path="/package" element={<Package />} />
           <Route path="/package/:id" element={<DetailsPackages />} />
@@ -54,6 +60,8 @@ function App() {
           <Route path="/reset-password/:token" element={<ResetPassword/>}/>
           <Route path="/admin" element={<LoginAdminForm/>} />
           <Route path="/admin/super" element={<AdminLandingSuper />} />
+          <Route path="/admin/jkt" element={<AdminLandingJabodetabek />} />
+          <Route path="/admin/yk" element={<AdminLandingYogyakarta />} />
           <Route path="/UserProfile" element={<UserProfile/>}/>
           <Route path="/*" element={<NotFound404/>} />
         </Routes>
