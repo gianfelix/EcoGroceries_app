@@ -19,10 +19,11 @@ app.use(
   // db.sequelize.sync({alter: true})
   const {vouchersControllers} = require("./controllers");
   
-const {authRouter, profileRouter, rajaongkirRouter, addressRouter, categoriesRouter, productRouter, stockRouter, stockPromoRouter, vouchersRouter, transactionRouter} = require('./router');
+const {authRouter, adminRouter, profileRouter, rajaongkirRouter, addressRouter, categoriesRouter, productRouter, stockRouter, stockPromoRouter, vouchersRouter, transactionRouter} = require('./router');
 const path = require("path");
 
 app.use('/api/auth', apiRouter,authRouter)
+// app.use('/api/admin', apiRouter,adminRouter)
 app.use('/api/profile', apiRouter,profileRouter)
 app.use('/api/rajaongkir', apiRouter,rajaongkirRouter)
 app.use('/api/address', apiRouter,addressRouter)

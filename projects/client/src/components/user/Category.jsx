@@ -11,7 +11,7 @@ import {
   Box,
   Spacer,
   useDisclosure,
-  useToast,
+  // useToast,
   Flex,
 } from "@chakra-ui/react";
 import { MdShoppingCartCheckout } from "react-icons/md";
@@ -20,19 +20,20 @@ import { AiOutlineClear } from "react-icons/ai";
 
 // import Cart from "../Transaction/Cart";
 
-const Category = ({price, setPrice, handleSortPrice, category, handleFilterCategory, setCategory, handleSortName, setName, name}) => {
-  const toast = useToast();
+const Category = ({price, handleSortPrice, category, setCategory, handleSortName, name}) => {
+  // const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [categories, setCategories] = useState([]);
   // const [cartItems, setCartItems] = useState([]);
 
-  const handleToggleCategory = (categoryId) => {
-    if (category === categoryId) {
+  const handleToggleCategory = (id_category) => {
+    if (category === id_category) {
       setCategory(null); // Clear the category if it's already selected
     } else {
-      setCategory(categoryId); // Set the selected category
+      setCategory(id_category); // Set the selected category
     }
   };
+
 
   useEffect(() => {
     fetchCategories();
@@ -117,7 +118,7 @@ const Category = ({price, setPrice, handleSortPrice, category, handleFilterCateg
 
   return (
     <Box mb={"10"}>
-      <Box ml={"5"} mb={"3"} mt={"5"} style={{ display: "flex", justifyContent: "flex-end" }}>
+      <Box mx={"5"} mb={"3"} mt={"5"} style={{ display: "flex", justifyContent: "flex-end" }}>
         <Menu isOpen={isOpen}>
           <Select value={name} onChange={handleSortName} placeholder="Sort by product" w={"md"}>
             <option value="name_asc">A-Z</option>
@@ -128,7 +129,7 @@ const Category = ({price, setPrice, handleSortPrice, category, handleFilterCateg
             <option value="harga_produk_asc" >Ascending</option>
             <option value="harga_produk_desc" >Descending</option>
           </Select>
-          <MenuButton
+          {/* <MenuButton
             as={Button}
             onClick={onOpen}
             mr={"2"}
@@ -154,9 +155,9 @@ const Category = ({price, setPrice, handleSortPrice, category, handleFilterCateg
                 transform: "translate(15%, 0%)",
               }}
             >
-              {/* {cartItems.length} */}
+              {cartItems.length}
             </Flex>
-          </MenuButton>
+          </MenuButton> */}
           <MenuList
             zIndex={900000}
             width={"400px"}
@@ -210,17 +211,17 @@ const Category = ({price, setPrice, handleSortPrice, category, handleFilterCateg
       >
         {activeCategories.map((category) => (
           <Button
-          key={category.id}
+          key={category.id_category}
           variant={"outline"}
           size={"sm"}
-          textColor={category === category.id ? "black" : "white"} // Change text color based on selection
-          bgColor={category === category.id ? "white" : "transparent"} // Change background color based on selection
+          textColor={category === category.id_category ? "black" : "white"} // Change text color based on selection
+          bgColor={category === category.id_category ? "white" : "transparent"} // Change background color based on selection
           w="100%"
           _hover={{ bgColor: "white", color: "black" }}
           _active={{ bgColor: "lightblue", color: "black" }} // Apply light-up effect when button is clicked
           textTransform={"uppercase"}
           value={category}
-          onClick={() => handleToggleCategory(category.id)} // Toggle the category selection
+          onClick={() => handleToggleCategory(category.id_category)} // Toggle the category selection
         >
          {category.category}
         </Button>

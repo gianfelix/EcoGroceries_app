@@ -95,19 +95,6 @@ const Navbar = () => {
           About
         </Link>
         <Link href="/contact">Contact</Link>
-        {/* <InputGroup borderRadius={"full"} size="xs" ml={'3'}>
-          <InputLeftElement
-            pointerEvents="none"
-            children={<Search2Icon color="white" />}
-          />
-          <Input
-            type="text"
-            color={'white'}
-            placeholder="Search..."
-            border="1px solid white"
-            rounded={"full"}
-          />
-        </InputGroup> */}
       </Flex>
       <Box display="flex" alignItems="center">
         {token ? (

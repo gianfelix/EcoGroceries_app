@@ -1,5 +1,7 @@
-import React, { ReactNode, useState, useEffect } from 'react';
-import { Container, Flex, FlexProps, Text, useColorModeValue } from '@chakra-ui/react';
+import React from 'react';
+import { Container, Flex, useColorModeValue } from '@chakra-ui/react';
+
+
 
 const PaginationContainer = ({currentPage, setCurrentPage, selectedProduct}) => {
   return (
@@ -18,7 +20,7 @@ const PaginationContainer = ({currentPage, setCurrentPage, selectedProduct}) => 
   );
 };
 
-const Pagination = ({ currentPage, onPageChange, showNext }) => {
+const Pagination = ({ currentPage, onPageChange, showNext, totalPages }) => {
   return (
     <Flex
       as="nav"
@@ -34,18 +36,18 @@ const Pagination = ({ currentPage, onPageChange, showNext }) => {
       >
         Previous
       </PaginationButton>
-      {[1, 2, 3, 4, 5].map((pageNumber) => (
-        <PaginationButton
+      {Array.from({ length: totalPages }, (_, pageNumber) => (
+          <PaginationButton
           key={pageNumber}
-          isActive={pageNumber === currentPage}
-          onClick={() => onPageChange(pageNumber)}
+          isActive={pageNumber+1 === currentPage}
+          onClick={() => onPageChange(pageNumber + 1)}
         >
-          {pageNumber}
+          {pageNumber+1}
         </PaginationButton>
-      ))}
+        ))}
       <PaginationButton
         onClick={() => onPageChange(currentPage + 1)}
-        // isDisabled={!showNext}
+        isDisabled={!showNext}
       >
         Next
       </PaginationButton>
