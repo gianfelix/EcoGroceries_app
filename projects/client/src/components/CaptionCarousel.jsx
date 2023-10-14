@@ -98,7 +98,7 @@ export default function CaptionCarousel() {
         {cards.map((card, index) => (
           <Box
             key={index}
-            height={{ base: "2xs", md: "md", lg: "lg" }}
+            height={{ base: "48", md: "md", lg: "lg" }}
             position="relative"
             backgroundPosition="center"
             backgroundRepeat="no-repeat"

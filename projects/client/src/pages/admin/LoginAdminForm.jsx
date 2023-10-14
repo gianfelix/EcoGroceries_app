@@ -22,6 +22,8 @@ import {
   Center,
   Image,
 } from "@chakra-ui/react";
+import Swal from "sweetalert2"
+
 
 const LoginAdminForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,6 +32,30 @@ const LoginAdminForm = () => {
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleLoginSuccess = () => {
+    // Show success notification
+    Swal.fire({
+      position: 'center-center',
+      icon: 'success',
+      title: 'Login Success',
+      showConfirmButton: false,
+      timer: 2500
+    });
+  };
+
+  const handleLoginError = () => {
+    // Show error notification
+    Swal.fire({
+      title: 'Make sure your email and password are correct😩',
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    });
   };
 
   return (
@@ -59,28 +85,36 @@ const LoginAdminForm = () => {
                 .required("Password is required"),
             })}
             onSubmit={(values, { setSubmitting }) => { 
+              setSubmitting(true);
               axios
                 .post(
-                  "https://minpro-blog.purwadhikabootcamp.com/api/auth/login",
+                  "http://localhost:8000/api/admin/login",
                   {
                     email: values.email,
                     password: values.password,
                   }
                 )
                 .then(function (response) {
-                  console.log(JSON.stringify(response.data));
+                  localStorage.setItem("token", response.data.token);
+                  handleLoginSuccess();
                 //   dispatch(loginSuccess(response.data.token))
-
-                  // alert(response.data.message)
-                  navigate('/')
-                  setSubmitting(false);
+                  if(response.data.role === 0){
+                    navigate('/admin/super')
+                  } else if (response.data.role === 1) {
+                    navigate('/admin/yk')
+                  } else if (response.data.role === 2) {
+                    navigate('/admin/jkt')
+                  }
                 })
                 .catch(function (error) {
-                  console.log(error);
-                  setSubmitting(false);
+                  handleLoginError();
+                })
+                .finally(() => {
+                  setSubmitting(false); 
                 });
             }}
           >
+            {({ isSubmitting }) => (
             <Form>
               <FormControl id="email" mb={3}>
                 <FormLabel>Email</FormLabel>
@@ -126,12 +160,13 @@ const LoginAdminForm = () => {
                 colorScheme="teal"
                 mb={6}
                 width="full"
-                // variant={"outline"}
-                // borderColor={"black"}
+                isLoading={isSubmitting}
+                loadingText="Logging in..."
               >
                 Login
               </Button>
             </Form>
+             )}
           </Formik>
         </Box>
       </Box>

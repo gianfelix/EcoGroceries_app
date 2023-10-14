@@ -32,49 +32,42 @@ export default function Product() {
   const [category, setCategory] = useState("");
   const [name, setName] = useState("");
   const [totalPages, setTotalPages] = useState(0);
-
+  
   const handleSearch = (query) => {
     setSearchQuery(query);
   };
 
   const handleCategoryFilter = (id_category) => {
     setCategory(id_category);
-  };
-
-  const handleSearchSubmit = (e) => {
-    e.preventDefault(); // Prevent the form from submitting and refreshing the page
-    fetchProduct();
+    if (category===id_category) {
+        setCategory(null)
+    } else {
+        setCategory(id_category)
+    }
   };
 
   const fetchProduct = async () => {
     try {
-      let apiUrl = `http://localhost:8000/api/stock/?page=${currentPage}`;
+      let apiUrl = `http://localhost:8000/api/stock/?page=${currentPage}&id_branch=1`;
 
       if (searchQuery) {
         apiUrl += `&name=${searchQuery}`;
       }
-
       if (price) {
         apiUrl += `&orderByPrice=${price}`;
       }
-
       if (category) {
         apiUrl += `&id_category=${category}`;
       }
-
       if (name) {
         apiUrl += `&orderByName=${name}`;
       }
 
       const response = await axios.get(apiUrl);
-      const yogyakartaStock = response.data.data.filter(
-      (stock) => stock.Branch.id === 1
-    );
+      const yogyakartaStock = response.data.data
     setProduct(yogyakartaStock);
     setTotalPages(response.data.totalPages);
-    console.log(totalPages)
     } catch (err) {
-      console.log(err);
     }
   };
 
@@ -89,40 +82,30 @@ export default function Product() {
   const handleSortName = (e) => {
     setName(e.target.value);
   };
-  const handlefilterCategory = (value) => {
-    setCategory(value);
-  };
 
   const formatPriceAsIDR = (price) => {
-    // Ensure the price is a number
     const numericPrice = parseFloat(price);
     if (isNaN(numericPrice)) {
       return "";
     }
-
-    // Format the price without decimal part
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
       currency: "IDR",
       minimumFractionDigits: 0,
-      maximumFractionDigits: 0, // Set both minimum and maximum to 0
+      maximumFractionDigits: 0, 
     }).format(numericPrice);
   };
 
   const [selectedProduct, setSelectedProduct] = useState(null);
-
-  const handleProductClick = (product) => {
-    setSelectedProduct(product);
-  };
 
   const handleCloseProductDetail = () => {
     setSelectedProduct(null);
   };
 
   return (
-    <Box minW={"1190"} maxW={"1190"}>
-      <Box width={"98%"} m={"4"}>
-        <InputGroup borderRadius={"full"} size="sm">
+    <Box minW={["","1190"]} maxW={["","1190"]}>
+      <Box width={["91%","97%"]} ml={'4'}>
+        <InputGroup borderRadius={"full"} size={["xs","sm"]}>
           <InputLeftElement
             pointerEvents="none"
             children={<Search2Icon color="white.600" />}
@@ -137,7 +120,7 @@ export default function Product() {
           />
           <InputRightAddon p={0} borderRightRadius={"full"}>
             <Button
-              size="sm"
+              size={["xs","sm"]}
               rounded={"full"}
               variant={"outline"}
               onClick={fetchProduct}
@@ -152,7 +135,7 @@ export default function Product() {
         setPrice={setPrice}
         handleSortPrice={handleSortPrice}
         category={category}
-        handleFilterCategory={handleCategoryFilter}
+        handleCategoryFilter={handleCategoryFilter}
         name={name}
         handleSortName={handleSortName}
         setName={setName}
@@ -165,7 +148,7 @@ export default function Product() {
             align={"center"}
             role="group"
             p={4}
-            maxW="212px"
+            maxW={{ base: "43%", md: "212px" }}
             w="full"
             bg={bgColor}
             boxShadow="md"
@@ -179,7 +162,7 @@ export default function Product() {
                 rounded="lg"
                 mt={-8}
                 pos="relative"
-                height="120px"
+                height={["80px","120px"]}
                 _after={{
                   transition: "all .3s ease",
                   content: '""',
@@ -200,7 +183,7 @@ export default function Product() {
               >
                 <Image
                   borderRadius="xl"
-                  height={130}
+                  height={[90,130]}
                   width={190}
                   objectFit="contain"
                   src={`http://localhost:8000/api/${product.Product.productImg}`}
@@ -216,12 +199,12 @@ export default function Product() {
                 >
                   {product.Product.Category?.category}
                 </Text>
-                <Heading color="black" fontFamily="cursive" fontSize="md" m={0}>
+                <Heading color="black" fontFamily="cursive" fontSize={["sm","md"]} m={0}>
                   {product.Product.name}
                 </Heading>
                 <Stack align={"center"} justify={"center"}>
                   <Flex>
-                    <Text fontWeight={800} fontSize={"md"} color={"teal"}>
+                    <Text fontWeight={800} fontSize={["sm","md"]} color={"teal"}>
                       {" "}
                       {formatPriceAsIDR(
                         product.Product.price -
@@ -229,14 +212,14 @@ export default function Product() {
                             100
                       )}
                     </Text>
-                    <Text color={"red"} fontSize={"xs"}>
+                    <Text color={"red"} fontSize={["2xs","xs"]}>
                       {product.discountPercent}%
                     </Text>{" "}
                   </Flex>
                   <Text
                     textDecoration={"line-through"}
                     color={"gray.600"}
-                    fontSize={"xs"}
+                    fontSize={["2xs","xs"]}
                   >
                     {formatPriceAsIDR(product.Product.price)}
                   </Text>

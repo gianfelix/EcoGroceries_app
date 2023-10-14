@@ -96,8 +96,10 @@ const LandingJabodetabek = () => {
       </Flex> */}
       <Flex
         bg={"teal.400"}
-        backgroundPosition="center"
-        minHeight="100vh"
+        bgSize="cover"
+        bgPosition="center"
+        minH="100vh"
+        display="flex"
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
@@ -105,23 +107,24 @@ const LandingJabodetabek = () => {
         textShadow="0px 2px 4px rgba(0, 0, 0, 0.5)"
         pb={10}
       >
-        <Text fontSize="2xl" fontWeight={"semibold"} textAlign="center">
+        <Text fontSize={["md", "2xl"]} fontWeight={"semibold"} textAlign="center">
           Your Current Position:
         </Text>
         <Text
           bg={"teal.500"}
+          mx={'5'} 
           px={3}
           py={1}
           color={"white"}
           fontWeight="bold"
-          mb={5}
+          fontSize={["xs", "xl"]} 
         >
           {userAddress}
         </Text>
-        <Heading fontSize="4xl" fontWeight={"bold"}  textAlign="center">
+        <Heading fontSize={["md", "4xl"]} fontWeight={"bold"}  textAlign="center">
           Jabodetabek EcoGroceries
         </Heading>
-        <Text fontSize="xl" fontWeight={"semibold"} mt={4} mb={5} textAlign="center">
+        <Text fontSize={["xs", "xl"]} fontWeight={"semibold"} mt={1} mb={5} textAlign="center">
           Your One-Stop Shop for Eco-Friendly Products
         </Text>
         <ListProduct />

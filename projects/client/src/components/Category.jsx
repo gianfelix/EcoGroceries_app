@@ -35,20 +35,21 @@ const Category = () => {
         <Wrap justify="center" spacing={8}>
           {activeCategories.map((category) => (
             <WrapItem key={category.id}>
-              <Center
-                bg="teal.200"
-                w="200px"
-                h="80px"
-                borderRadius="lg"
-                _hover={{ bg: "teal.400", transform: "scale(1.1)" }}
-              >
-                <VStack spacing={1}>
-                  <Badge colorScheme="teal" fontSize={"xl"}>
-                    {category.category}
-                  </Badge>
-                </VStack>
-              </Center>
-            </WrapItem>
+            <Center
+              bg="teal.200"
+              w={{ base: "120px", md: "200px" }} // Mengatur lebar sesuai dengan tampilan mobile (base) dan desktop (md)
+              h={{ base: "50px", md: "80px" }}
+              borderRadius="lg"
+              _hover={{ bg: "teal.400", transform: "scale(1.1)" }}
+            >
+              <VStack spacing={1}>
+                <Badge colorScheme="teal" fontSize={{ base: "sm", md: "xl" }}>
+                  {category.category}
+                </Badge>
+              </VStack>
+            </Center>
+          </WrapItem>
+          
           ))}
         </Wrap>
       </Box>

@@ -275,6 +275,7 @@ const stockControllers = {
       const orderByName = req.query.orderByName;
       const orderByPrice = req.query.orderByPrice;
       const name = req.query.name;
+      const id_branch = req.query.id_branch
 
       const offset = (page - 1) * pageSize;
       const limit = pageSize;
@@ -286,7 +287,6 @@ const stockControllers = {
       if (idCategory) {
         whereClause["$Product.id_category$"] = idCategory;
       }
-
       const order = [];
       if (orderByName) {
         order.push(["Product", "name", orderByName]);
@@ -294,7 +294,9 @@ const stockControllers = {
       if (orderByPrice) {
         order.push(["Product", "price", orderByPrice]);
       } if (name) {
-        whereClause["$Product.name$"] = { [Sequelize.Op.like]: `%${name}%` };
+        whereClause["$Product.name$"] = { [Op.like]: `%${name}%` };
+      } if (id_branch) {
+        whereClause ["$Branch.id$"] = id_branch;
       }
 
       const { count, rows: allStock } = await Stock.findAndCountAll({

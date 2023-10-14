@@ -1,4 +1,5 @@
 const authRouter = require("./authRouter");
+const adminRouter = require("./adminRouter");
 const profileRouter = require("./profileRouter");
 const rajaongkirRouter = require("./rajaongkirRouter");
 const addressRouter = require("./addressRouter");
@@ -14,6 +15,7 @@ const transactionRouter = require("./transactionRouter");
 
 module.exports = {
   authRouter,
+  adminRouter,
   profileRouter,
   rajaongkirRouter,
   addressRouter,

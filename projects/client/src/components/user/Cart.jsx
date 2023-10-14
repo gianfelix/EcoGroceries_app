@@ -13,16 +13,20 @@ import {
 
 const NotificationModal = ({ isOpen, onClose }) => {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} blockScrollOnMount={false} size={'lg'}>
+    <Modal isOpen={isOpen} onClose={onClose} blockScrollOnMount={false} size={{ base: "md", xl: "xl" }}>
       <ModalOverlay />
-      <ModalContent bg="white" m={'200px'} onClick={onClose}>
-        <ModalHeader>Cart</ModalHeader>
+      <ModalContent bg="white" mx={'10'} onClick={onClose}>
+        <ModalHeader fontSize={{ base: "xl", md: "2xl" }}>Cart</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <Text>This is a cart.</Text>
         </ModalBody>
-        <ModalFooter>
-          <Button variant="ghost" mr={3} onClick={onClose}>
+        <ModalFooter justifyContent="center" flexDir="column">
+          <Button
+            variant="ghost"
+            mt={2}
+            onClick={onClose}
+          >
             Close
           </Button>
         </ModalFooter>

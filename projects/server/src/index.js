@@ -23,7 +23,7 @@ const {authRouter, adminRouter, profileRouter, rajaongkirRouter, addressRouter, 
 const path = require("path");
 
 app.use('/api/auth', apiRouter,authRouter)
-// app.use('/api/admin', apiRouter,adminRouter)
+app.use('/api/admin', apiRouter,adminRouter)
 app.use('/api/profile', apiRouter,profileRouter)
 app.use('/api/rajaongkir', apiRouter,rajaongkirRouter)
 app.use('/api/address', apiRouter,addressRouter)

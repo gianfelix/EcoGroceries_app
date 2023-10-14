@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Center,
@@ -8,39 +8,14 @@ import {
   Image,
   Button,
   Flex,
+  Grid,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const ProductLandingDef = () => {
   const navigate = useNavigate();
-
-  // Define the PRODUCTS array as a constant
-  const PRODUCTS = [
-    {
-      name: "Apples",
-      price: 15500,
-      image: "images/apple.png",
-    },
-    {
-      name: "Salmon",
-      price: 81000,
-      image: "images/salmon.png",
-    },
-    {
-      name: "Spinach",
-      price: 12000,
-      image: "images/spinach.png",
-    },
-    {
-      name: "Crab",
-      price: 90000,
-      image: "images/crab.png",
-    },
-  ];
-
-  // Define a discount percentage
-  // Taruh API disini
-  const discountPercentage = 12; // 20% discount for example
+  const [products, setProducts] = useState([]);
 
   const formatCurrencyIDR = (amount) => {
     return new Intl.NumberFormat("id-ID", {
@@ -51,71 +26,75 @@ const ProductLandingDef = () => {
   };
 
   const checkAndNavigate = () => {
-    // Check if there is a token in local storage
     const token = localStorage.getItem("token");
     if (token) {
-      // Token exists, navigate to "/shop"
       navigate("/shop");
     } else {
-      // Token doesn't exist, navigate to "/login"
       navigate("/login");
     }
   };
 
+  useEffect(() => {
+    axios.get("http://localhost:8000/api/stock")
+      .then((response) => {
+        const last4Products = response.data.data.slice(-6);
+        setProducts(last4Products);
+      })
+      .catch((error) => {
+        console.error("Error fetching product data:", error);
+      });
+  }, []);
+
   return (
     <Center py={12}>
-      <Stack
-        direction={{ base: "column", lg: "row" }} // Adjust direction based on screen size
-        spacing={4}
-        justify="center"
+      <Grid
+        templateColumns={{ base: "repeat(2, 1fr)", lg: "repeat(6, 1fr)" }}
+        gap={4}
       >
-        {PRODUCTS.map((product, index) => {
-          // Calculate the discounted price
-          const discountedPrice =
-            product.price - (product.price * discountPercentage) / 100;
-
+        {products.map((product) => {
           return (
             <Box
-              key={index}
+              key={product.id}
               role={"group"}
               p={4}
-              maxW={"250px"} /* Adjust the maximum width */
-              w={{ base: "160px", lg: "250px" }} /* Adjust the width based on screen size */
               bg={"whiteAlpha.800"}
               boxShadow={"2xl"}
               rounded={"lg"}
               pos={"relative"}
-              zIndex={1}
-              // m={4}
             >
               <Flex justifyContent={"center"} rounded={"lg"} mt={-8} pos={"relative"} height={{ base: 32, lg: 40 }}>
                 <Image
                   rounded={"lg"}
-                  height={{ base: 32, lg: 40 }} /* Adjust the height */
-                  width={{ base: 32, lg: 40 }} /* Adjust the width */
+                  height={{ base: 32, lg: 40 }}
+                  width={{ base: 32, lg: 40 }}
                   objectFit={"cover"}
-                  src={product.image}
-                  alt={`Product ${index}`}
+                  src={`http://localhost:8000/api/${product.Product.productImg}`}
+                  alt={product.Product.name}
                 />
               </Flex>
               <Stack pt={4} align={"center"}>
                 <Heading
-                  fontSize={"lg"} /* Adjust the font size */
+                  fontSize={"lg"}
                   fontFamily={"body"}
                   fontWeight={500}
                   color={"teal.600"}
                 >
-                  {product.name}
+                  {product.Product.name}
                 </Heading>
                 <Stack align={"center"} justify={'center'}>
                   <Flex>
-                    <Text fontWeight={800} fontSize={"md"} color={"teal"}> {/* Adjust the font size */}
-                      {formatCurrencyIDR(discountedPrice)}
+                    <Text fontWeight={800} fontSize={"md"} color={"teal"}>
+                    {" "}
+                      {formatCurrencyIDR(
+                        product.Product.price -
+                          (product.Product.price * product.discountPercent) /
+                            100
+                      )}
                     </Text>
-                    <Text color={"red"} fontSize={"xs"}>{discountPercentage}%</Text> {/* Adjust the font size */}
+                    <Text color={"red"} fontSize={"xs"}>{product.discountPercent}%</Text>
                   </Flex>
                   <Text textDecoration={"line-through"} color={"gray.600"} fontSize={"xs"}>
-                    {formatCurrencyIDR(product.price)}
+                    {formatCurrencyIDR(product.Product.price)}
                   </Text>
                 </Stack>
                 <Button colorScheme="teal" onClick={checkAndNavigate}>
@@ -125,7 +104,7 @@ const ProductLandingDef = () => {
             </Box>
           );
         })}
-      </Stack>
+      </Grid>
     </Center>
   );
 };

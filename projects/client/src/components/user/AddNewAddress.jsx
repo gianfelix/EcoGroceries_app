@@ -183,7 +183,7 @@ const AddNewAddress = ({ isOpen, onClose, updateUserData }) => {
         size={{ base: "xs", sm: "sm" }}
       >
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent maxH="80vh" overflowY="auto">
           <ModalHeader size={{ base: "xs", sm: "sm" }}>
             Add New Address
           </ModalHeader>

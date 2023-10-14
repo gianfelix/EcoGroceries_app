@@ -1,5 +1,6 @@
 import { Box, Flex, Icon, Link, Text, VStack } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import ProductJKTManagement from "./ProductJKTManagement";
 import CategoryJKTManagement from "./CategoryJKTManagement";
@@ -12,13 +13,19 @@ import {
   FiGrid,
   FiPercent,
   FiShoppingBag,
+  FiLogOut,
 } from "react-icons/fi";
 import { TbReportAnalytics } from "react-icons/tb";
 import {GiBuyCard} from "react-icons/gi"
 
 const AdminLandingJabodetabek = () => {
   const [activePage, setActivePage] = useState("product");
+  const navigate = useNavigate();
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/admin");
+  };
   const renderpage = () => {
     switch (activePage) {
       case "product":
@@ -219,6 +226,33 @@ const AdminLandingJabodetabek = () => {
                     ml={2}
                   >
                     Report Management
+                  </Text>
+                </Box>
+              </Link>
+              <Link
+                as={"button"}
+                colorScheme={"teal"}
+                onClick={() => handleLogout()}
+              >
+                <Box
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"flex-start"}
+                  p={"4"}
+                  bg={"teal.800"}
+                  _hover={{ bg: "teal.600" }}
+                >
+                  <Icon
+                    as={FiLogOut}
+                    w={{ base: 4, md: 6 }}
+                    h={{ base: 4, md: 6 }}
+                  />
+                  <Text
+                    fontSize={{ base: "lg", md: "18" }}
+                    fontWeight="bold"
+                    ml={2}
+                  >
+                    Sign Out
                   </Text>
                 </Box>
               </Link>

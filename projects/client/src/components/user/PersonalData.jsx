@@ -14,7 +14,7 @@ import axios from "axios";
 import Swal from "sweetalert2"
 
 
-export default function PersonalData() {
+export default function PersonalData({updateUserData}) {
   const [submittingButton, setSubmittingButton] = useState(null);
   const [userData, setUserData] = useState({name: "", email: "", phone: "", gender: "", birthday: "",});
   const [isDataChanged, setIsDataChanged] = useState({name: false, email: false, phone: false, gender: false, birthday: false,}); 
@@ -41,8 +41,6 @@ export default function PersonalData() {
   const handleInputChange = (e) => {
     const { id, value } = e.target;
     if (id === "birthday" && !isValidDate(value)) {
-      // Menampilkan pesan kesalahan jika tanggal tidak valid
-      // Anda juga dapat menambahkan logika lain di sini, seperti menampilkan pesan kesalahan untuk format yang salah.
       alert("AGE MUST BE OVER 18 YEARS OLD");
       return;
     }
@@ -67,7 +65,7 @@ export default function PersonalData() {
     const date = new Date(dateString);
     const currentDate = new Date();
     const minAgeDate = new Date(currentDate);
-    minAgeDate.setFullYear(currentDate.getFullYear() - 18); // Menetapkan batasan umur 18 tahun
+    minAgeDate.setFullYear(currentDate.getFullYear() - 18); 
 
     return date <= minAgeDate;
   };
@@ -92,7 +90,6 @@ export default function PersonalData() {
       });
       
       if (!confirmationResult.isConfirmed) {
-        // Jika pengguna menekan tombol "Cancel", maka lakukan reload halaman
         window.location.reload();
       }
   
@@ -115,6 +112,10 @@ export default function PersonalData() {
           [field]: false,
         }));
       }
+      updateUserData({
+        ...userData,
+        [field]: userData[field],
+      });
     } catch (error) {
       Swal.fire({
         title: 'Please try again😩',

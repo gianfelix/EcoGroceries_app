@@ -6,10 +6,12 @@ import {
   SimpleGrid,
   Flex,
   Center,
-  Image,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 
 const StepBuy = () => {
+  const columns = useBreakpointValue({ base: 1, sm: 2, md: 3 }); // Define the number of columns for different screen sizes
+
   return (
     <Box py={10} bg="teal.50">
       <Center>
@@ -17,7 +19,7 @@ const StepBuy = () => {
           <Heading as="h2" size="xl" mb={6}>
             How to Buy from EcoGroceries
           </Heading>
-          <SimpleGrid columns={3} spacing={10}>
+          <SimpleGrid columns={columns} spacing={10}>
             <StepCard
               number={1}
               title="Sign In or Sign Up"

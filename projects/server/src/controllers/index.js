@@ -1,4 +1,5 @@
 const authControllers = require('./authControllers');
+const adminControllers = require('./adminControllers');
 const profileControllers = require('./profileControllers');
 const rajaOngkirControllers = require('./rajaOngkirControllers');
 const userAddressControllers = require('./userAddressControllers');
@@ -14,6 +15,7 @@ const transactionControllers = require('./transactionControllers');
 
 module.exports = {
   authControllers,
+  adminControllers,
   profileControllers,
   rajaOngkirControllers,
   userAddressControllers,

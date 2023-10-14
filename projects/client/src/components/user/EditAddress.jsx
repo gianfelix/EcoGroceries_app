@@ -190,7 +190,7 @@ const EditAddress = ({ isOpen, onClose, addressToEdit, updateUserData }) => {
         size={{ base: "xs", sm: "sm" }}
       >
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent  maxH="80vh" overflowY="auto">
           <ModalHeader size={{ base: "xs", sm: "sm" }}>
             Edit Address
           </ModalHeader>

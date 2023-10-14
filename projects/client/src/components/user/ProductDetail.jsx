@@ -8,6 +8,7 @@ import {
   Button,
   Input,
   useColorModeValue,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -77,6 +78,8 @@ export default function ProductDetail({ onAddToCart }) {
     }
   };
 
+  const numColumns = useBreakpointValue({ base: 1, sm: 1, md: 2, lg: 2, xl: 2 });
+
   return (
     <Box
         bg={"teal.400"}
@@ -89,27 +92,28 @@ export default function ProductDetail({ onAddToCart }) {
         textShadow="0px 2px 4px rgba(0, 0, 0, 0.5)"
     >
       <Navbar />
-      <Flex mx={'20'} my={'10'}
+      <Flex mx={['5','20']} my={['5','10']}
     //   w="full"
       bg={bgColor}
       boxShadow="md"
       rounded="lg"
       pos="relative"
       zIndex={1}
+      flexDirection={{ base: "column", md: "row" }}
       >
-        <Box boxSize={'350'}>
+        <Box boxSize={{ base: "50%", md: "350px" }}>
           <Image
             src={`http://localhost:8000/api/${product?.productImg}`}
             alt={product?.name}
           />
         </Box>
-        <Box flex="2" p={4} maxW='xl' textColor={'black'}>
-          <Heading fontSize="xl">{product?.name}</Heading>
-          <Text color="gray.500" fontSize="sm" mb={2}>
+        <Box flex="2" p={[2,4]} maxW='xl' textColor={'black'} mt={{ base: 0, md: 0 }} ml={{ base: 2, md: 4 }}>
+          <Heading fontSize={["md","xl"]}>{product?.name}</Heading>
+          <Text color="gray.500" fontSize={["xs","sm"]} mb={2}>
             {product.Category?.category}
           </Text>
           <Flex>
-            <Text fontWeight={800} fontSize={"xl"} color={"teal"}>
+            <Text fontWeight={800} fontSize={["md","xl"]} color={"teal"}>
               {formatPriceAsIDR(product.price)}
             </Text>
             <Text color={"red"} fontSize={"xs"}>
@@ -123,9 +127,9 @@ export default function ProductDetail({ onAddToCart }) {
           >
             {formatPriceAsIDR(product.price)}
           </Text>
-          <Text fontSize="lg">{product?.description}</Text>
+          <Text fontSize={["sm","lg"]}>{product?.description}</Text>
           <Flex mt={4}>
-            <Button onClick={decreaseQuantity} colorScheme="teal" size={'sm'}>
+            <Button onClick={decreaseQuantity} colorScheme="teal" size={['xs','sm']}>
               -
             </Button>
             <Input
@@ -135,16 +139,16 @@ export default function ProductDetail({ onAddToCart }) {
               onChange={handleQuantityChange}
               width="50px"
               textAlign="center"
-              size={'sm'}
+              size={['xs','sm']}
               mx={'0.5'}
             //   variant='unstyled'
             />
-            <Button size={'sm'} onClick={increaseQuantity} colorScheme="teal">
+            <Button onClick={increaseQuantity} colorScheme="teal" size={['xs','sm']}>
               +
             </Button>
           </Flex>
           <Flex mt={4}>
-            <Button size={'md'} onClick={handleAddToCart} colorScheme="teal">
+            <Button size={['sm','md']} onClick={handleAddToCart} colorScheme="teal">
               Add to Cart
             </Button>
           </Flex>

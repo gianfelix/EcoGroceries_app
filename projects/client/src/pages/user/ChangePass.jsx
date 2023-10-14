@@ -119,9 +119,9 @@ const PasswordChangeForm = () => {
       <Navbar />
       <Box mt={5}>
       <Center>
-          <Image src="EcoGroceriesApp.png" width="13%" height="auto" />
+          <Image src="EcoGroceriesApp.png" width={{ base: "30%", md: "10%" }} height="auto" />
         </Center>
-        <Box m="auto" p={6} w={"30%"}>
+        <Box m="auto" p={6} w={{ base: "100%", md: "30%" }}>
           <Heading as="h2" size="lg" mb={6} textAlign={"center"}>
             Change your password
           </Heading>

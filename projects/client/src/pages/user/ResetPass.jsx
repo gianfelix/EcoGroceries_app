@@ -97,15 +97,14 @@ const ResetPasswordPage = () => {
         <Center mt={'5'}>
            <Image 
            src={LOGO}
-          //  src="EcoGroceriesApp.png" 
-           width="13%" 
+           width={{ base: "30%", md: "10%" }}
            height="auto"/>
         </Center>
       <Box>
         <Box
           m="auto"
           p={6}
-          w={"30%"}
+          w={{ base: "100%", md: "30%" }}
         >
           <Heading as="h2" size="lg" mb={6} textAlign={"center"}>
             Reset your password
