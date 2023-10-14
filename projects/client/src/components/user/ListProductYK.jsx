@@ -32,13 +32,6 @@ export default function Product() {
   const [category, setCategory] = useState("");
   const [name, setName] = useState("");
   const [totalPages, setTotalPages] = useState(0);
-  const [totalPages, setTotalPages] = useState("");
-
-  useEffect(() => {
-    // Initialize quantities state with default quantity (1) for each product
-    const initialQuantities = new Array(product.length).fill(1);
-    setQuantities(initialQuantities);
-  }, [product]);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
