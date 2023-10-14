@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Box, Heading } from "@chakra-ui/react";
 import {
-  LineChart,
-  Line,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -11,7 +11,7 @@ import {
 } from "recharts";
 import axios from "axios";
 
-const TransactionGraph = () => {
+const TotalSalesEachUser = () => {
   const [graphData, setGraphData] = useState([]);
 
   useEffect(() => {
@@ -22,12 +22,10 @@ const TransactionGraph = () => {
         );
         const transactions = response.data.transactions;
 
-        // Aggregate sales for the same date
-        const aggregatedData = aggregateSalesByDate(transactions);
+        const aggregatedData = aggregateSalesByUser(transactions);
 
         console.log("Aggregated Data:", aggregatedData);
 
-        // Update the chart data
         setGraphData(aggregatedData);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -37,16 +35,19 @@ const TransactionGraph = () => {
     fetchData();
   }, []);
 
-  const aggregateSalesByDate = (transactions) => {
+  const aggregateSalesByUser = (transactions) => {
     const aggregatedData = {};
 
     transactions.forEach((entry) => {
-      const date = new Date(entry.createdAt).toLocaleDateString("id-ID");
-      if (aggregatedData[date]) {
-        aggregatedData[date].totalSales += entry.totPrice;
+      const userId = entry.User.id;
+      const userName = entry.User.name;
+
+      if (aggregatedData[userId]) {
+        aggregatedData[userId].totalSales += entry.totPrice;
       } else {
-        aggregatedData[date] = {
-          date: date,
+        aggregatedData[userId] = {
+          userId,
+          userName,
           totalSales: entry.totPrice,
         };
       }
@@ -56,28 +57,22 @@ const TransactionGraph = () => {
   };
 
   return (
-    <>
+      <>
       <Heading mb={2} textAlign={"center"} fontSize={"2xl"}>
-      Total Sales Per Day Graph
+        Total Sales Per User Graph
       </Heading>
       <Box display={"flex"} justifyContent={"center"}>
-        <LineChart width={1200} height={300} data={graphData}>
+        <BarChart width={1200} height={300} data={graphData}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis />
-          <Tooltip />
+          <XAxis dataKey="userName" />
+          <YAxis label={{ value: 'Total Sales (Rp)', angle: -90, position: 'insideLeft' }} />
+          <Tooltip formatter={(value) => `Rp ${value}`} />
           <Legend />
-          <Line
-            type="monotone"
-            dataKey="totalSales"
-            stroke="teal  "
-            strokeWidth={2}
-            activeDot={{ r: 8 }}
-          />
-        </LineChart>
+          <Bar dataKey="totalSales" fill="teal" />
+        </BarChart>
       </Box>
     </>
   );
 };
 
-export default TransactionGraph;
+export default TotalSalesEachUser;

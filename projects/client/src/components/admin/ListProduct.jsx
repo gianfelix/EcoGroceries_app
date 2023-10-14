@@ -84,6 +84,18 @@ const ListProduct = () => {
     setCurrentPage(page);
   };
 
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
   useEffect(() => {
     axios
       .get(
@@ -291,7 +303,7 @@ const ListProduct = () => {
     <>
       <Box display="flex" gap={6} my={3}>
         <Select value={filterProductName} onChange={handleFilterProductName}>
-          <option value="">Filter by product name</option>
+          <option value="">Select by product name</option>
           {products.map((product) => (
             <option value={product.name}>{product.name}</option>
           ))}
@@ -399,6 +411,15 @@ const ListProduct = () => {
         </Tbody>
       </Table>
       <Box my={3} display="flex" justifyContent="center">
+        <Button 
+        m={1}
+        onClick={handlePreviousPage}
+        variant="outline"
+        colorScheme="teal"
+        disabled={currentPage === 1}
+      >
+        Previous
+      </Button>
         {pages.map((page) => (
           <Button
             m={1}
@@ -410,6 +431,15 @@ const ListProduct = () => {
             {page}
           </Button>
         ))}
+        <Button
+          m={1}
+          onClick={handleNextPage}
+          variant="outline"
+          colorScheme="teal"
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </Button>
       </Box>
 
       <Modal isOpen={isUpdateModalOpen} onClose={handleCloseUpdateModal}>

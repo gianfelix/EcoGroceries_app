@@ -251,6 +251,18 @@ const StockProductYK = () => {
     setCurrentPage(page);
   };
 
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  }
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  }
+
   useEffect(() => {
     fetch(
       `http://localhost:8000/api/stock?id_product=${filterProductName}&id_category=${filterCategoryName}&orderByName=${orderByName}&orderByPrice=${orderByPrice}&page=${currentPage}&pageSize=19`
@@ -307,7 +319,7 @@ const StockProductYK = () => {
           value={filterProductName}
           onChange={handleFilterProductNameChange}
         >
-          <option value="">Filter by product name</option>
+          <option value="">Select by product name</option>
           {stockData.map((stock) => (
             <option value={stock.Product.id}>{stock.Product.name}</option>
           ))}
@@ -430,6 +442,9 @@ const StockProductYK = () => {
         )}
       </Box>
       <Box mt={2} display="flex" justifyContent="center">
+        <Button m={1} onClick={handlePrevPage} variant="outline" disabled={currentPage === 1} colorScheme="teal">
+          Previous
+        </Button>
         {pages.map((page) => (
           <Button
             m={1}
@@ -441,6 +456,9 @@ const StockProductYK = () => {
             {page}
           </Button>
         ))}
+        <Button m={1} onClick={handleNextPage} variant="outline" disabled={currentPage === pages.length} colorScheme="teal">
+          Next
+        </Button>
       </Box>
       {selectedStock && (
         <EditStockModal

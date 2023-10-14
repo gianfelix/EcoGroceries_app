@@ -33,10 +33,10 @@ const TransactionList = () => {
 
   return (
     <VStack spacing={4} align="stretch">
-      <Box width="100%" overflowX="auto">
         <Text fontSize="2xl" fontWeight="bold">
           List of Transactions
         </Text>
+      <Box width="100%" maxH={"250px"} overflowY="auto">
         <Table variant="striped" colorScheme="teal" size={"sm"}>
           <Thead>
             <Tr>

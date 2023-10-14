@@ -1,8 +1,9 @@
 import React from "react";
-import { MapContainer, TileLayer, Marker, Popup, Polygon } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, GeoJSON } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Box } from "@chakra-ui/react";
 import L from "leaflet";
+import dataGeoJson from "../../assets/yogyakarta_area.json"
 
 const YogyakartaArea = () => {
   const position = [-7.782646, 110.374064];
@@ -15,12 +16,7 @@ const YogyakartaArea = () => {
     popupAnchor: [1, -34],
   });
 
-  const storeAreaBoundaries = [
-    [-8.206338, 110.011482],
-    [-7.543457, 110.011482],
-    [-7.543457, 110.843268],
-    [-8.206338, 110.843268],
-  ];
+  const storeAreaBoundaries = dataGeoJson
 
   return (
     <Box id="map" h="330px" >
@@ -33,13 +29,9 @@ const YogyakartaArea = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution="&copy; OpenStreetMap contributors, and Gian Felix R."
         />
-        <Polygon
-          positions={storeAreaBoundaries}
-          color="red"
-          fillOpacity={0.1}
-        >
-            <Popup>Yogyakarta Groceries service area coverage</Popup>
-        </Polygon>
+        <GeoJSON data={storeAreaBoundaries} color="red" fillOpacity={0.1}>
+          <Popup>Yogyakarta Groceries service area coverage</Popup>
+        </GeoJSON>
         <Marker position={position} icon={customIcon}>
           <Popup>Yogyakarta Groceries Location</Popup>
         </Marker>

@@ -159,21 +159,26 @@ const CategoryJKTManagement = () => {
           </Button>
         </Box>
       </Flex>
-      <Box mt={8} mb={4}>
-        <Heading size="md" mb={2}>
+        <Heading size="md" mt={8}>
           Category List
         </Heading>
-        <Table variant="striped" colorScheme="teal" size={"sm"}>
+      <Box  mb={4} style={{ maxHeight: 500, overflowY: 'auto' }}>
+        <Table variant="striped" colorScheme="teal" size={"md"}>
           <Thead>
             <Tr>
-              <Th textAlign={"center"}>Category</Th>
-              <Th textAlign={"center"}>Status</Th>
-              <Th textAlign={"center"}>Action</Th>
+              <Th width="10%" textAlign={"center"}>Number</Th>
+              <Th width="25%" textAlign={"center"}>Category</Th>
+              <Th width="15%" textAlign={"center"}>Status</Th>
+              <Th width="20%" textAlign={"center"}>Action</Th>
+              <Th width="20%" textAlign={"center"}>Button to Activate/Deactivate</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {categories.map((category) => (
+            {categories.map((category, index) => (
               <Tr key={category.id}>
+                <Td textAlign={"center"} fontWeight={"semibold"}>
+                  {index + 1}
+                </Td>
                 <Td fontWeight="semibold" textAlign={"center"}>
                   {category.category}
                 </Td>
@@ -186,7 +191,7 @@ const CategoryJKTManagement = () => {
                     {category.isActive ? "Active" : "Inactive"}
                   </Text>
                 </Td>
-                <Td>
+                <Td textAlign={"center"}>
                   <Flex justify={"center"} gap={3}>
                     <Button
                       size={"sm"}
@@ -195,22 +200,24 @@ const CategoryJKTManagement = () => {
                     >
                       Edit
                     </Button>
-                    {category.isActive ? (
-                      <IconButton
-                        icon={<CloseIcon />}
-                        colorScheme="red"
-                        size={"sm"}
-                        onClick={() => handleDeactivateCategory(category.id)}
-                      />
-                    ) : (
-                      <IconButton
-                        icon={<CheckCircleIcon />}
-                        colorScheme="green"
-                        size={"sm"}
-                        onClick={() => handleActivateCategory(category.id)}
-                      />
-                    )}
                   </Flex>
+                </Td>
+                <Td textAlign={"center"}>
+                  {category.isActive ? (
+                    <IconButton
+                      icon={<CloseIcon />}
+                      colorScheme="red"
+                      size={"sm"}
+                      onClick={() => handleDeactivateCategory(category.id)}
+                    />
+                  ) : (
+                    <IconButton
+                      icon={<CheckCircleIcon />}
+                      colorScheme="green"
+                      size={"sm"}
+                      onClick={() => handleActivateCategory(category.id)}
+                    />
+                  )}
                 </Td>
               </Tr>
             ))}

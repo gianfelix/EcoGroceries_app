@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 const getReverseGeolocation = async (latitude, longitude) => {
   try {
@@ -27,6 +28,7 @@ const Shop = () => {
   const navigate = useNavigate();
   const [availableAddresses, setAvailableAddresses] = useState([]);
   const [selectedAddress, setSelectedAddress] = useState(null);
+  const [loggedInUserId, setLoggedInUserId] = useState(null);
 
   const location = useLocation();
   console.log("location", location);
@@ -66,21 +68,31 @@ const Shop = () => {
     const fetchUserAddresses = async () => {
       try {
         const token = localStorage.getItem("token");
+  if (token) {
+    const decodedToken = jwt_decode(token);
+    setLoggedInUserId(decodedToken.id); 
+  }
+  console.log("token", token);
         const response = await axios.get("http://localhost:8000/api/address", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        setAvailableAddresses(response.data.data);
+        // Filter addresses based on the logged-in user's id
+        console.log("response", response);
+        const filteredAddresses = response.data.filter(
+          (address) => address.id_user === loggedInUserId
+        );
+        setAvailableAddresses(filteredAddresses);
       } catch (error) {
         console.error("Error fetching user addresses:", error);
       }
     };
 
-    if (userLocation) {
+    if (userLocation && loggedInUserId) {
       fetchUserAddresses();
     }
-  }, [userLocation]);
+  }, [userLocation, loggedInUserId]);
 
   console.log(userLocation);
   if (!userLocation) {
@@ -122,13 +134,13 @@ const Shop = () => {
 
   const inJabodetabek =
     (latitude >= -6.810784 &&
-    latitude <= -5.491429 &&
-    longitude >= 106.325163 &&
-    longitude <= 107.326882) || 
+      latitude <= -5.491429 &&
+      longitude >= 106.325163 &&
+      longitude <= 107.326882) ||
     (userLocation.latitude >= -6.810784 &&
-    userLocation.latitude <= -5.491429 &&
-    userLocation.longitude >= 106.325163 &&
-    userLocation.longitude <= 107.326882);
+      userLocation.latitude <= -5.491429 &&
+      userLocation.longitude >= 106.325163 &&
+      userLocation.longitude <= 107.326882);
 
   const handleAddressSelect = () => {
     if (selectedAddress) {
@@ -187,27 +199,25 @@ const Shop = () => {
 
       {selectedAddress && (
         <Box bg={"#c4fff2"} pt={2} display="flex" justifyContent="center">
-          
           <Text fontSize="lg" fontWeight="bold" ml={2}>
             {selectedAddress.userName}:
           </Text>
-          <Text fontSize="lg"  ml={2}>
+          <Text fontSize="lg" ml={2}>
             (Latitude: {selectedAddress.latitude} Longitude:{" "}
             {selectedAddress.longitude})
           </Text>
         </Box>
       )}
-      
 
       {inYogjakarta ? (
         (window.location.href = "/shop/yk")
-        ) : inJabodetabek ? (
-          (window.location.href = "/shop/jkt")
-          ) : (
-            <Box bg={"#c4fff2"}>
-            <LandingUnreachArea />
-            </Box>
-            )}
+      ) : inJabodetabek ? (
+        (window.location.href = "/shop/jkt")
+      ) : (
+        <Box bg={"#c4fff2"}>
+          <LandingUnreachArea />
+        </Box>
+      )}
       <Box>
         <Footer />
       </Box>
