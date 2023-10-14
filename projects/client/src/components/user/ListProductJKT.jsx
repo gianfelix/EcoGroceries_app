@@ -32,7 +32,6 @@ export default function Product() {
   const [category, setCategory] = useState("");
   const [name, setName] = useState("");
   const [totalPages, setTotalPages] = useState(0);
-  
   const handleSearch = (query) => {
     setSearchQuery(query);
   };
@@ -75,7 +74,6 @@ export default function Product() {
     fetchProduct();
   }, [currentPage, price, category, name, searchQuery]);
 
-
   const handleSortPrice = (e) => {
     setPrice(e.target.value);
   };
@@ -97,7 +95,7 @@ export default function Product() {
   };
 
   const [selectedProduct, setSelectedProduct] = useState(null);
-
+  
   const handleCloseProductDetail = () => {
     setSelectedProduct(null);
   };

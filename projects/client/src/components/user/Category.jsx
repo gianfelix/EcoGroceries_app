@@ -4,6 +4,7 @@ import {
   Grid,
   Button,
   Menu,
+  MenuButton,
   MenuList,
   Text,
   Select,
@@ -35,7 +36,6 @@ const Category = ({price, handleSortPrice, handleSortName, name, handleCategoryF
     } catch (error) {
     }
   };
-
   const activeCategories = categories.filter((category) => category.isActive);
 
   return (
@@ -95,7 +95,6 @@ const Category = ({price, handleSortPrice, handleSortName, name, handleCategoryF
         >
           {category.category}
         </Button>
-        
         ))}
       </Grid>
     </Box>

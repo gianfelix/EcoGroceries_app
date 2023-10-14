@@ -32,7 +32,14 @@ export default function Product() {
   const [category, setCategory] = useState("");
   const [name, setName] = useState("");
   const [totalPages, setTotalPages] = useState(0);
-  
+  const [totalPages, setTotalPages] = useState("");
+
+  useEffect(() => {
+    // Initialize quantities state with default quantity (1) for each product
+    const initialQuantities = new Array(product.length).fill(1);
+    setQuantities(initialQuantities);
+  }, [product]);
+
   const handleSearch = (query) => {
     setSearchQuery(query);
   };
@@ -49,7 +56,6 @@ export default function Product() {
   const fetchProduct = async () => {
     try {
       let apiUrl = `http://localhost:8000/api/stock/?page=${currentPage}&id_branch=1`;
-
       if (searchQuery) {
         apiUrl += `&name=${searchQuery}`;
       }
@@ -74,7 +80,6 @@ export default function Product() {
   useEffect(() => {
     fetchProduct();
   }, [currentPage, price, category, name, searchQuery]);
-
 
   const handleSortPrice = (e) => {
     setPrice(e.target.value);

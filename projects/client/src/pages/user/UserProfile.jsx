@@ -347,7 +347,6 @@ export default function UserProfileEdit() {
               <Heading fontSize={{ base: "2xl", sm: "xl" }}>
                 {userData.name}
               </Heading>
-              {/* Add more user data as needed */}
             </Box>
           </FormControl>
         </Box>
