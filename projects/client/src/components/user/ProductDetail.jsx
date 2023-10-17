@@ -136,7 +136,7 @@ export default function ProductDetail() {
         bgPosition="center"
         display="flex"
         flexDirection="column"
-        h={'436'}
+        // h={''}
         >
 
         <Flex 
