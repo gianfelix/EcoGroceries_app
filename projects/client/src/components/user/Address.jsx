@@ -1,5 +1,3 @@
-// UserAddress.js
-
 import React, { useState, useEffect, useCallback } from "react";
 import jwt_decode from "jwt-decode";
 import {

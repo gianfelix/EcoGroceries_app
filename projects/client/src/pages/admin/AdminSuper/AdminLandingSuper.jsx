@@ -1,4 +1,4 @@
-import { Box, Flex, Icon, Link, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, Icon, Link, Text, VStack,  useMediaQuery, extendTheme, } from "@chakra-ui/react";
 import React, { useState } from "react";
 import AdminManagement from "./AdminManagement";
 import ProductManagement from "./ProductManagement";
@@ -21,10 +21,21 @@ import StockProductJKTManagement from "../AdminBranch/TokoJabodetabek/StockProdu
 import StockProductYKManagement from "../AdminBranch/TokoYK/StockProductYKManagement";
 import VoucherPromo from "../AdminBranch/TokoJabodetabek/VoucherPromo";
 import TransactionOrder from "./TransactionOrder";
+import AdminMobile from "./AdminInmobile";
 
 const AdminLandingSuper = () => {
-  const [activePage, setActivePage] = useState("product");
+  const [activePage, setActivePage] = useState("admin");
   const navigate = useNavigate();
+  const breakpoints = {
+    sm: "320px",
+    md: "768px",
+    lg: "960px",
+    xl: "1200px",
+    "2xl": "1536px",
+  };
+
+  const theme = extendTheme({ breakpoints });
+  const [isMd] = useMediaQuery("(max-width: " + theme.breakpoints.md + ")");
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -57,6 +68,12 @@ const AdminLandingSuper = () => {
 
   return (
     <>
+     {isMd?(
+      <>
+      <AdminMobile/>
+      </>
+       ):(
+        <>
       <Box>
         <Flex flexDir={{ base: "column", md: "row" }}>
           <Box
@@ -329,6 +346,8 @@ const AdminLandingSuper = () => {
           </Box>
         </Flex>
       </Box>
+      </>
+       )}
     </>
   );
 };

@@ -68,13 +68,13 @@ const EditCashier = ({ isOpen, onClose, cashier, onUpdate, onEditSuccess }) => {
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} blockScrollOnMount={false} isCentered>
+      <Modal size={{ base: "xs", sm: "sm" }}  isOpen={isOpen} onClose={onClose} blockScrollOnMount={false} isCentered>
         <ModalOverlay />
         <ModalContent bgColor={'rgba(0,0,0, 0.8)'} textColor="white">
           <ModalHeader>Edit Cashier</ModalHeader>
           <ModalCloseButton />
-          <ModalBody pb={6}>
-            <FormControl mb={'3'}>
+          <ModalBody pb={[3,6]}>
+            <FormControl mb={['1','3']}>
               <FormLabel>Branch</FormLabel>
               <Input isDisabled value={currentIdbranch === 1
                       ? "Yogyakarta EcoGroceries"
@@ -82,26 +82,26 @@ const EditCashier = ({ isOpen, onClose, cashier, onUpdate, onEditSuccess }) => {
                       ? "Jabodetabek EcoGroceries"
                       : ""}/>
             </FormControl>
-            <FormControl mb={'3'}>
+            <FormControl mb={['1','3']}>
               <FormLabel>
                 <i>Current Username</i>
               </FormLabel>
               <Input isDisabled value={currentUsername} onChange={(e) => setCurrentUsername(e.target.value)} />
             </FormControl>
-            <FormControl mb={'3'}>
+            <FormControl mb={['1','3']}>
               <FormLabel>
                 <i>Current Email</i>
               </FormLabel>
               <Input isDisabled value={currentEmail} onChange={(e) => setCurrentEmail(e.target.value)} />
             </FormControl>
-            <FormControl mb={'3'}>
+            <FormControl mb={['1','3']}>
               <FormLabel>Branch</FormLabel>
               <Select placeholder='Select Branch' size={'md'} onChange={(e) => setNewIdbranch(e.target.value)}>
                 <option value="1">Yogyakarta EcoGroceries</option>
                 <option value="2">Jabodetabek EcoGroceries</option>
               </Select>
             </FormControl>
-            <FormControl mb={'3'}>
+            <FormControl mb={['1','3']}>
               <FormLabel>
                 <i>New Username</i>
               </FormLabel>

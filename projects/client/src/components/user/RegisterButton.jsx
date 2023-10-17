@@ -6,7 +6,7 @@ const RegisterButton = () => {
     const navigate = useNavigate()
   return (
     <>
-        <Link mr={5} color={"white"}  onClick={() => navigate('/register')}>
+        <Link mr={[1,3]} color={"white"}  onClick={() => navigate('/register')}>
             Register
         </Link>
     </>

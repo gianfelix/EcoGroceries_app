@@ -8,7 +8,6 @@ import {
   Button,
   Input,
   useColorModeValue,
-  useBreakpointValue,
 } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -19,8 +18,9 @@ export default function ProductDetail({ onAddToCart }) {
   const bgColor = useColorModeValue("rgb(255,255,255, 0.9)", "gray.800");
   const { id } = useParams();
   const [product, setProduct] = useState({});
-  const [discountPercent, setDiscountPercent] = useState(0); // Initialize as 0
-  const [quantity, setQuantity] = useState(1); // Initialize quantity as 1
+  const [qty, setqty] = useState(0);
+  const [discountPercent, setDiscountPercent] = useState(0); 
+  const [quantity, setQuantity] = useState(1); 
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -28,6 +28,7 @@ export default function ProductDetail({ onAddToCart }) {
         const response = await axios.get(`http://localhost:8000/api/stock/${id}`);
         const responseData = response.data.data;
         setProduct(responseData.Product);
+        setqty(responseData.qty)
         setDiscountPercent(responseData.discountPercent);
       } catch (error) {
         console.error("Error fetching product details:", error);
@@ -38,7 +39,6 @@ export default function ProductDetail({ onAddToCart }) {
   }, [id]);
 
   const handleAddToCart = () => {
-    // Pass both the product and quantity to the onAddToCart function
     onAddToCart(product, quantity);
   };
 
@@ -58,19 +58,16 @@ export default function ProductDetail({ onAddToCart }) {
     }).format(discountedPrice);
   };
 
-  // Function to increase the quantity
   const increaseQuantity = () => {
     setQuantity(quantity + 1);
   };
 
-  // Function to decrease the quantity, but not below 1
   const decreaseQuantity = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
     }
   };
 
-  // Function to handle input value change
   const handleQuantityChange = (event) => {
     const newValue = parseInt(event.target.value);
     if (!isNaN(newValue) && newValue >= 1) {
@@ -78,7 +75,6 @@ export default function ProductDetail({ onAddToCart }) {
     }
   };
 
-  const numColumns = useBreakpointValue({ base: 1, sm: 1, md: 2, lg: 2, xl: 2 });
   return (
     <Box
         bg={"teal.400"}
@@ -108,8 +104,11 @@ export default function ProductDetail({ onAddToCart }) {
         </Box>
         <Box flex="2" p={[2,4]} maxW='xl' textColor={'black'} mt={{ base: 0, md: 0 }} ml={{ base: 2, md: 4 }}>
           <Heading fontSize={["md","xl"]}>{product?.name}</Heading>
-          <Text color="gray.500" fontSize={["xs","sm"]} mb={2}>
+          <Text color="gray.500" fontSize={["xs","sm"]}>
             {product.Category?.category}
+          </Text>
+          <Text color="red" fontSize={["xs","sm"]} mb={2}>
+            Stock : {qty}
           </Text>
           <Flex>
             <Text fontWeight={800} fontSize={["md","xl"]} color={"teal"}>
@@ -140,7 +139,6 @@ export default function ProductDetail({ onAddToCart }) {
               textAlign="center"
               size={['xs','sm']}
               mx={'0.5'}
-            //   variant='unstyled'
             />
             <Button onClick={increaseQuantity} colorScheme="teal" size={['xs','sm']}>
               +

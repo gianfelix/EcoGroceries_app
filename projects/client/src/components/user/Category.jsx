@@ -4,21 +4,15 @@ import {
   Grid,
   Button,
   Menu,
-  MenuButton,
-  MenuList,
-  Text,
   Select,
   Box,
   Spacer,
   useDisclosure,
-  Flex,
 } from "@chakra-ui/react";
-import { FiDollarSign } from "react-icons/fi";
-import { AiOutlineClear } from "react-icons/ai";
 
 
 const Category = ({price, handleSortPrice, handleSortName, name, handleCategoryFilter}) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen } = useDisclosure();
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
@@ -40,14 +34,14 @@ const Category = ({price, handleSortPrice, handleSortName, name, handleCategoryF
 
   return (
     <Box mb={"10"}>
-      <Box mx={"5"} mb={"3"} mt={["3","5"]} style={{ display: "flex", justifyContent: "flex-end" }}>
+      <Box mx={"4"} mb={"3"} mt={["3","5"]} style={{ display: "flex", justifyContent: "flex-end" }}>
         <Menu isOpen={isOpen}>
           <Select value={name} onChange={handleSortName} placeholder="Sort by product" size={["xs","md"]} w={["","md"]} rounded={["md", "md"]}>
             <option value="asc">A-Z</option>
             <option value="desc">Z-A</option>
           </Select>
           <Spacer />
-          <Select value={price} onChange={handleSortPrice} placeholder="Sort by price" size={["xs","md"]} w={["","md"]} rounded={["md", "md"]}>
+          <Select value={price} onChange={handleSortPrice} placeholder="Sort by price" mr={0.99} size={["xs","md"]} w={["","md"]} rounded={["md", "md"]}>
             <option value="asc" >Ascending</option>
             <option value="desc" >Descending</option>
           </Select>
@@ -56,22 +50,26 @@ const Category = ({price, handleSortPrice, handleSortName, name, handleCategoryF
     
       <Grid
         gap={["2","5"]}
+        display={'flex'}
+        flexDirection={'row'}
         fontFamily={"monospace"}
-        px={"5"}
+        mx={"4"}
         pt={["","2"]}
         templateColumns={["1fr 1fr", "repeat(5, 1fr)"]}
-        maxW={"1200px"}
-        overflowX={"scroll"}
+        w={["360px","1155px"]}
+        overflowX={'scroll'}
       >
         {activeCategories.map((category) => (
           <Button
           key={category.id}
           variant={"outline"}
-          size={["xs","sm"]}
           fontWeight={'hairlain'}
           textColor={selectedCategory === category.id ? "black" : "white"}
           bgColor={selectedCategory === category.id ? "white" : "transparent"}
-          w="100%"
+          h={['25px','40px']}
+          w={["84px","215px"]}
+          minW={['84px','215px']}
+          fontSize={["2xs","md"]}
           _hover={{
             bgColor: "white",
             color: "black",

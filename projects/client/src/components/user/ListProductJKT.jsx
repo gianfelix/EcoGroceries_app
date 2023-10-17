@@ -26,12 +26,14 @@ import { Link } from "react-router-dom";
 export default function Product() {
   const bgColor = useColorModeValue("rgb(255,255,255, 0.9)", "gray.800");
   const [product, setProduct] = useState([]);
+  const [qty, setqty] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState([]);
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [name, setName] = useState("");
   const [totalPages, setTotalPages] = useState(0);
+
   const handleSearch = (query) => {
     setSearchQuery(query);
   };
@@ -48,7 +50,6 @@ export default function Product() {
   const fetchProduct = async () => {
     try {
       let apiUrl = `http://localhost:8000/api/stock/?page=${currentPage}&id_branch=2`;
-
       if (searchQuery) {
         apiUrl += `&name=${searchQuery}`;
       }
@@ -61,7 +62,6 @@ export default function Product() {
       if (name) {
         apiUrl += `&orderByName=${name}`;
       }
-
       const response = await axios.get(apiUrl);
       const yogyakartaStock = response.data.data
     setProduct(yogyakartaStock);
@@ -95,14 +95,14 @@ export default function Product() {
   };
 
   const [selectedProduct, setSelectedProduct] = useState(null);
-  
+
   const handleCloseProductDetail = () => {
     setSelectedProduct(null);
   };
 
   return (
     <Box minW={["","1190"]} maxW={["","1190"]}>
-      <Box width={["91%","97%"]} ml={'4'}>
+      <Box width={["91%","97.2%"]} ml={'4'}>
         <InputGroup borderRadius={"full"} size={["xs","sm"]}>
           <InputLeftElement
             pointerEvents="none"
@@ -139,16 +139,17 @@ export default function Product() {
         setName={setName}
         handleSearch={handleSearch}
       />
-      <Flex w="100%" gap={6} wrap="wrap" ml={4} mb={4}>
+      <Flex w="100%" columnGap={[9,6]} rowGap={[4,6]} wrap="wrap" pl={4} mb={4}>
         {product.map((product, index) => (
           <Box
             key={index}
             align={"center"}
             role="group"
-            p={4}
+            // p={4}
             maxW={{ base: "43%", md: "212px" }}
             w="full"
-            bg={bgColor}
+            pointerEvents={product.qty===0 ? "none":true}
+            bg={product.qty===0 ? "blackAlpha.300":bgColor}
             boxShadow="md"
             rounded="lg"
             pos="relative"
@@ -177,6 +178,9 @@ export default function Product() {
                   _after: {
                     filter: "blur(15px)",
                   },
+                }}
+                style={{
+                  filter: product.qty === 0 ? "blur(7px)" : "none",
                 }}
               >
                 <Image

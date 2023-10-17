@@ -25,6 +25,7 @@ import { MdPersonalInjury, MdHomeWork } from "react-icons/md";
 import PersonalData from "../../components/user/PersonalData";
 import Address from "../../components/user/Address";
 import HistoryOrder from "../../components/user/HistoryOrder";
+import Discount from "../../components/user/Discount";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import axios from "axios";
@@ -37,6 +38,7 @@ export default function UserProfileEdit() {
   const inputRef = useRef(null);
   const [isFileSelected, setIsFileSelected] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
 
   const handleAvatarChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -102,13 +104,14 @@ export default function UserProfileEdit() {
         },
       });
 
-      setSelectedImage(`http://localhost:8000/api/${response.data.data.avatar}`);
       setIsFileSelected(false);
       setIsEditing(false);
-    } catch (error) {
       handleAlertSuccess();
-      window.location.reload();
-      // handleAlertError();
+      setTimeout(()=>{
+        window.location.reload();
+      }, 2000)
+    } catch (error) {
+      handleAlertError();
     } finally {
       setIsSubmitting(false);
     }
@@ -261,7 +264,7 @@ export default function UserProfileEdit() {
               </TabPanel>
               <TabPanel>
                 <Box maxH={['470px', '550px']} overflowY="auto">
-                  <HistoryOrder />
+                  <Discount />
                 </Box>
               </TabPanel>
             </TabPanels>
@@ -367,7 +370,7 @@ export default function UserProfileEdit() {
               <Tab>Personal Data</Tab>
               <Tab>Your Address</Tab>
               <Tab>History Order</Tab>
-              <Tab>Voucher</Tab>
+              <Tab>Discount %</Tab>
             </TabList>
             <TabPanels>
               <TabPanel>
@@ -382,8 +385,8 @@ export default function UserProfileEdit() {
                 </Box>
               </TabPanel>
               <TabPanel>
-                <Box maxH={['470px', '550px']} overflowY="auto">
-                  <HistoryOrder />
+                <Box maxH={['470px', '450px']} overflowY="auto">
+                  <Discount />
                 </Box>
               </TabPanel>
             </TabPanels>

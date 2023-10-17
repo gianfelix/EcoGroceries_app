@@ -50,7 +50,7 @@ export default function CaptionCarousel() {
     <Box
       position={"relative"}
       bg={"teal.50"}
-      height={{ base: "2xs", md: "md", lg: "lg" }}
+      height={{ base: "", md: "md", lg: "lg" }}
       width={"full"}
       overflow={"hidden"}
     >

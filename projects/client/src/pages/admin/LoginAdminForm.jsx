@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { ExternalLinkIcon, ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {useNavigate} from 'react-router-dom'
 
 // import { loginSuccess } from "../../redux/AuthReduser";
@@ -18,7 +17,6 @@ import {
   Text,
   InputGroup,
   InputRightElement,
-  Link as LinkChakra,
   Center,
   Image,
 } from "@chakra-ui/react";
@@ -61,9 +59,9 @@ const LoginAdminForm = () => {
   return (
     <Box h={"100vh"} bg={"teal.300"} pt={20}>
       <Box  >
-        <Box mx="auto" bg={"white"} p={10} w={"60%"} borderRadius={"2xl"} >
+        <Box mx="auto" bg={"white"} p={[5,10]} w={["80%","60%"]} borderRadius={"2xl"} >
           <Center>
-            <Image src="EcoGroceriesApp.png" width="25%" height="auto"/>
+            <Image src="EcoGroceriesApp.png" width={["50%","25%"]} height="auto"/>
           </Center>
           <Heading as="h2" size="lg" mb={6} textAlign={"center"}>
             Admin Login
@@ -123,7 +121,6 @@ const LoginAdminForm = () => {
                   name="email"
                   as={Input}
                   placeholder="Enter your email address"
-                  // borderColor={"black"}
                 />
                 <ErrorMessage name="email" component={Text} color="red" />
               </FormControl>
@@ -135,12 +132,9 @@ const LoginAdminForm = () => {
                     name="password"
                     as={Input}
                     placeholder="Enter your password"
-                    // borderColor={"black"}
                   />
                   <InputRightElement width="3rem">
                     <Button
-                      // variant="link"
-                      // colorScheme="black"
                       h="1.5rem"
                       size="sm"
                       onClick={handleTogglePassword}

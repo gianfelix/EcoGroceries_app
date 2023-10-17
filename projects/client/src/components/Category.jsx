@@ -32,7 +32,7 @@ const Category = () => {
         <Heading as="h2" size="xl" textAlign="center" mb={8}>
           Categories
         </Heading>
-        <Wrap justify="center" spacing={8}>
+        <Wrap justify="center" spacing={[4,8]} overflowY={['scroll','']} maxH={['210px','350']} maxW={['','1500px']}>
           {activeCategories.map((category) => (
             <WrapItem key={category.id}>
             <Center

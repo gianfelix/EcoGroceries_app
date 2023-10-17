@@ -81,7 +81,7 @@ const CreateAdmin = ({ isOpen, onClose, onCreateSuccess }) => {
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} blockScrollOnMount={false} isCentered>
+      <Modal size={{ base: "xs", sm: "sm" }} isOpen={isOpen} onClose={onClose} blockScrollOnMount={false} isCentered>
         <ModalOverlay />
         <ModalContent bgColor={'rgba(0,0,0, 0.8)'} textColor="white">
           <ModalHeader>Create Cashier</ModalHeader>

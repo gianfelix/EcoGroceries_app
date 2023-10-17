@@ -120,16 +120,17 @@ const AdminList = () => {
   return (
     <Box maxW="10xl" px={{ base: 5, md: 20 }} py={"6"} maxH="730px" overflowY="auto">
       <Flex justify={"space-between"}>
-        <Heading>List Admin Branch</Heading>
+        <Heading size={['md','xl']}>List Admin Branch</Heading>
         <Link>
           <Button
             bgColor={"teal"}
             onClick={onCreateCashierOpen}
             color={"white"}
             _hover={{ color: "black" }}
+            size={['sm','md']}
           >
             Create Admin
-            <BiAddToQueue size={"30px"} />
+            <BiAddToQueue />
           </Button>
           <CreateCashier
             isOpen={isCreateCashierOpen}
@@ -143,12 +144,11 @@ const AdminList = () => {
         <Box key={index}>
           <Stack
             direction={{ base: "column", sm: "row" }}
-            spacing={10}
-            pt={1}
+            spacing={[0,10]}
             justify="center"
           >
             <Avatar
-              size="2xl"
+              size={["xl","2xl"]}
               shadow={"dark-lg"}
               alignSelf={"center"}
               showBorder={true}
@@ -168,7 +168,7 @@ const AdminList = () => {
                 </i>
               </Text>
               <Stack
-                alignItems={{ base: "center", sm: "flex-start" }}
+                alignItems={{ base: "flex-start", sm: "flex-start" }}
                 spacing={0}
               >
                 <Text fontWeight="bold" fontSize="lg" fontFamily={"cursive"}>

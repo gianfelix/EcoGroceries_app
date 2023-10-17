@@ -147,20 +147,21 @@ const Shop = () => {
       </Box>
 
       <Box bg={"#c4fff2"} pt={4} display={"flex"} justifyContent={"center"}>
-        <Text fontSize={"lg"} fontWeight="semibold">
+        <Text ml={["4",""]} fontSize={["sm","lg"]} fontWeight="semibold">
           Your Current Position
         </Text>
-        <Text fontSize={"lg"} fontWeight="bold">
+        <Text ontSize={["sm","lg"]} fontWeight="bold">
           : {userAddress}
         </Text>
       </Box>
 
-      <Flex bg={"#c4fff2"} pt={4} w={"100%"} px={"20%"}>
-        <Text minW={"130px"} fontSize="lg" pt={1} fontWeight={"semibold"}>
+      <Flex bg={"#c4fff2"} pt={4} w={"100%"} px={["4%","20%"]}>
+        <Text minW={"130px"} fontSize={["sm","lg"]} pt={1} fontWeight={"semibold"}>
           Select Address:
         </Text>
         <Select
           placeholder="Select an address"
+          size={["xs","md"]}
           border={"1px solid"}
           onChange={(event) => {
             const selected = availableAddresses.find(
@@ -177,6 +178,7 @@ const Shop = () => {
         </Select>
         <Button
           ml={5}
+          size={['sm','md']}
           colorScheme="teal"
           variant="solid"
           onClick={() => handleAddressSelect()}
@@ -188,10 +190,10 @@ const Shop = () => {
       {selectedAddress && (
         <Box bg={"#c4fff2"} pt={2} display="flex" justifyContent="center">
           
-          <Text fontSize="lg" fontWeight="bold" ml={2}>
+          <Text fontSize={["sm","lg"]} fontWeight="bold" ml={[4,2]}>
             {selectedAddress.userName}:
           </Text>
-          <Text fontSize="lg"  ml={2}>
+          <Text fontSize={["sm","lg"]}  ml={2}>
             (Latitude: {selectedAddress.latitude} Longitude:{" "}
             {selectedAddress.longitude})
           </Text>

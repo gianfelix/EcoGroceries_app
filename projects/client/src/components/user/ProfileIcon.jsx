@@ -64,7 +64,7 @@ const Profile = () => {
         <Flex ml={"5"}>
           <Flex>
             {/* Cart */}
-            <Button variant="ghost" mr={3} _hover={'black'} >
+            <Button variant="ghost" mr={[-1,3]} _hover={'black'} >
               <BsFillCartCheckFill color="white" size={25} onClick={openCartModal} />
               <CartModal
                 isOpen={isCartModalOpen}
@@ -92,16 +92,6 @@ const Profile = () => {
                 </Box>
                 <MenuDivider />
                   <Text ml={3} as='u' textColor={'black'} fontWeight="400" fontSize={'lg'}>Setting</Text>
-                <MenuItem textColor={'black'}>
-                <Link to="/forgot-password">
-                  <Text fontWeight="300">Forgot Password</Text>
-                </Link>
-                </MenuItem>
-                <MenuItem textColor={'black'}>
-                <Link to="/reset-password/:token">
-                  <Text fontWeight="300">Reset Password</Text>
-                </Link>
-                </MenuItem>
                 <MenuItem textColor={'black'}>
                 <Link to="/changes-password">
                   <Text fontWeight="300">Change Password</Text>
