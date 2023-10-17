@@ -96,13 +96,18 @@ const LoginAdminForm = () => {
                   localStorage.setItem("token", response.data.token);
                   handleLoginSuccess();
                 //   dispatch(loginSuccess(response.data.token))
-                  if(response.data.role === 0){
-                    navigate('/admin/super')
-                  } else if (response.data.role === 1) {
+                if (response.data.role === true) {
+                  console.log('super', response);
+                  navigate('/admin/super')
+                } else if (response.data.role === false) {
+                  // Check for branch if the role is false
+                  if (response.data.branch === 1) {
+                    console.log('yk', response);
                     navigate('/admin/yk')
-                  } else if (response.data.role === 2) {
+                  } else if (response.data.branch === 2) {
+                    console.log('jkt', response);
                     navigate('/admin/jkt')
-                  }
+                  }}
                 })
                 .catch(function (error) {
                   handleLoginError();

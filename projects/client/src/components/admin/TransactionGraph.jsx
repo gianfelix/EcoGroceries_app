@@ -20,9 +20,9 @@ const TransactionGraph = () => {
         const response = await axios.get(
           "http://localhost:8000/api/transaction"
         );
-        const transactions = response.data.transactions;
+        const transactions = response.data.transaction;
 
-        // Aggregate sales for the same date
+      
         const aggregatedData = aggregateSalesByDate(transactions);
 
         console.log("Aggregated Data:", aggregatedData);
@@ -58,10 +58,10 @@ const TransactionGraph = () => {
   return (
     <>
       <Heading mb={2} textAlign={"center"} fontSize={"2xl"}>
-      Total Sales Per Day Graph
+        Total Sales Per Day Graph
       </Heading>
       <Box display={"flex"} justifyContent={"center"}>
-        <LineChart width={1200} height={400} data={graphData}>
+        <LineChart width={1200} height={400} data={graphData}> {/* Reverse the data */}
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
           <YAxis />
@@ -70,7 +70,7 @@ const TransactionGraph = () => {
           <Line
             type="monotone"
             dataKey="totalSales"
-            stroke="teal  "
+            stroke="teal"
             strokeWidth={2}
             activeDot={{ r: 8 }}
           />

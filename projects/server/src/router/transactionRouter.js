@@ -1,6 +1,8 @@
 const router = require("express").Router();
-const { transactionControllers } = require("../controllers");
+const { auth, validation } = require("../middleware");
+const { getAllTransaction, getAllTransactionByBranch } = require('../controllers/transactionController1')
 
-router.get("/", transactionControllers.getAllTransaction);
+router.get("/", getAllTransaction);
+router.get('/branch', auth, getAllTransactionByBranch )
 
 module.exports = router;

@@ -31,9 +31,7 @@ const founders = [
 const AboutEcoGroceries = () => {
   return (
     <>
-    <Box>
-      <Navbar/>
-    </Box>
+
     <Box py={10}>
       <Container maxW="container.xl">
         <Center>
@@ -98,9 +96,7 @@ const AboutEcoGroceries = () => {
         </Center>
       </Container>
     </Box>
-    <Box>
-      <Footer/>
-    </Box>
+
     </>
   );
 };

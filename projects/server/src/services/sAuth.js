@@ -10,6 +10,7 @@ require("dotenv").config({
 const db = require("../models");
 const { Op } = require("sequelize");
 const users = db.User;
+const carts = db.Cart;
 const JWT_KEY = process.env.JWT_KEY;
 const VERIFY_MESSAGE = "Please check your email to verify your account";
 const BASE_REDIRECT = "http://localhost:3000";
@@ -52,40 +53,47 @@ function generateReferralCode() {
     }
     return code;
   }
-async function createAccount(name, email, phone, password, referred_by ) {
-      const referralCode = generateReferralCode();
-      try {
+  async function createAccount(name, email, phone, password, referred_by) {
+    const referralCode = generateReferralCode();
+
+    try {
         let referringUser = null;
-        
+
         if (referred_by) {
-          referringUser = await db.User.findOne({
-            where: { referral: referred_by },
-        });
-        
-        if (!referringUser) {
-            return { success: false, error: 'Referring user not found' };
+            referringUser = await db.User.findOne({
+                where: { referral: referred_by },
+            });
+
+            if (!referringUser) {
+                return { success: false, error: 'Referring user not found' };
+            }
         }
-    }
-    
-    const user = await db.sequelize.transaction(async (t) => {
-        return await users.create(
-            {
-                name,
-                email,
-                phone,
-                password,
-                referral: referralCode ,
-                referred_by: referringUser ? referringUser.id : null,
-            },
-            { transaction: t }
+
+        const result = await db.sequelize.transaction(async (t) => {
+            const createdUser = await users.create(
+                {
+                    name,
+                    email,
+                    phone,
+                    password,
+                    referral: referralCode,
+                    referred_by: referringUser ? referringUser.id : null,
+                },
+                { transaction: t }
             );
-        }); 
-    
-        return { success: true, user };
-      } catch (error) {
+
+            // Assuming you have a 'carts' model and an association like 'user.hasOne(cart)'
+            // You can create a cart associated with the user here.
+            const cart = await createdUser.createCart({}, { transaction: t });
+
+            return { success: true, user: createdUser, cart };
+        });
+
+        return result;
+    } catch (error) {
         console.error('Error creating user:', error);
         return { success: false, error: 'User creation failed' };
-      }
+    }
 }
 
 
@@ -144,11 +152,16 @@ async function verify(account) {
 async function login(email, password) {
     const account = await users.findOne({
         where: { email:email},
+        include: [{
+            model: carts,
+            attributes: ['id'], 
+          }],
     });
     if (!account) return messages.errorClient("Account not found");
+    const cartId = account.Cart.id;
     const compared = await bcrypt.compare(password, account["password"]);
     if (!compared) return messages.errorClient("Invalid name or password");
-    const payload = { id: account["id"], isVerified:true };
+    const payload = { id: account["id"], isVerified:true, cartId: cartId };
     const token = jwt.sign(payload, JWT_KEY, {
         expiresIn: "7d",
     });

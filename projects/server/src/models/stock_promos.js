@@ -16,9 +16,13 @@ module.exports = (sequelize, DataTypes) => {
   }
   Stock_Promos.init({
     promoName: DataTypes.STRING,
+    promoDescription: DataTypes.STRING,
     buyQty: DataTypes.INTEGER,
     getQty: DataTypes.INTEGER,
-    isActive: DataTypes.BOOLEAN,
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
     createdAt: {
       type: DataTypes.DATE,
     },

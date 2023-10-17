@@ -63,8 +63,9 @@ export default function Product() {
         apiUrl += `&orderByName=${name}`;
       }
       const response = await axios.get(apiUrl);
-      const yogyakartaStock = response.data.data
-    setProduct(yogyakartaStock);
+      console.log('response', response)
+      const jakartaStock = response.data.data
+    setProduct(jakartaStock);
     setTotalPages(response.data.totalPages);
     } catch (err) {
     }
@@ -72,6 +73,7 @@ export default function Product() {
 
   useEffect(() => {
     fetchProduct();
+
   }, [currentPage, price, category, name, searchQuery]);
 
   const handleSortPrice = (e) => {
@@ -156,7 +158,7 @@ export default function Product() {
             zIndex={1}
             mb={"3"}
           >
-            <Link to={`/product/${product.id}`} key={index}>
+            <Link to={`/shop/${product.id}`} key={index}>
               <Box
                 rounded="lg"
                 mt={-8}
@@ -228,7 +230,7 @@ export default function Product() {
                 </Stack>
               </Stack>
             </Link>
-            <Link to={`/product/${product.id}`}>
+            <Link to={`/shop/${product.id}`}>
               <Button
                 size={'md'}
                 fontSize={'small'}

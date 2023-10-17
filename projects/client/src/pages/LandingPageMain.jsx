@@ -27,9 +27,7 @@ const LandingPageMain = () => {
 
   return ( 
     <>
-      <Box>
-        <Navbar />
-      </Box>
+      
 
       <CaptionCarousel />
 
@@ -56,9 +54,7 @@ const LandingPageMain = () => {
 
         <Testimonials />
       </Box>
-      <Box>
-        <Footer/>
-      </Box>
+ 
     </>
   );
 };

@@ -77,7 +77,7 @@ const VerificationPage = () => {
 
   return (
     <Box>
-      <Navbar />
+ 
       <Center mt={5}>
         <Image s src={LOGO} width={{ base: "30%", md: "10%" }} height="auto" />
       </Center>
@@ -119,7 +119,7 @@ const VerificationPage = () => {
           </Text>
         </Box>
       </Box>
-      <Footer />
+
     </Box>
   );
 };

@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       Stock.belongsTo(models.Stock_Promos, { foreignKey: 'id_stock_promo' });
       Stock.hasMany(models.Stock_History, { foreignKey: 'id_stock' });
       Stock.belongsToMany(models.Cart, { through: 'Cart_Stock', foreignKey: 'id_stock' });
+      Stock.hasMany(models.Cart_Stock, { foreignKey: 'id_stock' });
     }
   }
 
@@ -24,6 +25,26 @@ module.exports = (sequelize, DataTypes) => {
       id_stock_promo: {
         type: DataTypes.INTEGER,
         defaultValue: 0,
+      },
+      isActive: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+      },
+      updatedAt: {
+        type: DataTypes.DATE,
+      },id_product: DataTypes.INTEGER,
+      id_branch: DataTypes.INTEGER,
+      qty: DataTypes.INTEGER,
+      discountPercent: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
+      id_stock_promo: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1,
       },
       isActive: {
         type: DataTypes.BOOLEAN,

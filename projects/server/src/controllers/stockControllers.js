@@ -1,6 +1,8 @@
 const db = require("../models");
 const Product = db.Product;
 const Stock = db.Stock;
+const Cart_Stock = db.Cart_Stock;
+const Cart = db.Cart;
 const Branch = db.Branch;
 const Stock_Promos = db.Stock_Promos;
 const Category = db.Category;
@@ -352,10 +354,12 @@ const stockControllers = {
   
   getStockById: async (req, res) => {
     try {
-      const stockId = parseInt(req.params.id); // Get the stock ID from the URL parameter
+      const { id } = req.params; // Get the stock ID from the URL parameter
+      const { cartId } = req.account;
+      console.log(cartId)
   
       // Find the stock record by ID
-      const stock = await Stock.findByPk(stockId, {
+      const stock = await Stock.findByPk(id, {
         include: [
           {
             model: Product,
@@ -375,16 +379,27 @@ const stockControllers = {
             model: Stock_Promos,
             attributes: ["id", "promoName"],
           },
+          
         ],
       });
-  
+     
       if (!stock) {
         return res.status(404).json({ message: "Stock record not found" });
       }
+      const stockQty = await Cart_Stock.findOne({
+        attributes: ["qty"], // Specify the attributes you want to include
+        where: {
+          id_cart: cartId, // Filter by cartId
+          id_stock: id, // Filter by the stock's ID
+        },
+      });
+      
+        // console.log('qty',stockQty)
   
       return res.status(200).json({
         message: "Get stock record by ID successfully",
         data: stock,
+        qty: stockQty ? stockQty.dataValues.qty : 0,
       });
     } catch (error) {
       console.error("Error fetching stock record by ID:", error);

@@ -9,7 +9,8 @@ const { Op } = require("sequelize");
 const generateToken = (admin) => {
     const payload = {
         id: admin.id,
-        adminSuper: admin.adminSuper // Use adminSuper for role
+        adminSuper: admin.adminSuper,
+        branch: admin.id_branch
     };
     const options = {
         expiresIn: "24h",
@@ -35,7 +36,7 @@ const adminController = {
                 return res.status(400).json({ message: "Wrong password" });
             }
             const token = generateToken(checkLogin);
-            return res.status(200).json({ message: "Login success:", token, role: checkLogin.id_branch });
+            return res.status(200).json({ message: "Login success:", token, role: checkLogin.adminSuper, branch:checkLogin.id_branch });
         } catch (error) {
             return res.status(400).json({ message: error.message });
         }

@@ -93,7 +93,7 @@ const ResetPasswordPage = () => {
 
   return (
     <Box>
-      <Navbar/>
+ 
         <Center mt={'5'}>
            <Image 
            src={LOGO}
@@ -200,7 +200,7 @@ const ResetPasswordPage = () => {
           </Text>
         </Box>
       </Box>
-      <Footer/>
+
     </Box>
   );
 };

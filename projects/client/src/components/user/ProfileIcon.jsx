@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -22,10 +22,11 @@ import axios from "axios";
 const Profile = () => {
   const [userData, setUserData] = useState({ name: '', avatar: '' });
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
+  const navigate = useNavigate();
 
-  const openCartModal = () => {
-    setIsCartModalOpen(true);
-  };
+  // const openCartModal = () => {
+  //   setIsCartModalOpen(true);
+  // };
   
   const closeCartModal = () => {
     setIsCartModalOpen(false);
@@ -64,8 +65,8 @@ const Profile = () => {
         <Flex ml={"5"}>
           <Flex>
             {/* Cart */}
-            <Button variant="ghost" mr={[-1,3]} _hover={'black'} >
-              <BsFillCartCheckFill color="white" size={25} onClick={openCartModal} />
+            <Button variant="ghost" mr={3} _hover={'black'} >
+              <BsFillCartCheckFill color="white" size={25} onClick={() => navigate('/cart')} />
               <CartModal
                 isOpen={isCartModalOpen}
                 onClose={closeCartModal}

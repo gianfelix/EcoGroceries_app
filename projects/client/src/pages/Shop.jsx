@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import axios from "axios";
+import jwt_decode from 'jwt-decode';
 
 const getReverseGeolocation = async (latitude, longitude) => {
   try {
@@ -66,11 +67,14 @@ const Shop = () => {
     const fetchUserAddresses = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:8000/api/address", {
+        const decodedToken = jwt_decode(token);
+      const userId = decodedToken.id;
+        const response = await axios.get(`http://localhost:8000/api/address/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
+        console.log("Response address:", response);
         setAvailableAddresses(response.data.data);
       } catch (error) {
         console.error("Error fetching user addresses:", error);
@@ -86,9 +90,7 @@ const Shop = () => {
   if (!userLocation) {
     return (
       <>
-        <Box>
-          <Navbar />
-        </Box>
+   
         <Box
           w={"full"}
           h={"100%"}
@@ -142,9 +144,6 @@ const Shop = () => {
 
   return (
     <>
-      <Box>
-        <Navbar />
-      </Box>
 
       <Box bg={"#c4fff2"} pt={4} display={"flex"} justifyContent={"center"}>
         <Text ml={["4",""]} fontSize={["sm","lg"]} fontWeight="semibold">
@@ -210,9 +209,6 @@ const Shop = () => {
             <LandingUnreachArea />
             </Box>
             )}
-      <Box>
-        <Footer />
-      </Box>
     </>
   );
 };

@@ -64,7 +64,7 @@ const LoginForm = () => {
 
   return (
     <Box>
-      <Navbar />
+
       <Box mt={10}>
         <Center>
           <Image src="EcoGroceriesApp.png" width={{ base: "30%", md: "10%" }} height="auto" />
@@ -174,7 +174,6 @@ const LoginForm = () => {
           </Text>
         </Box>
       </Box>
-      <Footer/>
     </Box>
   );
 };

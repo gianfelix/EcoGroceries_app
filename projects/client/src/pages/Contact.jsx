@@ -17,9 +17,7 @@ import Footer from "../components/Footer";
 const Contact = () => {
   return (
     <>
-    <Box>
-      <Navbar/>
-    </Box>
+
       <Box py={10}>
         <Container maxW="container.xl">
           <VStack spacing={6}>
@@ -97,9 +95,7 @@ const Contact = () => {
           </VStack>
         </Container>
       </Box>
-      <Box>
-        <Footer/>
-      </Box>
+
     </>
   );
 };

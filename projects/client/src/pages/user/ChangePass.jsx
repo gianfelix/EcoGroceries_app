@@ -116,7 +116,7 @@ const PasswordChangeForm = () => {
 
   return (
     <Box>
-      <Navbar />
+
       <Box mt={5}>
       <Center>
           <Image src="EcoGroceriesApp.png" width={{ base: "30%", md: "10%" }} height="auto" />
@@ -234,7 +234,7 @@ const PasswordChangeForm = () => {
           </Text> */}
         </Box>
       </Box>
-      <Footer/>
+
     </Box>
   );
 };

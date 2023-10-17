@@ -12,6 +12,7 @@ const stockRouter = require("./stockRouter");
 const stockPromoRouter = require("./stockPromoRouter");
 const vouchersRouter = require("./vouchersRouter");
 const transactionRouter = require("./transactionRouter");
+const userRouter = require('./userRouter')
 
 module.exports = {
   authRouter,
@@ -28,4 +29,5 @@ module.exports = {
   stockPromoRouter,
   vouchersRouter,
   transactionRouter,
+  userRouter,
 };

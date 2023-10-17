@@ -306,7 +306,7 @@ const StockProductJKT = () => {
           value={filterProductName}
           onChange={handleFilterProductNameChange}
         >
-          <option value="">Filter by product name</option>
+          <option value="">Select product name</option>
           {stockData.map((stock) => (
             <option value={stock.Product.id}>{stock.Product.name}</option>
           ))}

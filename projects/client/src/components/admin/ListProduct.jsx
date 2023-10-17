@@ -291,7 +291,7 @@ const ListProduct = () => {
     <>
       <Box display="flex" gap={6} my={3}>
         <Select value={filterProductName} onChange={handleFilterProductName}>
-          <option value="">Filter by product name</option>
+          <option value="">Select product name</option>
           {products.map((product) => (
             <option value={product.name}>{product.name}</option>
           ))}

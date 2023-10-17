@@ -11,7 +11,7 @@ const categoriesController = require('./categoriesController');
 const stockControllers = require('./stockControllers');
 const stockPromoControllers = require('./stockPromoControllers');
 const vouchersControllers = require('./vouchersControllers');
-const transactionControllers = require('./transactionControllers');
+
 
 module.exports = {
   authControllers,
@@ -27,5 +27,4 @@ module.exports = {
   stockControllers,
   stockPromoControllers,
   vouchersControllers,
-  transactionControllers,
 };

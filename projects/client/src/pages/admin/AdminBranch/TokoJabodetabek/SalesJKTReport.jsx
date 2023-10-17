@@ -1,22 +1,26 @@
-import React from "react";
-import TransactionList from "../../../../components/admin/TransactionList";
+import React from 'react'
 import { Box, Heading } from "@chakra-ui/react";
-import TransactionGraph from "../../../../components/admin/TransactionGraph";
+import TransactionGraphJkt from '../../../../components/admin/TransactionGraphJkt';
+import TransactionListJkt from '../../../../components/admin/TransactionListJkt';
+import TransactionReport from '../../../../components/admin/TransactionReport';
 
 const SalesJKTReport = () => {
   return (
     <>
-      <Box p={4}>
+    <Box p={4}>
         <Heading mb={6}>Report Management</Heading>
         <Box>
-          <TransactionGraph />
+          <TransactionGraphJkt />
         </Box>
+        {/* <Box boxShadow={"lg"} mt={2}>
+          <TransactionListJkt   />
+        </Box> */}
         <Box boxShadow={"lg"} mt={2}>
-          <TransactionList />
+          <TransactionReport/>
         </Box>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default SalesJKTReport;
+export default SalesJKTReport

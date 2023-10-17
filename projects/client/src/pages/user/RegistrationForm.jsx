@@ -102,7 +102,7 @@ const RegistrationForm = () => {
 
   return (
     <Box>
-      <Navbar />
+ 
       <Center mt={5}>
         <Image src="EcoGroceriesApp.png" width={{ base: "30%", md: "10%" }} height="auto"/>
       </Center>
@@ -244,7 +244,7 @@ const RegistrationForm = () => {
           </Text>
         </Box>
       </Box>
-      <Footer/>
+
     </Box>
   );
 };
