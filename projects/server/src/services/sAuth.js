@@ -53,41 +53,50 @@ function generateReferralCode() {
     }
     return code;
   }
-async function createAccount(name, email, phone, password, referred_by ) {
-      const referralCode = generateReferralCode();
-      try {
+  async function createAccount(name, email, phone, password, referred_by) {
+    const referralCode = generateReferralCode();
+
+    try {
         let referringUser = null;
-        
+
         if (referred_by) {
-          referringUser = await db.User.findOne({
-            where: { referral: referred_by },
-        });
-        
-        if (!referringUser) {
-            return { success: false, error: 'Referring user not found' };
+            referringUser = await db.User.findOne({
+                where: { referral: referred_by },
+            });
+
+            if (!referringUser) {
+                return { success: false, error: 'Referring user not found' };
+            }
         }
-    }
-    
-    const user = await db.sequelize.transaction(async (t) => {
-        return await users.create(
-            {
-                name,
-                email,
-                phone,
-                password,
-                referral: referralCode ,
-                referred_by: referringUser ? referringUser.id : null,
-            },
-            { transaction: t }
+
+        const result = await db.sequelize.transaction(async (t) => {
+            const createdUser = await users.create(
+                {
+                    name,
+                    email,
+                    phone,
+                    password,
+                    referral: referralCode,
+                    referred_by: referringUser ? referringUser.id : null,
+                },
+                { transaction: t }
             );
-        }); 
-    
-        return { success: true, user };
-      } catch (error) {
+
+            // Assuming you have a 'carts' model and an association like 'user.hasOne(cart)'
+            // You can create a cart associated with the user here.
+            const cart = await createdUser.createCart({}, { transaction: t });
+
+            return { success: true, user: createdUser, cart };
+        });
+
+        return result;
+    } catch (error) {
         console.error('Error creating user:', error);
         return { success: false, error: 'User creation failed' };
-      }
+    }
 }
+    
+
 
 
 async function getAccount(id) {

@@ -21,7 +21,6 @@ app.use(
   
   app.use('/api', apiRouter)
   apiRouter.use('/user', userRouter)
-  // apiRouter.use('/admin', apiRouter,adminRouter)
   apiRouter.use('/profile', profileRouter)
   apiRouter.use('/rajaongkir', rajaongkirRouter)
   apiRouter.use('/auth', authRouter)

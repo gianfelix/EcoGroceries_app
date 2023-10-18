@@ -80,6 +80,9 @@ async function getAllTransactionByBranch(req, res) {
           model: User,
           attributes: ['id', 'name'],
         },
+        {
+          model: Transaction_Stock
+        }
       ],
       order: [[sortBy, sortOrder]], // Specify the sorting criteria
       limit: limit,
@@ -127,7 +130,7 @@ async function getAllTransaction (req, res) {
     }
 
     const transactions = await Transaction.findAll(query,{
-      include: [{model: Transaction_Status, attributes:['status']}, {model: User, attributes:['id', 'name']}, {model: Branch, attributes:['id', 'name']}]
+      include: [{model: Transaction_Status, attributes:['status']}, {model: User, attributes:['id', 'name']}, {model: Branch, attributes:['id', 'name']}, {model: Transaction_Stock}]
     });
 
     res.status(200).json({transaction:transactions});
@@ -137,7 +140,20 @@ async function getAllTransaction (req, res) {
   }
 }
 
+async function getAllStockHistory(req, res) {
+  try {
+    const stocks = await Stock_History.findAll({
+      include: {
+        model: Stock,
+      },
+    });
 
+    res.status(200).json(stocks); // Send the result as a JSON response
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
 async function getStockHistoryByBranch(req, res) {
   try {
     const { id_branch } = req.account; // Replace with the actual id_branch you want to query for
@@ -185,7 +201,13 @@ async function getStockHistoryIdByBranch(req, res) {
         include: [
           {
               model: Transaction_Stock,
-              include: [{ model: Product }]
+          },
+          {
+            model:Transaction_Payment ,
+          },
+          {
+            model: Transaction_Status,
+            attributes: ['status']
           }
       ]
       })
@@ -214,5 +236,6 @@ async function getStockHistoryIdByBranch(req, res) {
     getStockHistoryByBranch, 
     getTransactionDetail, cancelTransaction,
     getTransactionUser, getAllTransaction,
-    getStockHistoryIdByBranch, getAllTransactionByBranch
+    getStockHistoryIdByBranch, getAllTransactionByBranch,
+    getAllStockHistory
   }

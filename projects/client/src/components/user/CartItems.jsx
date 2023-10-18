@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Text, Image, Button, VStack, Grid, HStack } from "@chakra-ui/react";
+import {  Text, Image, Button, VStack, Grid, HStack } from "@chakra-ui/react";
 import axios from 'axios';
 import { useToast } from "@chakra-ui/react";
 
-const CartItems = ({ data }) => {
+const CartItems = ({ data, onRemove }) => {
   const [quantity, setQuantity] = useState(data.qty);
   const [tempQuantity, setTempQuantity] = useState(data.qty);
   const toast = useToast(); // Initialize Chakra UI toast
+  const token = localStorage.getItem('token');
 
   const handleIncrement = () => {
     if (tempQuantity < data.Stock.qty) { // Check if stock quantity allows increment
@@ -23,7 +24,7 @@ const CartItems = ({ data }) => {
   };
 
   const handleDecrement = () => {
-    if (tempQuantity > 0) {
+    if (tempQuantity > 1) {
       setTempQuantity(tempQuantity - 1);
     }
   };
@@ -34,25 +35,45 @@ const CartItems = ({ data }) => {
       stockId: data.id_stock,
       quantity: tempQuantity,
     };
-
-    // Retrieve token from local storage
-    const token = localStorage.getItem('token');
-
-    // Make a PUT request to update the cart
     try {
       const response = await axios.post('http://localhost:8000/api/user/cart', requestData, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
       });
-
-      // Check the response and handle success or any other logic
       console.log('Cart updated successfully', response.data);
-
-      // Update the displayed quantity with the updated tempQuantity
       setQuantity(tempQuantity);
     } catch (error) {
       console.error('Error updating cart:', error);
+    }
+  };
+
+  const handleRemove = async () => {
+    const itemId = data.id;
+    try {
+      const res = await axios.delete(`http://localhost:8000/api/user/clean/${itemId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+      toast({
+        title: "Item Deleted",
+        description: `Item ${itemId} has been successfully deleted.`,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+      onRemove(itemId);
+      console.log('del', res)
+    } catch (error) {
+      toast({
+        title: "Error Deleting Item",
+        description: `An error occurred while deleting item ${itemId}.`,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+      console.error('Error removing item:', error);
     }
   };
 
@@ -61,7 +82,8 @@ const CartItems = ({ data }) => {
   }, [tempQuantity]);
 
   return (
-    <VStack // Use VStack to stack elements vertically
+    <>
+    <VStack 
       spacing={4}
       p={3}
       borderWidth="1px"
@@ -70,11 +92,11 @@ const CartItems = ({ data }) => {
       flexWrap="wrap"
       alignItems="flex-start"
     >
-      <Grid // Use a Grid to position image and text side by side
-        templateColumns="1fr 3fr" // Adjust column ratio as needed
+      <Grid 
+        templateColumns="1fr 3fr"
         gap={4}
       >
-        <Image src={data.Stock.Product.image} boxSize="100px" objectFit="cover" />
+        <Image src={`http://localhost:8000/api/${data.Stock.Product.productImg}`} boxSize="100px" objectFit="cover" />
         <Text
           mt="1"
           fontWeight="semibold"
@@ -93,8 +115,10 @@ const CartItems = ({ data }) => {
         <Text display="inline-block" mx="2">{tempQuantity}</Text>
         <Button onClick={handleIncrement}>+</Button>
         <Button colorScheme="blue" onClick={handleButtonClick}>Update</Button>
+     <Button colorScheme="red" onClick={handleRemove}>Remove</Button>
       </HStack>
     </VStack>
+   </>
   );
 };
 

@@ -182,7 +182,7 @@ async function getCartItems(req, res) {
           include: [
             {
               model: Product, 
-              attributes: ['name', 'price',], 
+              attributes: ['name', 'price','productImg'], 
             },
           ],
         },

@@ -2,11 +2,12 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { useTable, useSortBy, usePagination } from 'react-table';
 import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function TransactionJKT() {
   const [transactions, setTransactions] = useState([]);
   const token = localStorage.getItem('token');
-
+const navigate = useNavigate();
   useEffect(() => {
     const fetchTransactions = async () => {
       const response = await axios.get('http://localhost:8000/api/transaction/branch', {
@@ -14,6 +15,7 @@ function TransactionJKT() {
           'Authorization': `Bearer ${token}`,
         },
       });
+      console.log('tr', response)
       setTransactions(response.data.transactions);
     };
 
@@ -98,7 +100,12 @@ function TransactionJKT() {
             return (
               <Tr {...row.getRowProps()}>
                 {row.cells.map(cell => {
-                  return <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
+                  return <Td {...cell.getCellProps()}> <div
+                  onClick={() => navigate(`/admin/${row.original.id}`)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {cell.render('Cell')}
+                </div></Td>
                 })}
               </Tr>
             );

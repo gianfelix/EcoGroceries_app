@@ -67,7 +67,9 @@ function Checkout() {
         setResponse2(response.data);
         console.log("res2", response);
         const numb = response.data[0].Stock.id_branch;
+        console.log('numb', numb)
         setBranch(numb);
+        console.log('state', branch)
         updateBody({id_branch: numb})
         console.log("useeffect", branch)
       } catch (error) {
@@ -98,6 +100,7 @@ function Checkout() {
 
   useEffect(() => {
     const fetchAddresses = async () => {
+      console.log('fetch', branch)
       if (branch !== null) {
         try {
           const response = await axios.get(`http://localhost:8000/api/user/address/${branch}`, {
@@ -105,6 +108,7 @@ function Checkout() {
               Authorization: authorizationHeader,
             },
           });
+          console.log('branch api', response)
           setAddresses(response.data.address);
           updateShip({origin:response.data.branchCity})
           if (response.data.length > 0) {

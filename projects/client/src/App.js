@@ -19,6 +19,7 @@ import LoginAdminForm from "./pages/admin/LoginAdminForm";
 import AdminLandingSuper from "./pages/admin/AdminSuper/AdminLandingSuper";
 import AdminLandingYogyakarta from "./pages/admin/AdminBranch/TokoYK/AdminLandingYogyakarta";
 import AdminLandingJabodetabek from "./pages/admin/AdminBranch/TokoJabodetabek/AdminLandingJabodetabek";
+import TransactionDetails, {currentTransactionLoader} from "./pages/admin/TransactionDetails";
 
 //User Pages
 import LoginForm from "./pages/user/LoginForm";
@@ -42,13 +43,19 @@ import AdminLayout from "./layouts/AdminLayout";
 
 function checkUserRole() {
   const token = localStorage.getItem('token');
-
   const decoded = jwt_decode(token);
   if (decoded.adminSuper === true) return 'superAdmin';
   if (decoded.adminSuper === false) return 'admin';
   return 'user';
 }
 
+function checkBranch () {
+  const token = localStorage.getItem('token');
+  const decoded = jwt_decode(token);
+  if (decoded.adminSuper === true) {return 'super'}
+
+  else if (decoded.adminSuper === false) {return 'admin'}
+}
 function ProtectedAdminRoute({ children, allowedRoles }) {
   const navigate = useNavigate();
   const role = checkUserRole();
@@ -104,6 +111,7 @@ const router = createBrowserRouter(
         <Route path="jkt" element={<ProtectedAdminRoute allowedRoles={['admin']}><AdminLandingJabodetabek /></ProtectedAdminRoute>}/>
         <Route path="yk" element={<ProtectedAdminRoute allowedRoles={['admin']}><AdminLandingYogyakarta /></ProtectedAdminRoute>}/>
         <Route path="super" element={<ProtectedAdminRoute allowedRoles={['superAdmin']}><AdminLandingSuper /></ProtectedAdminRoute>}/>
+        <Route path=":id" element={<ProtectedAdminRoute allowedRoles={['admin']}><TransactionDetails /></ProtectedAdminRoute>}loader={currentTransactionLoader}/>
       </Route>
       <Route path="*" element={<NotFound404 />} />
   </Route>

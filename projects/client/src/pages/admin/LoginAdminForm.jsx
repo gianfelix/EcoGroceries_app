@@ -99,15 +99,15 @@ const LoginAdminForm = () => {
                   handleLoginSuccess();
                 //   dispatch(loginSuccess(response.data.token))
                 if (response.data.role === true) {
-                  console.log('super', response);
+                  // console.log('super', response);
                   navigate('/admin/super')
                 } else if (response.data.role === false) {
                   // Check for branch if the role is false
                   if (response.data.branch === 1) {
-                    console.log('yk', response);
+                    // console.log('yk', response);
                     navigate('/admin/yk')
                   } else if (response.data.branch === 2) {
-                    console.log('jkt', response);
+                    // console.log('jkt', response);
                     navigate('/admin/jkt')
                   }}
                 })

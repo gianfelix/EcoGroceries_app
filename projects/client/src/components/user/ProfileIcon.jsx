@@ -33,8 +33,8 @@ const Profile = () => {
   };
   
   const handleLogout = () => {
-    localStorage.removeItem("token");
     window.location.href = 'http://localhost:3000/';
+    localStorage.removeItem("token");
   };
 
   useEffect (() => {

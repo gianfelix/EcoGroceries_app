@@ -140,10 +140,7 @@ const Shop = () => {
 
   return (
     <>
-      <Box>
-        <Navbar />
-      </Box>
-
+    
       <Box bg={"#c4fff2"} pt={4} display={"flex"} justifyContent={"center"}>
         <Text fontSize={"lg"} fontWeight="semibold">
           Your Current Position

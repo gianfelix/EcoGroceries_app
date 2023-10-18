@@ -24,15 +24,24 @@ export default function ProductDetail() {
   const [discountPercent, setDiscountPercent] = useState(0); // Initialize as 0
   const [quantity, setQuantity] = useState(1); // Initialize quantity as 1
   const [stock, setStock] = useState(0);
+  const [idStock, setIdStock] = useState(0)
+  const token = localStorage.getItem("token"); // Get the token from local storage
+  
   const toast = useToast();
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+
   useEffect(() => {
     setDiscountPercent(product.discountPercent);
     setStock(product.qty)
     setQuantity(inCart)
+    setIdStock(product.id)
   }, []);
-
+useEffect(()=> {
+console.log('idstock', idStock)
+},[stock, idStock, quantity])
   const handleAddToCart = () => {
-    const token = localStorage.getItem("token"); // Get the token from local storage
 
     // Check if token exists
     if (!token) {
@@ -48,9 +57,6 @@ export default function ProductDetail() {
     };
 
     // Define the headers with the Authorization token
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
 
     // Make the POST request to the API
     axios
@@ -130,6 +136,60 @@ export default function ProductDetail() {
     }
   };
 
+  const handleDelete = () => {
+    const requestData = {
+      id_stock: idStock, // Assuming 'id_stock' is the correct property
+    };
+    console.log('req', requestData)
+  
+    try {
+      axios
+        .delete(`http://localhost:8000/api/user/clean/${idStock}`, { headers })
+        .then((response) => {
+          setQuantity(0)
+          // Handle success response here if needed
+          console.log("Successfully deleted item:", response.data);
+          // Display a success toast
+          toast({
+            title: "Item deleted",
+            description: "The item has been successfully deleted.",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+            position: "top",
+          });
+        })
+        .catch((error) => {
+          // Handle error response here
+          console.error("Error deleting item:", error);
+  
+          // Display an error toast
+          toast({
+            title: "Error",
+            description: "An error occurred while deleting the item.",
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+            position: "top",
+          });
+        });
+    } catch (error) {
+      // Handle any exception that may occur during the request
+      console.error("An error occurred:", error);
+  
+      // Display a general error toast
+      toast({
+        title: "Error",
+        description: "An error occurred while processing your request.",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top",
+      });
+    }
+  };
+  
+
   const numColumns = useBreakpointValue({ base: 1, sm: 1, md: 2, lg: 2, xl: 2 });
   return (
     <Box
@@ -159,6 +219,17 @@ flexDirection={{ base: "column", md: "row" }}
   />
 </Box>
 <Box flex="2" p={[2,4]} maxW='xl' textColor={'black'} mt={{ base: 0, md: 0 }} ml={{ base: 2, md: 4 }}>
+<Button
+        size={['sm','md']}
+        colorScheme="red"
+        onClick={handleDelete}
+        position="absolute"
+        top="10px" // Adjust the top position as needed
+        right="10px" // Adjust the right position as needed
+        zIndex="1" // Ensure it's above the content
+      >
+        Delete
+      </Button>
   <Heading fontSize={["md","xl"]}>{Product?.name}</Heading>
   <Text color="gray.500" fontSize={["xs","sm"]} mb={2}>
     {Product.Category?.category}
@@ -179,6 +250,8 @@ flexDirection={{ base: "column", md: "row" }}
     {formatPriceAsIDR(Product.price)}
   </Text>
   <Text fontSize={["sm","lg"]}>{Product?.description}</Text>
+  <Text fontSize={["sm","lg"]}>Stock in your cart</Text>
+
   <Flex mt={4}>
     <Button onClick={decreaseQuantity} colorScheme="teal" size={['xs','sm']}>
       -
@@ -198,6 +271,7 @@ flexDirection={{ base: "column", md: "row" }}
       +
     </Button>
   </Flex>
+  <Text>Stock left in shop: {stock}</Text>
   <Flex mt={4}>
     <Button size={['sm','md']} onClick={handleAddToCart} colorScheme="teal">
       Add to Cart

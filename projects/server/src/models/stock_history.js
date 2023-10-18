@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       totalQty: DataTypes.INTEGER,
       changedBy: DataTypes.STRING,
       id_change: DataTypes.INTEGER,
+      actor: DataTypes.STRING,
       createdAt: {
         type: DataTypes.DATE,
       },

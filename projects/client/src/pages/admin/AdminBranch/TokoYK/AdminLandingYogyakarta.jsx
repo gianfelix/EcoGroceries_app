@@ -9,6 +9,7 @@ import StockProductYKManagement from "./StockProductYKManagement";
 import VoucherPromo from "../TokoJabodetabek/VoucherPromo";
 import TransactionOrderYK from "./TransactionOrderYK";
 import SalesYKReport from "./SalesYKReport";
+import StockHistoryYK from "./StockHistoryYK"
 import { FiBriefcase, FiGrid, FiPercent, FiShoppingBag, FiLogOut } from "react-icons/fi";
 import { TbReportAnalytics } from "react-icons/tb";
 import { GiBuyCard } from "react-icons/gi";
@@ -35,7 +36,8 @@ const AdminLandingYogyakarta = () => {
         return <VoucherPromo />;
       case "report":
         return <SalesYKReport />;
-
+      case "history":
+        return <StockHistoryYK/>;
       default:
         return null;
     }
@@ -221,6 +223,33 @@ const AdminLandingYogyakarta = () => {
                     ml={2}
                   >
                     Report Management
+                  </Text>
+                </Box>
+              </Link>
+              <Link
+                as={"button"}
+                colorScheme={"teal"}
+                onClick={() => setActivePage("history")}
+              >
+                <Box
+                  display={"flex"}
+                  alignItems={"center"}
+                  justifyContent={"flex-start"}
+                  p={"4"}
+                  bg={"teal.800"}
+                  _hover={{ bg: "teal.600" }}
+                >
+                  <Icon
+                    as={TbReportAnalytics}
+                    w={{ base: 4, md: 6 }}
+                    h={{ base: 4, md: 6 }}
+                  />
+                  <Text
+                    fontSize={{ base: "lg", md: "18" }}
+                    fontWeight="bold"
+                    ml={2}
+                  >
+                    Stock History
                   </Text>
                 </Box>
               </Link>

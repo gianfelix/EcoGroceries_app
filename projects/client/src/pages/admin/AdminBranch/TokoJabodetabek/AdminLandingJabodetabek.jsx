@@ -1,7 +1,7 @@
 import { Box, Flex, Icon, Link, Text, VStack } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import StockHistoryJKT from './StockHistoryJKT'
 import ProductJKTManagement from "./ProductJKTManagement";
 import CategoryJKTManagement from "./CategoryJKTManagement";
 import TransactionOrderJKT from "./TransactionOrderJKT";
@@ -40,7 +40,8 @@ const AdminLandingJabodetabek = () => {
         return <VoucherPromo />;
       case "report":
         return <SalesJKTReport />;
-
+        case "history":
+          return <StockHistoryJKT/>;
       default:
         return null;
     }

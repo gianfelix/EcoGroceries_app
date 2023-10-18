@@ -117,6 +117,7 @@ async function createTransaction (req, res) {
         weight: cartStock.weight,
         id_product: stock.id_product,
         productName: product.name, // Include the product name
+        productImg: product.productImg, // Include the product name
         // Copy any other columns from Cart_Stock that need to be included in Transaction_Stock
       };
 
@@ -171,4 +172,4 @@ async function createTransaction (req, res) {
   }
 }
 
-module.exports = {getAddressCheckout, createTransaction, deleteCartItems}
+module.exports = {getAddressCheckout, createTransaction, }

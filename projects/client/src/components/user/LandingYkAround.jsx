@@ -64,9 +64,6 @@ const LandingYkAround = () => {
   if (!userLocation) {
     return (
       <>
-        <Box>
-          <Navbar />
-        </Box>
         <Box
           w={"full"}
           h={"100%"}
@@ -84,9 +81,6 @@ const LandingYkAround = () => {
 
   return (
     <>
-      {/* <Box>
-        <Navbar />
-      </Box> */}
       {/* <Flex bg={"teal.400"} pt={8} pl={20}>
         <Button
           mr={5}
@@ -125,7 +119,6 @@ const LandingYkAround = () => {
         </Text>
         <ListProduct />
       </Box>
-      {/* <Footer /> */}
     </>
   );
 };

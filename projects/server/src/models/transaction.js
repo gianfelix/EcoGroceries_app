@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       Transaction.belongsTo(models.Transaction_Status, { foreignKey: 'id_status' });
       Transaction.belongsToMany(models.Stock, { through: 'Transaction_Stock', foreignKey: 'id_transaction' });
       Transaction.hasMany(models.Transaction_Voucher, { foreignKey: 'id_transaction' });
+      Transaction.hasMany(models.Transaction_Stock, { foreignKey: 'id_transaction' });
       Transaction.hasOne(models.Transaction_Payment, {foreignKey: 'id_transaction'});
     }
   }

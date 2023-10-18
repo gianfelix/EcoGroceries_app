@@ -22,7 +22,8 @@ const TransactionList = () => {
         const response = await axios.get(
           "http://localhost:8000/api/transaction"
         );
-        setTransactions(response.data.transactions);
+        console.log('res', response)
+        setTransactions(response.data.transaction);
       } catch (error) {
         console.error("Error fetching transactions:", error);
       }
