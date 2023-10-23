@@ -69,51 +69,50 @@ export default function Discount() {
         backgroundSize='contain'  // Set the background image to cover the container
         backgroundPosition="center center"  // Center the background image
         backgroundRepeat="no-repeat"  // Prevent the background image from repeating
-        height="20vh"  // Set the height to take up the full viewport height
+        height="auto"  // Set the height to take up the full viewport height
         width="100%"  // Set the width to take up the full viewport width
       >
         <Flex gap={['','2']}>
-            <Box alignSelf={'center'} ml={['1','3']} mt={['5','2']} w={'190px'} h={'150px'}>
-                <Heading size={['xs','md']} color={'white'} align={'center'}>
+            <Box alignSelf={'center'} ml={['1','3']} mt={['0','0']} w={'190px'} h={'150px'} pt={{base:'1', md: '3'}}>
+                <Heading size={['xs','md']} pt={{base: '7', md: '0'}} color={'white'} align={'center'}>
                     Discount
                 </Heading>
-                <Heading size={['md','2xl']} color={'white'} align={'center'}>
-                {voucher.discountPercent}%
+                <Heading
+                  size={{base: 'md', md: 'lg'}}
+                  color={'white'}
+                  align={'center'}
+                >
+                  {voucher.discountPercent >= 1
+                    ? `${voucher.discountPercent}%  `
+                    : `${formatCurrencyIDR(voucher.discountPrice)} `}
                 </Heading>
-                <Heading size={['xs','sm']} color={'white'} align={'center'}>
+
+                <Heading size={['xs','sm']} color={'white'} align={'center'} >
                     {voucher.codeVoucher}
                 </Heading>
             </Box>
-            <Box w={'280px'} h={'150px'} mt={['5','2']}>
-                <Heading fontStyle={'italic'} size={['xs','md']} color={'white'} align={'center'}>
+            <Box w={'280px'} h={'150px'} mt={['1','3']} pt={2}>
+                <Heading fontStyle={'italic'} size={['xs','md']} color={'white'} align={'center'} pt={{base: '5', md: '0'}}>
                     {voucher?.Category?.category ? voucher?.Category?.category : "All Product"} Category
                 </Heading>
-                <Heading size={['md','lg']} color={'white'} align={'center'} mt={['2','3']}>
+                <Heading size={['sm','lg']} color={'white'} align={'center'} mt={['1','1']}>
                 {voucher.name} 
                 </Heading>
                 <Text fontSize={['xs','md']} color={'white'} align={'center'}>
                     Min-purchase {formatCurrencyIDR(voucher.minTotPrice)}
                 </Text>
-                <Flex mt={['2', '6']} justify={'space-between'} mr={['2','5']}>
-                    <Heading
-                        css={{
-                            fontSize: '3px', // Ukuran font untuk desktop
-                            "@media (max-width: 1536px)": {
-                            fontSize: '10px' // Ukuran font untuk perangkat mobile (lebar maksimum 768px)
-                            }
-                        }}
+                <Flex mt={['2', '2']} justify={'space-around'} mr={['2','5']}>
+                    <Text
+                    fontWeight={'bold'}
+                        fontSize={['xs','md']}
                         color={'white'}
                         align={'center'}
                     >
                         Max Disc {formatCurrencyIDR(voucher.maxDiscPrice)}
-                    </Heading>
-                    <Heading
-                        css={{
-                            fontSize: '3px', // Ukuran font untuk desktop
-                            "@media (max-width: 1536px)": {
-                            fontSize: '10px' // Ukuran font untuk perangkat mobile (lebar maksimum 768px)
-                            }
-                        }}
+                    </Text>
+                    <Text
+                    fontWeight={'bold'}
+                        fontSize={['xs','md']}
                         color={'white'}
                         align={'center'}
                     >
@@ -139,7 +138,7 @@ export default function Discount() {
                         ) : (
                         "-"
                         )}
-                    </Heading>
+                    </Text>
                 </Flex>
             </Box>
         </Flex>

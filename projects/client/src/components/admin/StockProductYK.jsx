@@ -251,6 +251,18 @@ const StockProductYK = () => {
     setCurrentPage(page);
   };
 
+  const handlePrevClick = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  
+  const handleNextClick = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  }
+
   useEffect(() => {
     fetch(
       `http://localhost:8000/api/stock?id_product=${filterProductName}&id_category=${filterCategoryName}&orderByName=${orderByName}&orderByPrice=${orderByPrice}&page=${currentPage}&pageSize=19`
@@ -430,6 +442,9 @@ const StockProductYK = () => {
         )}
       </Box>
       <Box mt={2} display="flex" justifyContent="center">
+        <Button m={1} colorScheme="teal" onClick={handlePrevClick} disabled={currentPage === 1}>
+          Previous
+        </Button>
         {pages.map((page) => (
           <Button
             m={1}
@@ -441,6 +456,9 @@ const StockProductYK = () => {
             {page}
           </Button>
         ))}
+        <Button m={1} colorScheme="teal" onClick={handleNextClick} disabled={currentPage === pages.length}>
+          Next
+        </Button>
       </Box>
       {selectedStock && (
         <EditStockModal

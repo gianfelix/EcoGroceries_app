@@ -296,7 +296,7 @@ console.log('filter',filteredData)
         </Button>
       </Stack>
     ))}
-    <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+    <Modal isOpen={isModalOpen} onClose={handleCloseModal} size={{ base: "xs", md: "lg" }}>
   <ModalOverlay />
   <ModalContent>
     <ModalHeader>Transaction Details</ModalHeader>

@@ -151,7 +151,7 @@ const toast = useToast()
   cursor="pointer" 
   onClick={() => {
     if (transaction.Transaction_Payment && transaction.Transaction_Payment.paymentProof) {
-      setModalImageUrl(`http://localhost:8000/api/public/${transaction.Transaction_Payment.paymentProof}`);
+      setModalImageUrl(`http://localhost:8000/api/${transaction.Transaction_Payment.paymentProof}`);
       setIsModalOpen(true);
     }
   }}

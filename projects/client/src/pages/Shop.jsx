@@ -117,7 +117,7 @@ const Shop = () => {
       longitude >= 110.011482 &&
       longitude <= 110.843268) ||
     (userLocation.latitude >= -8.206338 &&
-      userLocation.latitude <= -7.543457 &&
+      userLocation.latitude <= -7.843457 &&
       userLocation.longitude >= 110.011482 &&
       userLocation.longitude <= 110.843268);
 

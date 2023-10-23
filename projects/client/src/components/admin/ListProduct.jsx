@@ -84,6 +84,18 @@ const ListProduct = () => {
     setCurrentPage(page);
   };
 
+  const handlePrevPage= () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  }
+
   useEffect(() => {
     axios
       .get(
@@ -399,6 +411,9 @@ const ListProduct = () => {
         </Tbody>
       </Table>
       <Box my={3} display="flex" justifyContent="center">
+      <Button m={1} onClick={handlePrevPage} colorScheme="teal">
+          Previous
+        </Button>
         {pages.map((page) => (
           <Button
             m={1}
@@ -410,6 +425,10 @@ const ListProduct = () => {
             {page}
           </Button>
         ))}
+        
+        <Button m={1} onClick={handleNextPage} colorScheme="teal">
+          Next
+        </Button>
       </Box>
 
       <Modal isOpen={isUpdateModalOpen} onClose={handleCloseUpdateModal}>

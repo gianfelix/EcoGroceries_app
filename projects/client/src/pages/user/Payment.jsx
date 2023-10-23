@@ -52,12 +52,12 @@ function Payment() {
       formData.append('payment', fileInputRef.current.files[0]); // Use the ref to access the selected file
       formData.append('trId', trId);
 
-      // const response = await axios.post('http://localhost:8000/api/user/payment', formData, {
-      //   headers: {
-      //     Authorization: authorizationHeader,
-      //     'Content-Type': 'multipart/form-data',
-      //   },
-      // });
+      const response = await axios.post('http://localhost:8000/api/user/payment', formData, {
+        headers: {
+          Authorization: authorizationHeader,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       // console.log(response);
 
       setSuccessMessage('Thank you for your payment. It will be processed immediately.');
