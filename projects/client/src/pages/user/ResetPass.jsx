@@ -65,7 +65,7 @@ const ResetPasswordPage = () => {
     setIsSubmitting(true);
     axios
       .patch(
-        "http://localhost:8000/api/auth/reset",
+        "https://jcwd011003.purwadhikabootcamp.com/api/auth/reset",
         {
           password: values.password,
           confirm_password: values.confirm_password,

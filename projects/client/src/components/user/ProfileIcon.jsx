@@ -41,7 +41,7 @@ const Profile = () => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:8000/api/profile', {
+        const res = await axios.get('https://jcwd011003.purwadhikabootcamp.com/api/profile', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -75,7 +75,7 @@ const Profile = () => {
             {/* Menu Profile */}
             <Menu>
               <MenuButton as={Button} size="sm" p={0} rounded="full" mt={"1"}>
-                <Avatar size="sm" src={`http://localhost:8000/api/${userData.avatar}`} />
+                <Avatar size="sm" src={`https://jcwd011003.purwadhikabootcamp.com/api/${userData.avatar}`} />
               </MenuButton>
               <MenuList
                 zIndex={5}

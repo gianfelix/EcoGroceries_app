@@ -22,7 +22,7 @@ export default function PersonalData({updateUserData}) {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:8000/api/profile", {
+        const res = await axios.get("https://jcwd011003.purwadhikabootcamp.com/api/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -74,7 +74,7 @@ export default function PersonalData({updateUserData}) {
     try {
       setSubmittingButton(buttonId);
       const token = localStorage.getItem("token");
-      const url = `http://localhost:8000/api/profile/${field}`;
+      const url = `https://jcwd011003.purwadhikabootcamp.com/api/profile/${field}`;
       const data = {
         [field]: userData[field],
       };

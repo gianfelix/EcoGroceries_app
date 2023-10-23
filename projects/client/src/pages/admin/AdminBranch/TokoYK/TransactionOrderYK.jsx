@@ -10,7 +10,7 @@ function TransactionYK() {
 const navigate = useNavigate();
   useEffect(() => {
     const fetchTransactions = async () => {
-      const response = await axios.get('http://localhost:8000/api/transaction/branch', {
+      const response = await axios.get('https://jcwd011003.purwadhikabootcamp.com/api/transaction/branch', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },

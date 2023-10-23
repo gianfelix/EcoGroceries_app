@@ -38,7 +38,7 @@ export default function PersonalData() {
   const toast = useToast();
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/user/transaction', {
+        const response = await axios.get('https://jcwd011003.purwadhikabootcamp.com/api/user/transaction', {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log("cek fetch transaction",response);
@@ -70,7 +70,7 @@ const handleAction = async (id, action) => {
   if (action === 'Cancel') {
     console.log('cancel', id);
     try {
-      const resCancel = await axios.patch(`http://localhost:8000/api/user/confirm/${id}`, null, {
+      const resCancel = await axios.patch(`https://jcwd011003.purwadhikabootcamp.com/api/user/confirm/${id}`, null, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -113,7 +113,7 @@ const handleAction = async (id, action) => {
     navigate('/payment')
   }  else if (action === 'Confirm') { 
     try {
-      const resCancel = await axios.patch(`http://localhost:8000/api/user/confirm/${id}`, null, {
+      const resCancel = await axios.patch(`https://jcwd011003.purwadhikabootcamp.com/api/user/confirm/${id}`, null, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -257,7 +257,7 @@ console.log('filter',filteredData)
         <Flex>
           <Box>
             <Image
-              src={`http://localhost:8000/api/${item.Transaction_Stocks[0].productImg}`}
+              src={`https://jcwd011003.purwadhikabootcamp.com/api/${item.Transaction_Stocks[0].productImg}`}
               boxSize="50px"
               objectFit="cover"
               alt="fruit"
@@ -304,7 +304,7 @@ console.log('filter',filteredData)
     <ModalBody>
       {selectedTransaction && selectedTransaction.Transaction_Stocks.map((stock, stockIndex) => (
         <Box display={"flex"} direction="column" borderWidth="1px" borderRadius="lg" p="4" marginBottom="2">
-        <Image src={`http://localhost:8000/api/${stock.productImg}`} boxSize="100px" objectFit="cover" alt="fruit" />
+        <Image src={`https://jcwd011003.purwadhikabootcamp.com/api/${stock.productImg}`} boxSize="100px" objectFit="cover" alt="fruit" />
         <Box key={stockIndex} ml={4} mt={2}>
           <Heading as="h2" size="md" marginBottom="1">
             {stock.productName}

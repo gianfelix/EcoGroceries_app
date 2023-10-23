@@ -16,7 +16,7 @@ function Payment() {
   useEffect(() => {
     const fetchUnpaid = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/user/unpaid', {
+        const response = await axios.get('https://jcwd011003.purwadhikabootcamp.com/api/user/unpaid', {
           headers: {
             Authorization: authorizationHeader,
           },
@@ -52,7 +52,7 @@ function Payment() {
       formData.append('payment', fileInputRef.current.files[0]); // Use the ref to access the selected file
       formData.append('trId', trId);
 
-      const response = await axios.post('http://localhost:8000/api/user/payment', formData, {
+      const response = await axios.post('https://jcwd011003.purwadhikabootcamp.com/api/user/payment', formData, {
         headers: {
           Authorization: authorizationHeader,
           'Content-Type': 'multipart/form-data',

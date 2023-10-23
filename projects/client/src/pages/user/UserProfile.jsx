@@ -96,7 +96,7 @@ export default function UserProfileEdit() {
       const token = localStorage.getItem('token');
       const formData = new FormData();
       formData.append('avatar', inputRef.current.files[0]);
-      const response = await axios.patch('http://localhost:8000/api/profile/avatar', formData, {
+      const response = await axios.patch('https://jcwd011003.purwadhikabootcamp.com/api/profile/avatar', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -120,7 +120,7 @@ export default function UserProfileEdit() {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:8000/api/profile', {
+        const res = await axios.get('https://jcwd011003.purwadhikabootcamp.com/api/profile', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -129,7 +129,7 @@ export default function UserProfileEdit() {
         const { name, avatar, email, phone, gender, referral, birthday, referred_by } = res.data.data;
         const formattedBirthday = formatBirthday(birthday);
         setUserData({ name, avatar, email, phone, gender, referral, birthday: formattedBirthday, referred_by });
-        setSelectedImage(`http://localhost:8000/api/${avatar}`);
+        setSelectedImage(`https://jcwd011003.purwadhikabootcamp.com/api/${avatar}`);
       } catch (error) {
         // Handle errors
       }

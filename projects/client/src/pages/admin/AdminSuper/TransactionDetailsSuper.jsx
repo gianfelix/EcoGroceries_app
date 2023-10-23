@@ -143,7 +143,7 @@ const toast = useToast()
   <Flex direction="row" align="center">
   <Image
   src={transaction.Transaction_Payment && transaction.Transaction_Payment.paymentProof
-    ? `http://localhost:8000/api/${transaction.Transaction_Payment.paymentProof}`
+    ? `https://jcwd011003.purwadhikabootcamp.com/api/${transaction.Transaction_Payment.paymentProof}`
     : 'Unpaid transaction'
   }
   alt="Unpaid Transaction"
@@ -151,7 +151,7 @@ const toast = useToast()
   cursor="pointer" 
   onClick={() => {
     if (transaction.Transaction_Payment && transaction.Transaction_Payment.paymentProof) {
-      setModalImageUrl(`http://localhost:8000/api/${transaction.Transaction_Payment.paymentProof}`);
+      setModalImageUrl(`https://jcwd011003.purwadhikabootcamp.com/api/${transaction.Transaction_Payment.paymentProof}`);
       setIsModalOpen(true);
     }
   }}
@@ -237,7 +237,7 @@ export default TransactionDetailsSuper;
 export const currentTransactionSuperLoader = async ({params}) => {
     const {id} = params;
 
-    const res = await fetch(`http://localhost:8000/api/transaction/${id}`, {
+    const res = await fetch(`https://jcwd011003.purwadhikabootcamp.com/api/transaction/${id}`, {
         headers: {
           "Authorization": `Bearer ${token}`
         },

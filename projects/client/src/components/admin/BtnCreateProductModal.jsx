@@ -64,7 +64,7 @@ const BtnCreateProductModal = () => {
       formDataToSubmit.append("productImg", formData.productImg); 
 
       const response = await axios.post(
-        "http://localhost:8000/api/product",
+        "https://jcwd011003.purwadhikabootcamp.com/api/product",
         formDataToSubmit,
         {
           headers: {
@@ -97,7 +97,7 @@ const BtnCreateProductModal = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/category")
+      .get("https://jcwd011003.purwadhikabootcamp.com/api/category")
       .then((response) => {
         setCategories(response.data.data);
         console.log(response)

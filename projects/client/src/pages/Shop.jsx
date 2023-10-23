@@ -69,7 +69,7 @@ const Shop = () => {
         const token = localStorage.getItem("token");
         const decodedToken = jwt_decode(token);
       const userId = decodedToken.id;
-        const response = await axios.get(`http://localhost:8000/api/address/${userId}`, {
+        const response = await axios.get(`https://jcwd011003.purwadhikabootcamp.com/api/address/${userId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

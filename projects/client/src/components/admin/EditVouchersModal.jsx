@@ -35,7 +35,7 @@ const EditVouchersModal = ({
   const handleSave = async () => {
     try {
       const response = await axios.patch(
-        `http://localhost:8000/api/vouchers/${editingVoucher.id}`,
+        `https://jcwd011003.purwadhikabootcamp.com/api/vouchers/${editingVoucher.id}`,
         {
           name: editingVoucher.name,
           details: editingVoucher.details,

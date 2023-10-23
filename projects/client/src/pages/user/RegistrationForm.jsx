@@ -73,7 +73,7 @@ const RegistrationForm = () => {
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/auth/register",
+        "https://jcwd011003.purwadhikabootcamp.com/api/auth/register",
         values
       );
       handleAlertSuccess();

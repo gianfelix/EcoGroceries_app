@@ -47,7 +47,7 @@ export default function Discount() {
 
   const fetchVouchers = () => {
     axios
-      .get("http://localhost:8000/api/vouchers")
+      .get("https://jcwd011003.purwadhikabootcamp.com/api/vouchers")
       .then((response) => {
         setVouchers(response.data);
       })

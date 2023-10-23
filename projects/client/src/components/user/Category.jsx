@@ -24,7 +24,7 @@ const Category = ({price, handleSortPrice, handleSortName, name, handleCategoryF
   const fetchCategories = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/api/category"
+        "https://jcwd011003.purwadhikabootcamp.com/api/category"
       );
       setCategories(response.data.data);
     } catch (error) {

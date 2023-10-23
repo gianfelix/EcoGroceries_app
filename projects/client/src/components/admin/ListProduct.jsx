@@ -29,7 +29,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
-const PUBLIC_URL = "http://localhost:8000/api";
+const PUBLIC_URL = "https://jcwd011003.purwadhikabootcamp.com/api";
 
 const ListProduct = () => {
   const toast = useToast();
@@ -99,7 +99,7 @@ const ListProduct = () => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:8000/api/product?isActive=true&page=${currentPage}&size=8&name=${filterProductName}&id_category=${filterCategoryName}&sort_name=${orderByName}&sort_Harga=${orderByPrice}`
+        `https://jcwd011003.purwadhikabootcamp.com/api/product?isActive=true&page=${currentPage}&size=8&name=${filterProductName}&id_category=${filterCategoryName}&sort_name=${orderByName}&sort_Harga=${orderByPrice}`
       )
       .then((response) => {
         setProducts(response.data.data);
@@ -125,7 +125,7 @@ const ListProduct = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/category")
+      .get("https://jcwd011003.purwadhikabootcamp.com/api/category")
       .then((response) => {
         setCategories(response.data.data);
       })
@@ -136,10 +136,10 @@ const ListProduct = () => {
 
   const handleActivate = (productId) => {
     axios
-      .patch(`http://localhost:8000/api/product/${productId}/activate`)
+      .patch(`https://jcwd011003.purwadhikabootcamp.com/api/product/${productId}/activate`)
       .then(() => {
         axios
-          .get("http://localhost:8000/api/product?isActive=true")
+          .get("https://jcwd011003.purwadhikabootcamp.com/api/product?isActive=true")
           .then((response) => {
             setProducts(response.data.data);
             setTimeout(() => {
@@ -163,10 +163,10 @@ const ListProduct = () => {
 
   const handleDeactivate = (productId) => {
     axios
-      .patch(`http://localhost:8000/api/product/${productId}/deactivate`)
+      .patch(`https://jcwd011003.purwadhikabootcamp.com/api/product/${productId}/deactivate`)
       .then(() => {
         axios
-          .get("http://localhost:8000/api/product?isActive=true")
+          .get("https://jcwd011003.purwadhikabootcamp.com/api/product?isActive=true")
           .then((response) => {
             setProducts(response.data.data);
             setTimeout(() => {
@@ -245,14 +245,14 @@ const ListProduct = () => {
     formData.append("id_category", id_category);
 
     axios
-      .patch(`http://localhost:8000/api/product/${productId}`, formData, {
+      .patch(`https://jcwd011003.purwadhikabootcamp.com/api/product/${productId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then(() => {
         axios
-          .get("http://localhost:8000/api/product?isActive=true")
+          .get("https://jcwd011003.purwadhikabootcamp.com/api/product?isActive=true")
           .then((response) => {
             setProducts(response.data.data);
             handleCloseUpdateModal();

@@ -37,7 +37,7 @@ const EditCashier = ({ isOpen, onClose, cashier, onUpdate, onEditSuccess }) => {
 
   const handleSave = async () => {
     try {
-      const response = await axios.patch(`http://localhost:8000/api/admin/update/${cashier.id}`, {
+      const response = await axios.patch(`https://jcwd011003.purwadhikabootcamp.com/api/admin/update/${cashier.id}`, {
         currentIdbranch,
         currentUsername,
         currentEmail,

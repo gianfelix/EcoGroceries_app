@@ -28,7 +28,7 @@ const TransactionDetails = () => {
 
     const acceptOrder = async () => {
       try {
-        const result = await axios.patch(`http://localhost:8000/api/admin/confirm/${id}`, null, {
+        const result = await axios.patch(`https://jcwd011003.purwadhikabootcamp.com/api/admin/confirm/${id}`, null, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -62,7 +62,7 @@ const TransactionDetails = () => {
     }
     const cancelOrder = async () => {
       try {
-        const result = await axios.patch(`http://localhost:8000/api/admin/cancel/${id}`,  null,{
+        const result = await axios.patch(`https://jcwd011003.purwadhikabootcamp.com/api/admin/cancel/${id}`,  null,{
           headers: {
               Authorization: `Bearer ${token}`
           }
@@ -93,7 +93,7 @@ const TransactionDetails = () => {
 
     const sendOrder = async () => {
       try {
-        const result = await axios.patch(`http://localhost:8000/api/admin/send/${id}`, null, {
+        const result = await axios.patch(`https://jcwd011003.purwadhikabootcamp.com/api/admin/send/${id}`, null, {
           headers: {
               Authorization: `Bearer ${token}`
           }
@@ -162,7 +162,7 @@ const TransactionDetails = () => {
   <Flex direction="row" align="center">
   <Image
   src={transaction.Transaction_Payment && transaction.Transaction_Payment.paymentProof
-    ? `http://localhost:8000/api/${transaction.Transaction_Payment.paymentProof}`
+    ? `https://jcwd011003.purwadhikabootcamp.com/api/${transaction.Transaction_Payment.paymentProof}`
     : 'Unpaid transaction'
   }
   alt="Unpaid Transaction"
@@ -170,7 +170,7 @@ const TransactionDetails = () => {
   cursor="pointer" 
   onClick={() => {
     if (transaction.Transaction_Payment && transaction.Transaction_Payment.paymentProof) {
-      setModalImageUrl(`http://localhost:8000/api/public/${transaction.Transaction_Payment.paymentProof}`);
+      setModalImageUrl(`https://jcwd011003.purwadhikabootcamp.com/api/public/${transaction.Transaction_Payment.paymentProof}`);
       setIsModalOpen(true);
     }
   }}
@@ -258,7 +258,7 @@ export default TransactionDetails;
 export const currentTransactionLoader = async ({params}) => {
     const {id} = params;
 
-    const res = await fetch(`http://localhost:8000/api/transaction/${id}`, {
+    const res = await fetch(`https://jcwd011003.purwadhikabootcamp.com/api/transaction/${id}`, {
         headers: {
           "Authorization": `Bearer ${token}`
         },

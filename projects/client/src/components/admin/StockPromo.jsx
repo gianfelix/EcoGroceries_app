@@ -36,7 +36,7 @@ const StockPromo = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/stock-promo"
+          "https://jcwd011003.purwadhikabootcamp.com/api/stock-promo"
         );
         const data = response.data.data;
         setStockPromos(data);

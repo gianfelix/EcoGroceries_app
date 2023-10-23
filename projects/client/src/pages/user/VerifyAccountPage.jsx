@@ -51,7 +51,7 @@ const VerificationPage = () => {
     setIsSubmitting(true);
     try {
       const response = await axios.patch(
-        "http://localhost:8000/api/auth/verify",
+        "https://jcwd011003.purwadhikabootcamp.com/api/auth/verify",
         {},
         {
           headers: {

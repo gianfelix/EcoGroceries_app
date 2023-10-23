@@ -15,7 +15,7 @@ const Category = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/api/category")
+      .get("https://jcwd011003.purwadhikabootcamp.com/api/category")
       .then((response) => {
         setCategories(response.data.data);
       })

@@ -29,7 +29,7 @@ const Cart = () => {
     // You can make your API delete request here.
     // Replace 'yourApiEndpoint' with the actual API endpoint.
     try {
-      const url = 'http://localhost:8000/api/user/cart';
+      const url = 'https://jcwd011003.purwadhikabootcamp.com/api/user/cart';
       const config = {
         method: 'PATCH',
         url: url,
@@ -55,7 +55,7 @@ const Cart = () => {
    
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/user/items', {
+        const response = await axios.get('https://jcwd011003.purwadhikabootcamp.com/api/user/items', {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
@@ -88,7 +88,7 @@ const Cart = () => {
   }, [cartData, cartEmpty]);
 const removeItem = async () => {
   try {
-    const url = 'http://localhost:8000/api/user/cart';
+    const url = 'https://jcwd011003.purwadhikabootcamp.com/api/user/cart';
     const config = {
       method: 'PATCH',
       url: url,

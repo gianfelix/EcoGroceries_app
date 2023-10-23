@@ -109,7 +109,7 @@ const EditAddress = ({ isOpen, onClose, addressToEdit, updateUserData }) => {
     try {
       // Fetch provinces and set them in state
       const provincesResponse = await axios.get(
-        "http://localhost:8000/api/rajaongkir/province"
+        "https://jcwd011003.purwadhikabootcamp.com/api/rajaongkir/province"
       );
       const provincesData = provincesResponse.data.rajaongkir.results;
       setProvinces(provincesData);
@@ -117,7 +117,7 @@ const EditAddress = ({ isOpen, onClose, addressToEdit, updateUserData }) => {
       if (selectedProvinceId) {
         // Fetch cities for the selected province and set them in state
         const citiesResponse = await axios.get(
-          `http://localhost:8000/api/rajaongkir/citybyprovince?province=${selectedProvinceId}`
+          `https://jcwd011003.purwadhikabootcamp.com/api/rajaongkir/citybyprovince?province=${selectedProvinceId}`
         );
         const citiesData = citiesResponse.data.rajaongkir.results;
         setCities(citiesData);
@@ -154,7 +154,7 @@ const EditAddress = ({ isOpen, onClose, addressToEdit, updateUserData }) => {
       };
 
       const response = await axios.patch(
-        `http://localhost:8000/api/address/${addressToEdit.id}`, // Use the correct endpoint with address ID
+        `https://jcwd011003.purwadhikabootcamp.com/api/address/${addressToEdit.id}`, // Use the correct endpoint with address ID
         newData, // Send the entire 'data' object
         {
           headers: {

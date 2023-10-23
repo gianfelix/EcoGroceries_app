@@ -59,7 +59,7 @@ const handleAddToCart = () => {
 
   // Make the POST request to the API
   axios
-    .post("http://localhost:8000/api/user/cart", requestData, { headers })
+    .post("https://jcwd011003.purwadhikabootcamp.com/api/user/cart", requestData, { headers })
     .then((response) => {
       if (response.data.message === "you have unpaid transaction" && response.data.value === false) {
         // Display a specific toast message for unpaid transaction
@@ -156,7 +156,7 @@ const handleAddToCart = () => {
   
     try {
       axios
-        .delete(`http://localhost:8000/api/user/clean/${idStock}`, { headers })
+        .delete(`https://jcwd011003.purwadhikabootcamp.com/api/user/clean/${idStock}`, { headers })
         .then((response) => {
           setQuantity(0)
           // Handle success response here if needed
@@ -224,7 +224,7 @@ flexDirection={{ base: "column", md: "row" }}
 >
 <Box boxSize={{ base: "50%", md: "350px" }}>
   <Image
-    src={`http://localhost:8000/api/${Product?.productImg}`}
+    src={`https://jcwd011003.purwadhikabootcamp.com/api/${Product?.productImg}`}
     alt={Product?.name}
   />
 </Box>
@@ -286,7 +286,7 @@ export const productDetailsLoader = async ({ params }) => {
   const { id } = params;
   const token = localStorage.getItem('token');
 
-  const res = await fetch(`http://localhost:8000/api/stock/${id}`, {
+  const res = await fetch(`https://jcwd011003.purwadhikabootcamp.com/api/stock/${id}`, {
     method: 'GET',
     headers: {
       "Authorization": `Bearer ${token}`

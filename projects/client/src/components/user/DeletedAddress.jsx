@@ -50,7 +50,7 @@ const DeletedAddress = ({ addressId, updateAddressCallback }) => {
     try {
       // Make a DELETE request to your API endpoint
       await axios.delete(
-        `http://localhost:8000/api/address/${addressId}`,
+        `https://jcwd011003.purwadhikabootcamp.com/api/address/${addressId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

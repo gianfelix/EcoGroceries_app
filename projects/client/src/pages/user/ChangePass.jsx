@@ -89,7 +89,7 @@ const PasswordChangeForm = () => {
       const config = {
         method: "patch",
         maxBodyLength: Infinity,
-        url: "http://localhost:8000/api/profile/password",
+        url: "https://jcwd011003.purwadhikabootcamp.com/api/profile/password",
         headers: {
           Authorization: `Bearer ${token}`,
         },

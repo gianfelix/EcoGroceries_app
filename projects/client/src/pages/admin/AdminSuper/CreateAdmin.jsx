@@ -48,7 +48,7 @@ const CreateAdmin = ({ isOpen, onClose, onCreateSuccess }) => {
       password,
     };
     try {
-      const response = axios.post('http://localhost:8000/api/admin/admin', requestBody);
+      const response = axios.post('https://jcwd011003.purwadhikabootcamp.com/api/admin/admin', requestBody);
       setUsername('');
       setEmail('');
       setPassword('');

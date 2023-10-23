@@ -60,7 +60,7 @@ function Checkout() {
   useEffect(() => {
     const fetchAPI2 = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/user/items', {
+        const response = await axios.get('https://jcwd011003.purwadhikabootcamp.com/api/user/items', {
           headers: {
             Authorization: authorizationHeader,
           },
@@ -86,7 +86,7 @@ function Checkout() {
   useEffect(() => {
     const fetchAPI1 = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/user/cart', {
+        const response = await axios.get('https://jcwd011003.purwadhikabootcamp.com/api/user/cart', {
           headers: {
             Authorization: authorizationHeader,
           },
@@ -110,7 +110,7 @@ function Checkout() {
     const fetchAddresses = async () => {
       if (branch !== null) {
         try {
-          const response = await axios.get(`http://localhost:8000/api/user/address/${branch}`, {
+          const response = await axios.get(`https://jcwd011003.purwadhikabootcamp.com/api/user/address/${branch}`, {
             headers: {
               Authorization: authorizationHeader,
             },
@@ -167,7 +167,7 @@ function Checkout() {
   useEffect(() => {
     const fetchShippingData = async () => {
       try {
-        const shippingData = await axios.post('http://localhost:8000/api/rajaongkir/cost', shipping)
+        const shippingData = await axios.post('https://jcwd011003.purwadhikabootcamp.com/api/rajaongkir/cost', shipping)
         console.log('bangasat',shippingData.data.rajaongkir)
          setService(shippingData.data.rajaongkir.results[0].costs)
          updateBody({shipper: shippingData.data.rajaongkir.results[0].name})
@@ -190,7 +190,7 @@ function Checkout() {
 
     try {
       // Example API call
-      const response = await axios.post('http://localhost:8000/api/user/checkout', body, {
+      const response = await axios.post('https://jcwd011003.purwadhikabootcamp.com/api/user/checkout', body, {
         headers: {
           Authorization: authorizationHeader,
         },

@@ -22,7 +22,7 @@ const CreateStockPromoModal = () => {
   const handleCreateStockPromo = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/stock-promo",
+        "https://jcwd011003.purwadhikabootcamp.com/api/stock-promo",
         {
           promoName,
           buyQty,

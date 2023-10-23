@@ -11,7 +11,7 @@ function StockHistorySuper() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get('http://localhost:8000/api/transaction/history', {
+      const result = await axios.get('https://jcwd011003.purwadhikabootcamp.com/api/transaction/history', {
         headers: {
             Authorization: `Bearer ${token}`
         }

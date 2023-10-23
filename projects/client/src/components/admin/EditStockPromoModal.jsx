@@ -26,7 +26,7 @@ const EditStockPromoModal = ({ promo, onClose, onUpdate }) => {
   const handleUpdatePromo = async () => {
     try {
       const response = await axios.patch(
-        `http://localhost:8000/api/stock-promo/${promo.id}`,
+        `https://jcwd011003.purwadhikabootcamp.com/api/stock-promo/${promo.id}`,
         {
           promoName,
           buyQty,

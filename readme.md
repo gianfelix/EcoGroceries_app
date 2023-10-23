@@ -12,7 +12,7 @@ Runs the app in the development mode.
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-For API, you can access it in [http://localhost:8000/api](http://localhost:8000/api).
+For API, you can access it in [https://jcwd011003.purwadhikabootcamp.com/api](https://jcwd011003.purwadhikabootcamp.com/api).
 
 The page will reload if you make edits.
 

@@ -60,7 +60,7 @@ const Vouchers = () => {
 
   const fetchVouchers = () => {
     axios
-      .get("http://localhost:8000/api/vouchers")
+      .get("https://jcwd011003.purwadhikabootcamp.com/api/vouchers")
       .then((response) => {
         setVouchers(response.data);
       })
@@ -71,7 +71,7 @@ const Vouchers = () => {
 
   const fetchCategories = () => {
     axios
-      .get("http://localhost:8000/api/category")
+      .get("https://jcwd011003.purwadhikabootcamp.com/api/category")
       .then((response) => {
         setCategories(response.data.data);
       })
@@ -89,7 +89,7 @@ const Vouchers = () => {
     if (editingVoucher) {
       axios
         .patch(
-          `http://localhost:8000/api/vouchers/${editingVoucher.id}`,
+          `https://jcwd011003.purwadhikabootcamp.com/api/vouchers/${editingVoucher.id}`,
           editingVoucher
         )
         .then((response) => {

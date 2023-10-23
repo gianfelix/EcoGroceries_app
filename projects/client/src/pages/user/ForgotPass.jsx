@@ -61,7 +61,7 @@ const ForgotPassword = () => {
   const handleSubmit = (values, { setSubmitting }) => {
     setIsSubmitting(true);;
     axios
-      .post("http://localhost:8000/api/auth/forgot", {
+      .post("https://jcwd011003.purwadhikabootcamp.com/api/auth/forgot", {
         email: values.email,
       })
       .then(function (response) {

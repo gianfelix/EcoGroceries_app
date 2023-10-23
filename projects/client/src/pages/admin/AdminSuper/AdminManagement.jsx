@@ -44,7 +44,7 @@ const AdminList = () => {
     try {
       // Make a PATCH request to update the selected cashier data
       await axios.patch(
-        `http://localhost:8000/api/admin/update/${selectedCashier.id}`,
+        `https://jcwd011003.purwadhikabootcamp.com/api/admin/update/${selectedCashier.id}`,
         {
           currentIdbranch: selectedCashier.id_branch,
           currentUsername: selectedCashier.user_name,
@@ -59,7 +59,7 @@ const AdminList = () => {
       onEditCashierClose();
 
       // Fetch the updated list of cashiers from the server and update the state
-      const response = await axios.get("http://localhost:8000/api/admin/admin");
+      const response = await axios.get("https://jcwd011003.purwadhikabootcamp.com/api/admin/admin");
       setCashiers(response.data);
     } catch (error) {
       console.log(error);
@@ -68,7 +68,7 @@ const AdminList = () => {
 
   const fetchCashiers = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/admin/admin");
+      const response = await axios.get("https://jcwd011003.purwadhikabootcamp.com/api/admin/admin");
       setCashiers(response.data);
       onCreateCashierClose();
     } catch (error) {
@@ -79,7 +79,7 @@ const AdminList = () => {
   const deactiveCashier = async (id) => {
     try {
       const res = await axios.patch(
-        `http://localhost:8000/api/admin/deactivate?id=${id}`
+        `https://jcwd011003.purwadhikabootcamp.com/api/admin/deactivate?id=${id}`
       );
       alert(res.data.message);
       fetchCashiers();
@@ -91,7 +91,7 @@ const AdminList = () => {
   const activeCashier = async (id) => {
     try {
       const res = await axios.patch(
-        `http://localhost:8000/api/admin/activate?id=${id}`
+        `https://jcwd011003.purwadhikabootcamp.com/api/admin/activate?id=${id}`
       );
       alert(res.data.message);
       fetchCashiers();

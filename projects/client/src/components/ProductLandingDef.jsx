@@ -35,7 +35,7 @@ const ProductLandingDef = () => {
   };
 
   useEffect(() => {
-    axios.get("http://localhost:8000/api/stock")
+    axios.get("https://jcwd011003.purwadhikabootcamp.com/api/stock")
       .then((response) => {
         const last4Products = response.data.data.slice(-6);
         setProducts(last4Products);
@@ -68,7 +68,7 @@ const ProductLandingDef = () => {
                   height={{ base: 32, lg: 40 }}
                   width={{ base: 32, lg: 40 }}
                   objectFit={"cover"}
-                  src={`http://localhost:8000/api/${product.Product.productImg}`}
+                  src={`https://jcwd011003.purwadhikabootcamp.com/api/${product.Product.productImg}`}
                   alt={product.Product.name}
                 />
               </Flex>

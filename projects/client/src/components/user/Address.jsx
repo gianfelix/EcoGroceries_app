@@ -37,7 +37,7 @@ export default function UserAddress() {
   const updateUserAddressList = useCallback(async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get(`http://localhost:8000/api/address/${id}`, {
+      const res = await axios.get(`https://jcwd011003.purwadhikabootcamp.com/api/address/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -52,7 +52,7 @@ export default function UserAddress() {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(`http://localhost:8000/api/address/${id}`, {
+        const res = await axios.get(`https://jcwd011003.purwadhikabootcamp.com/api/address/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

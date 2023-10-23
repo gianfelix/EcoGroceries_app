@@ -92,7 +92,7 @@ const LoginForm = () => {
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(true); // Set submitting to true when the form is being submitted.
               axios
-                .post("http://localhost:8000/api/auth/login", {
+                .post("https://jcwd011003.purwadhikabootcamp.com/api/auth/login", {
                   email: values.email,
                   password: values.password,
                 })

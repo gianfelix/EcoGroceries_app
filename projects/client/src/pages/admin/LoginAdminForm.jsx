@@ -86,7 +86,7 @@ const LoginAdminForm = () => {
               setSubmitting(true);
               axios
                 .post(
-                  "http://localhost:8000/api/admin/login",
+                  "https://jcwd011003.purwadhikabootcamp.com/api/admin/login",
                   {
                     email: values.email,
                     password: values.password,

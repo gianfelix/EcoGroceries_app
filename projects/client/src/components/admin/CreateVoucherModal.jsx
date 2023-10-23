@@ -39,7 +39,7 @@ const CreateVoucherModal = ({ isOpen, onClose, setVouchers }) => {
 
   const handleCreateVoucher = () => {
     axios
-      .post("http://localhost:8000/api/vouchers", newVoucher)
+      .post("https://jcwd011003.purwadhikabootcamp.com/api/vouchers", newVoucher)
       .then((response) => {
         setVouchers((prevVouchers) => [...prevVouchers, response.data]);
 
@@ -85,7 +85,7 @@ const CreateVoucherModal = ({ isOpen, onClose, setVouchers }) => {
 
   const fetchCategories = () => {
     axios
-      .get("http://localhost:8000/api/category")
+      .get("https://jcwd011003.purwadhikabootcamp.com/api/category")
       .then((response) => {
         setCategories(response.data.data);
       })

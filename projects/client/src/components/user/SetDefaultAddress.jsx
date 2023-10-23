@@ -24,7 +24,7 @@ const SetDefault = ({ addressId, isDefault, setDefaultCallback, updateAddressCal
     try {
       // Set the selected address as the default address
       const setDefaultResponse = await axios.patch(
-        `http://localhost:8000/api/address/default/${addressId}`,
+        `https://jcwd011003.purwadhikabootcamp.com/api/address/default/${addressId}`,
         {},
         {
           headers: {

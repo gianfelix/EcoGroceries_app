@@ -10,7 +10,7 @@ const vouchersControllers = {
       try {
         const today = new Date();
 
-        const response = await axios.get("http://localhost:8000/api/vouchers");
+        const response = await axios.get("https://jcwd011003.purwadhikabootcamp.com/api/vouchers");
         const vouchers = response.data;
 
         for (const voucher of vouchers) {
