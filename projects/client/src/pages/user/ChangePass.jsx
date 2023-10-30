@@ -22,9 +22,7 @@ import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
-import Swal from "sweetalert2"
-
-
+import Swal from "sweetalert2";
 
 const PasswordChangeForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -34,24 +32,24 @@ const PasswordChangeForm = () => {
   const handleAlertSuccess = () => {
     // Show success notification
     Swal.fire({
-      position: 'center-center',
-      icon: 'success',
+      position: "center-center",
+      icon: "success",
       title: "You've change your password successfully!",
       showConfirmButton: false,
-      timer: 1500
+      timer: 1500,
     });
   };
 
   const handleAlertError = () => {
     // Show error notification
     Swal.fire({
-      title: 'Make sure your current password is correct😩', 
+      title: "Make sure your current password is correct😩",
       showClass: {
-        popup: 'animate__animated animate__fadeInDown'
+        popup: "animate__animated animate__fadeInDown",
       },
       hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      }
+        popup: "animate__animated animate__fadeOutUp",
+      },
     });
   };
 
@@ -75,7 +73,7 @@ const PasswordChangeForm = () => {
       confirm_password: "",
     },
     validationSchema,
-    onSubmit: async (values) => { 
+    onSubmit: async (values) => {
       setIsSubmitting(true);
       const { old_password, password, confirm_password } = values;
       const token = localStorage.getItem("token");
@@ -89,7 +87,7 @@ const PasswordChangeForm = () => {
       const config = {
         method: "patch",
         maxBodyLength: Infinity,
-        url: "https://jcwd011003.purwadhikabootcamp.com/api/profile/password",
+        url: "http://localhost:8000/api/profile/password",
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -116,10 +114,13 @@ const PasswordChangeForm = () => {
 
   return (
     <Box>
-
       <Box mt={5}>
-      <Center>
-          <Image src="EcoGroceriesApp.png" width={{ base: "30%", md: "10%" }} height="auto" />
+        <Center>
+          <Image
+            src="EcoGroceriesApp.png"
+            width={{ base: "30%", md: "10%" }}
+            height="auto"
+          />
         </Center>
         <Box m="auto" p={6} w={{ base: "100%", md: "30%" }}>
           <Heading as="h2" size="lg" mb={6} textAlign={"center"}>
@@ -138,11 +139,7 @@ const PasswordChangeForm = () => {
                   placeholder="Enter your password"
                 />
                 <InputRightElement width="3rem">
-                  <Button
-                    h="1.5rem"
-                    size="sm"
-                    onClick={handleTogglePassword}
-                  >
+                  <Button h="1.5rem" size="sm" onClick={handleTogglePassword}>
                     {showPassword ? (
                       <ViewOffIcon boxSize={4} />
                     ) : (
@@ -167,11 +164,7 @@ const PasswordChangeForm = () => {
                   placeholder="Enter your password"
                 />
                 <InputRightElement width="3rem">
-                  <Button
-                    h="1.5rem"
-                    size="sm"
-                    onClick={handleTogglePassword}
-                  >
+                  <Button h="1.5rem" size="sm" onClick={handleTogglePassword}>
                     {showPassword ? (
                       <ViewOffIcon boxSize={4} />
                     ) : (
@@ -196,11 +189,7 @@ const PasswordChangeForm = () => {
                   placeholder="Enter your password"
                 />
                 <InputRightElement width="3rem">
-                  <Button
-                    h="1.5rem"
-                    size="sm"
-                    onClick={handleTogglePassword}
-                  >
+                  <Button h="1.5rem" size="sm" onClick={handleTogglePassword}>
                     {showPassword ? (
                       <ViewOffIcon boxSize={4} />
                     ) : (
@@ -209,9 +198,10 @@ const PasswordChangeForm = () => {
                   </Button>
                 </InputRightElement>
               </InputGroup>
-              {formik.touched.confirm_password && formik.errors.confirm_password && (
-                <Text color="red">{formik.errors.confirm_password}</Text>
-              )}
+              {formik.touched.confirm_password &&
+                formik.errors.confirm_password && (
+                  <Text color="red">{formik.errors.confirm_password}</Text>
+                )}
             </FormControl>
             <Button
               type="submit"
@@ -234,7 +224,6 @@ const PasswordChangeForm = () => {
           </Text> */}
         </Box>
       </Box>
-
     </Box>
   );
 };

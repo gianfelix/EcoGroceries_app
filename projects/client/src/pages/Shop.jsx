@@ -68,12 +68,15 @@ const Shop = () => {
       try {
         const token = localStorage.getItem("token");
         const decodedToken = jwt_decode(token);
-      const userId = decodedToken.id;
-        const response = await axios.get(`https://jcwd011003.purwadhikabootcamp.com/api/address/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const userId = decodedToken.id;
+        const response = await axios.get(
+          `http://localhost:8000/api/address/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setAvailableAddresses(response.data.data);
       } catch (error) {
         console.error("Error fetching user addresses:", error);
@@ -89,7 +92,6 @@ const Shop = () => {
   if (!userLocation) {
     return (
       <>
-   
         <Box
           w={"full"}
           h={"100%"}
@@ -123,13 +125,13 @@ const Shop = () => {
 
   const inJabodetabek =
     (latitude >= -6.810784 &&
-    latitude <= -5.491429 &&
-    longitude >= 106.325163 &&
-    longitude <= 107.326882) || 
+      latitude <= -5.491429 &&
+      longitude >= 106.325163 &&
+      longitude <= 107.326882) ||
     (userLocation.latitude >= -6.810784 &&
-    userLocation.latitude <= -5.491429 &&
-    userLocation.longitude >= 106.325163 &&
-    userLocation.longitude <= 107.326882);
+      userLocation.latitude <= -5.491429 &&
+      userLocation.longitude >= 106.325163 &&
+      userLocation.longitude <= 107.326882);
 
   const handleAddressSelect = () => {
     if (selectedAddress) {
@@ -143,7 +145,6 @@ const Shop = () => {
 
   return (
     <>
-    
       <Box bg={"#c4fff2"} pt={4} display={"flex"} justifyContent={"center"}>
         <Text fontSize={"lg"} fontWeight="semibold">
           Your Current Position
@@ -185,27 +186,25 @@ const Shop = () => {
 
       {selectedAddress && (
         <Box bg={"#c4fff2"} pt={2} display="flex" justifyContent="center">
-          
           <Text fontSize="lg" fontWeight="bold" ml={2}>
             {selectedAddress.userName}:
           </Text>
-          <Text fontSize="lg"  ml={2}>
+          <Text fontSize="lg" ml={2}>
             (Latitude: {selectedAddress.latitude} Longitude:{" "}
             {selectedAddress.longitude})
           </Text>
         </Box>
       )}
-      
 
       {inYogjakarta ? (
         (window.location.href = "/shop/yk")
-        ) : inJabodetabek ? (
-          (window.location.href = "/shop/jkt")
-          ) : (
-            <Box bg={"#c4fff2"}>
-            <LandingUnreachArea />
-            </Box>
-            )}
+      ) : inJabodetabek ? (
+        (window.location.href = "/shop/jkt")
+      ) : (
+        <Box bg={"#c4fff2"}>
+          <LandingUnreachArea />
+        </Box>
+      )}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
   Button,
   FormControl,
@@ -14,17 +14,22 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 
-const SetDefault = ({ addressId, isDefault, setDefaultCallback, updateAddressCallback }) => {
+const SetDefault = ({
+  addressId,
+  isDefault,
+  setDefaultCallback,
+  updateAddressCallback,
+}) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const token = localStorage.getItem("token");
   const { isOpen, onOpen, onClose } = useDisclosure();
-  
+
   const setDefaultAndModifyAddress = async () => {
     setIsSubmitting(true);
     try {
       // Set the selected address as the default address
       const setDefaultResponse = await axios.patch(
-        `https://jcwd011003.purwadhikabootcamp.com/api/address/default/${addressId}`,
+        `http://localhost:8000/api/address/default/${addressId}`,
         {},
         {
           headers: {
@@ -32,7 +37,7 @@ const SetDefault = ({ addressId, isDefault, setDefaultCallback, updateAddressCal
           },
         }
       );
-      
+
       // Check the response status code
       if (setDefaultResponse.status === 200) {
         setDefaultCallback(addressId);
@@ -48,7 +53,13 @@ const SetDefault = ({ addressId, isDefault, setDefaultCallback, updateAddressCal
 
   return (
     <>
-      <Button size={"xs"} variant={"ghost"} textColor={"green"} onClick={onOpen} isDisabled={isDefault}>
+      <Button
+        size={"xs"}
+        variant={"ghost"}
+        textColor={"green"}
+        onClick={onOpen}
+        isDisabled={isDefault}
+      >
         Set as main Address
       </Button>
       <Modal
@@ -90,7 +101,7 @@ const SetDefault = ({ addressId, isDefault, setDefaultCallback, updateAddressCal
               colorScheme="blue"
               onClick={setDefaultAndModifyAddress}
               size={{ base: "xs", sm: "sm" }}
-              isLoading={isSubmitting} 
+              isLoading={isSubmitting}
               loadingText="Loading..."
             >
               Select

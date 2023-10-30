@@ -53,7 +53,7 @@ const TransactionDetails = () => {
   const acceptOrder = async () => {
     try {
       const result = await axios.patch(
-        `https://jcwd011003.purwadhikabootcamp.com/api/admin/confirm/${id}`,
+        `http://localhost:8000/api/admin/confirm/${id}`,
         null,
         {
           headers: {
@@ -86,7 +86,7 @@ const TransactionDetails = () => {
   const cancelOrder = async () => {
     try {
       const result = await axios.patch(
-        `https://jcwd011003.purwadhikabootcamp.com/api/admin/cancel/${id}`,
+        `http://localhost:8000/api/admin/cancel/${id}`,
         null,
         {
           headers: {
@@ -117,7 +117,7 @@ const TransactionDetails = () => {
   const sendOrder = async () => {
     try {
       const result = await axios.patch(
-        `https://jcwd011003.purwadhikabootcamp.com/api/admin/send/${id}`,
+        `http://localhost:8000/api/admin/send/${id}`,
         null,
         {
           headers: {
@@ -192,7 +192,7 @@ const TransactionDetails = () => {
           src={
             transaction.Transaction_Payment &&
             transaction.Transaction_Payment.paymentProof
-              ? `https://jcwd011003.purwadhikabootcamp.com/api/${transaction.Transaction_Payment.paymentProof}`
+              ? `http://localhost:8000/api/${transaction.Transaction_Payment.paymentProof}`
               : "Unpaid transaction"
           }
           alt="Unpaid Transaction"
@@ -204,7 +204,7 @@ const TransactionDetails = () => {
               transaction.Transaction_Payment.paymentProof
             ) {
               setModalImageUrl(
-                `https://jcwd011003.purwadhikabootcamp.com/api/public/${transaction.Transaction_Payment.paymentProof}`
+                `http://localhost:8000/api/public/${transaction.Transaction_Payment.paymentProof}`
               );
               setIsModalOpen(true);
             }
@@ -319,14 +319,11 @@ export const currentTransactionLoader = async ({ params }) => {
   const token = localStorage.getItem("token");
   const { id } = params;
 
-  const res = await fetch(
-    `https://jcwd011003.purwadhikabootcamp.com/api/transaction/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const res = await fetch(`http://localhost:8000/api/transaction/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   return res.json();
 };

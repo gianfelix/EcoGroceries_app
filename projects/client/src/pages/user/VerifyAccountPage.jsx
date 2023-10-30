@@ -51,7 +51,7 @@ const VerificationPage = () => {
     setIsSubmitting(true);
     try {
       const response = await axios.patch(
-        "https://jcwd011003.purwadhikabootcamp.com/api/auth/verify",
+        "http://localhost:8000/api/auth/verify",
         {},
         {
           headers: {
@@ -77,7 +77,6 @@ const VerificationPage = () => {
 
   return (
     <Box>
- 
       <Center mt={5}>
         <Image s src={LOGO} width={{ base: "30%", md: "10%" }} height="auto" />
       </Center>
@@ -91,7 +90,12 @@ const VerificationPage = () => {
             follow the instructions in the email to verify your account.
           </Text>
           <center>
-            <Button colorScheme="teal" onClick={handleVerify} mb={6} width="80%">
+            <Button
+              colorScheme="teal"
+              onClick={handleVerify}
+              mb={6}
+              width="80%"
+            >
               Verify
             </Button>
           </center>
@@ -119,7 +123,6 @@ const VerificationPage = () => {
           </Text>
         </Box>
       </Box>
-
     </Box>
   );
 };

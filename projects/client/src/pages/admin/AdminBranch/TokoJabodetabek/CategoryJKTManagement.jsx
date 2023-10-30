@@ -36,7 +36,7 @@ const CategoryJKTManagement = () => {
 
   useEffect(() => {
     axios
-      .get("https://jcwd011003.purwadhikabootcamp.com/api/category")
+      .get("http://localhost:8000/api/category")
       .then((response) => {
         setCategories(response.data.data);
       })
@@ -47,7 +47,7 @@ const CategoryJKTManagement = () => {
 
   const handleCreateCategory = () => {
     axios
-      .post("https://jcwd011003.purwadhikabootcamp.com/api/category", {
+      .post("http://localhost:8000/api/category", {
         category: newCategory,
         isActive: true,
       })
@@ -80,7 +80,7 @@ const CategoryJKTManagement = () => {
   const handleUpdateCategory = () => {
     if (editedCategoryId) {
       axios
-        .patch(`https://jcwd011003.purwadhikabootcamp.com/api/category/?id=${editedCategoryId}`, {
+        .patch(`http://localhost:8000/api/category/?id=${editedCategoryId}`, {
           category: newCategory,
         })
         .then(() => {
@@ -115,7 +115,7 @@ const CategoryJKTManagement = () => {
 
   const handleDeactivateCategory = (id) => {
     axios
-      .patch(`https://jcwd011003.purwadhikabootcamp.com/api/category/deactivate?id=${id}`)
+      .patch(`http://localhost:8000/api/category/deactivate?id=${id}`)
       .then(() => {
         const updatedCategories = categories.map((category) =>
           category.id === id ? { ...category, isActive: false } : category
@@ -129,7 +129,7 @@ const CategoryJKTManagement = () => {
 
   const handleActivateCategory = (id) => {
     axios
-      .patch(`https://jcwd011003.purwadhikabootcamp.com/api/category/activate?id=${id}`)
+      .patch(`http://localhost:8000/api/category/activate?id=${id}`)
       .then(() => {
         const updatedCategories = categories.map((category) =>
           category.id === id ? { ...category, isActive: true } : category

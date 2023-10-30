@@ -17,7 +17,7 @@ function Payment() {
     const fetchUnpaid = async () => {
       try {
         const response = await axios.get(
-          "https://jcwd011003.purwadhikabootcamp.com/api/user/unpaid",
+          "http://localhost:8000/api/user/unpaid",
           {
             headers: {
               Authorization: authorizationHeader,
@@ -56,7 +56,7 @@ function Payment() {
       formData.append("trId", trId);
 
       const response = await axios.post(
-        "https://jcwd011003.purwadhikabootcamp.com/api/user/payment",
+        "http://localhost:8000/api/user/payment",
         formData,
         {
           headers: {

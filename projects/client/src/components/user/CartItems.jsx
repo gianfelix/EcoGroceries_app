@@ -38,7 +38,7 @@ const CartItems = ({ data, onRemove }) => {
     };
     try {
       const response = await axios.post(
-        "https://jcwd011003.purwadhikabootcamp.com/api/user/cart",
+        "http://localhost:8000/api/user/cart",
         requestData,
         {
           headers: {
@@ -73,7 +73,7 @@ const CartItems = ({ data, onRemove }) => {
     const itemId = data.id;
     try {
       const res = await axios.delete(
-        `https://jcwd011003.purwadhikabootcamp.com/api/user/clean/${itemId}`,
+        `http://localhost:8000/api/user/clean/${itemId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -132,7 +132,7 @@ const CartItems = ({ data, onRemove }) => {
       >
         <Grid templateColumns="1fr 3fr" gap={4}>
           <Image
-            src={`https://jcwd011003.purwadhikabootcamp.com/api/${data.Stock.Product.productImg}`}
+            src={`http://localhost:8000/api/${data.Stock.Product.productImg}`}
             boxSize="100px"
             objectFit="cover"
           />

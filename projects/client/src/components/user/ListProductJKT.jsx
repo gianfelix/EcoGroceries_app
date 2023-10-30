@@ -48,7 +48,7 @@ export default function Product() {
 
   const fetchProduct = async () => {
     try {
-      let apiUrl = `https://jcwd011003.purwadhikabootcamp.com/api/stock/?page=${currentPage}&id_branch=2`;
+      let apiUrl = `http://localhost:8000/api/stock/?page=${currentPage}&id_branch=2`;
       if (searchQuery) {
         apiUrl += `&name=${searchQuery}`;
       }
@@ -176,7 +176,7 @@ export default function Product() {
                   height={[90, 130]}
                   width={190}
                   objectFit="contain"
-                  src={`https://jcwd011003.purwadhikabootcamp.com/api/${product.Product.productImg}`}
+                  src={`http://localhost:8000/api/${product.Product.productImg}`}
                   alt="#"
                 />
               </Box>

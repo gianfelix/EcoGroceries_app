@@ -18,8 +18,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import Swal from "sweetalert2"
-
+import Swal from "sweetalert2";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -37,31 +36,31 @@ const ForgotPassword = () => {
   const handleAlertSuccess = () => {
     // Show success notification
     Swal.fire({
-      position: 'center-center',
-      icon: 'success',
-      title: 'Please check your email for link reset password',
+      position: "center-center",
+      icon: "success",
+      title: "Please check your email for link reset password",
       showConfirmButton: false,
-      timer: 1500
+      timer: 1500,
     });
   };
 
   const handleAlertError = () => {
     // Show error notification
     Swal.fire({
-      title: 'Make sure your email are correct😩',
+      title: "Make sure your email are correct😩",
       showClass: {
-        popup: 'animate__animated animate__fadeInDown'
+        popup: "animate__animated animate__fadeInDown",
       },
       hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      }
+        popup: "animate__animated animate__fadeOutUp",
+      },
     });
   };
 
   const handleSubmit = (values, { setSubmitting }) => {
-    setIsSubmitting(true);;
+    setIsSubmitting(true);
     axios
-      .post("https://jcwd011003.purwadhikabootcamp.com/api/auth/forgot", {
+      .post("http://localhost:8000/api/auth/forgot", {
         email: values.email,
       })
       .then(function (response) {
@@ -73,18 +72,21 @@ const ForgotPassword = () => {
         console.log(error);
         handleAlertError();
       })
-      .finally(()=>{
-        setIsSubmitting(false); 
-        setSubmitting(false); 
+      .finally(() => {
+        setIsSubmitting(false);
+        setSubmitting(false);
       });
   };
 
   return (
     <Box>
-   
       <Box mt={5}>
         <Center>
-          <Image src="EcoGroceriesApp.png" width={{ base: "30%", md: "10%" }} height="auto" />
+          <Image
+            src="EcoGroceriesApp.png"
+            width={{ base: "30%", md: "10%" }}
+            height="auto"
+          />
         </Center>
         <Box m="auto" p={6} w={{ base: "100%", md: "30%" }}>
           <Heading as="h2" size="lg" mb={6} textAlign={"center"}>
@@ -117,9 +119,14 @@ const ForgotPassword = () => {
                   </FormControl>
                 )}
               </Field>
-              <Button type="submit" colorScheme="teal" mb={6} width="full"
-              isLoading={isSubmitting}
-              loadingText="Logging in...">
+              <Button
+                type="submit"
+                colorScheme="teal"
+                mb={6}
+                width="full"
+                isLoading={isSubmitting}
+                loadingText="Logging in..."
+              >
                 Send Verification Link
               </Button>
             </Form>
@@ -134,7 +141,6 @@ const ForgotPassword = () => {
           </Text>
         </Box>
       </Box>
- 
     </Box>
   );
 };

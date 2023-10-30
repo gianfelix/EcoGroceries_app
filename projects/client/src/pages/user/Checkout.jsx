@@ -86,7 +86,7 @@ function Checkout() {
     const fetchVoucher = async () => {
       try {
         const response = await axios.get(
-          "https://jcwd011003.purwadhikabootcamp.com/api/vouchers/user",
+          "http://localhost:8000/api/vouchers/user",
           {
             headers: {
               Authorization: authorizationHeader,
@@ -158,7 +158,7 @@ function Checkout() {
     const fetchAPI2 = async () => {
       try {
         const response = await axios.get(
-          "https://jcwd011003.purwadhikabootcamp.com/api/user/items",
+          "http://localhost:8000/api/user/items",
           {
             headers: {
               Authorization: authorizationHeader,
@@ -190,7 +190,7 @@ function Checkout() {
     const fetchAPI1 = async () => {
       try {
         const response = await axios.get(
-          "https://jcwd011003.purwadhikabootcamp.com/api/user/cart",
+          "http://localhost:8000/api/user/cart",
           {
             headers: {
               Authorization: authorizationHeader,
@@ -221,7 +221,7 @@ function Checkout() {
       if (branch !== null) {
         try {
           const response = await axios.get(
-            `https://jcwd011003.purwadhikabootcamp.com/api/user/address/${branch}`,
+            `http://localhost:8000/api/user/address/${branch}`,
             {
               headers: {
                 Authorization: authorizationHeader,
@@ -280,7 +280,7 @@ function Checkout() {
     const fetchShippingData = async () => {
       try {
         const shippingData = await axios.post(
-          "https://jcwd011003.purwadhikabootcamp.com/api/rajaongkir/cost",
+          "http://localhost:8000/api/rajaongkir/cost",
           shipping
         );
         // console.log("bangasat", shippingData.data.rajaongkir);
@@ -302,7 +302,7 @@ function Checkout() {
   const handleCheckoutConfirmation = async () => {
     try {
       const response = await axios.post(
-        "https://jcwd011003.purwadhikabootcamp.com/api/user/checkout",
+        "http://localhost:8000/api/user/checkout",
         body,
         {
           headers: {

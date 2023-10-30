@@ -22,7 +22,7 @@ const CreateStockPromoModal = () => {
   const handleCreateStockPromo = async () => {
     try {
       const response = await axios.post(
-        "https://jcwd011003.purwadhikabootcamp.com/api/stock-promo",
+        "http://localhost:8000/api/stock-promo",
         {
           promoName,
           buyQty,
@@ -90,10 +90,14 @@ const CreateStockPromoModal = () => {
         <option value="false">No</option>
       </Select>
 
-      <Button w={"full"} mt={4} colorScheme="teal" onClick={handleCreateStockPromo}>
+      <Button
+        w={"full"}
+        mt={4}
+        colorScheme="teal"
+        onClick={handleCreateStockPromo}
+      >
         Create Stock Promo
       </Button>
-      
     </Box>
   );
 };

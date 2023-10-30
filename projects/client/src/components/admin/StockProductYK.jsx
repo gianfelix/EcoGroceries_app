@@ -58,21 +58,18 @@ const StockProductYK = () => {
     const customQty = window.prompt("Enter the quantity to add:", "1");
     if (customQty !== null) {
       try {
-        const response = await fetch(
-          "https://jcwd011003.purwadhikabootcamp.com/api/stock/add",
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-              id_product: stock.id_product,
-              id_branch: stock.id_branch,
-              qty: parseInt(customQty),
-            }),
-          }
-        );
+        const response = await fetch("http://localhost:8000/api/stock/add", {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            id_product: stock.id_product,
+            id_branch: stock.id_branch,
+            qty: parseInt(customQty),
+          }),
+        });
 
         if (response.ok) {
           toast({
@@ -118,21 +115,18 @@ const StockProductYK = () => {
     const customQty = window.prompt("Enter the quantity to reduce:", "1");
     if (customQty !== null) {
       try {
-        const response = await fetch(
-          "https://jcwd011003.purwadhikabootcamp.com/api/stock/reduce",
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-              id_product: stock.id_product,
-              id_branch: stock.id_branch,
-              qty: parseInt(customQty),
-            }),
-          }
-        );
+        const response = await fetch("http://localhost:8000/api/stock/reduce", {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            id_product: stock.id_product,
+            id_branch: stock.id_branch,
+            qty: parseInt(customQty),
+          }),
+        });
 
         if (response.ok) {
           toast({
@@ -184,23 +178,20 @@ const StockProductYK = () => {
 
   const handleFormSubmit = async () => {
     try {
-      const response = await fetch(
-        "https://jcwd011003.purwadhikabootcamp.com/api/stock",
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id_product: selectedStock.id_product,
-            id_branch: selectedStock.id_branch,
-            qty: parseInt(formData.qty),
-            discountPercent: parseInt(formData.discountPercent),
-            id_stock_promo: parseInt(formData.id_stock_promo),
-            isActive: formData.isActive === "1" ? true : false,
-          }),
-        }
-      );
+      const response = await fetch("http://localhost:8000/api/stock", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id_product: selectedStock.id_product,
+          id_branch: selectedStock.id_branch,
+          qty: parseInt(formData.qty),
+          discountPercent: parseInt(formData.discountPercent),
+          id_stock_promo: parseInt(formData.id_stock_promo),
+          isActive: formData.isActive === "1" ? true : false,
+        }),
+      });
 
       if (response.ok) {
         const updatedStock = await response.json();
@@ -276,7 +267,7 @@ const StockProductYK = () => {
 
   useEffect(() => {
     fetch(
-      `https://jcwd011003.purwadhikabootcamp.com/api/stock?id_product=${filterProductName}&id_category=${filterCategoryName}&orderByName=${orderByName}&orderByPrice=${orderByPrice}&page=${currentPage}&pageSize=19`
+      `http://localhost:8000/api/stock?id_product=${filterProductName}&id_category=${filterCategoryName}&orderByName=${orderByName}&orderByPrice=${orderByPrice}&page=${currentPage}&pageSize=19`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -303,7 +294,7 @@ const StockProductYK = () => {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   useEffect(() => {
-    fetch("https://jcwd011003.purwadhikabootcamp.com/api/stock-promo")
+    fetch("http://localhost:8000/api/stock-promo")
       .then((response) => response.json())
       .then((data) => {
         setPromoOptions(data.data);

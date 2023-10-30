@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
   Button,
   FormControl,
@@ -15,7 +15,6 @@ import {
 import axios from "axios";
 import Swal from "sweetalert2";
 
-
 const DeletedAddress = ({ addressId, updateAddressCallback }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const token = localStorage.getItem("token");
@@ -24,24 +23,24 @@ const DeletedAddress = ({ addressId, updateAddressCallback }) => {
   const handleAlertSuccess = () => {
     // Show success notification
     Swal.fire({
-      position: 'center-center',
-      icon: 'success',
+      position: "center-center",
+      icon: "success",
       title: "Delete Address successfully😉",
       showConfirmButton: false,
-      timer: 5000
+      timer: 5000,
     });
   };
 
   const handleAlertError = () => {
     // Show error notification
     Swal.fire({
-      title: 'Error Delete address😩, Please try again',
+      title: "Error Delete address😩, Please try again",
       showClass: {
-        popup: 'animate__animated animate__fadeInDown'
+        popup: "animate__animated animate__fadeInDown",
       },
       hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      }
+        popup: "animate__animated animate__fadeOutUp",
+      },
     });
   };
 
@@ -49,14 +48,11 @@ const DeletedAddress = ({ addressId, updateAddressCallback }) => {
     setIsSubmitting(true);
     try {
       // Make a DELETE request to your API endpoint
-      await axios.delete(
-        `https://jcwd011003.purwadhikabootcamp.com/api/address/${addressId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await axios.delete(`http://localhost:8000/api/address/${addressId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       updateAddressCallback();
       onClose();
       handleAlertSuccess();
@@ -111,7 +107,7 @@ const DeletedAddress = ({ addressId, updateAddressCallback }) => {
               colorScheme="red"
               onClick={deleteAddress}
               size={{ base: "xs", sm: "sm" }}
-              isLoading={isSubmitting} 
+              isLoading={isSubmitting}
               loadingText="Deleting..."
             >
               Delete

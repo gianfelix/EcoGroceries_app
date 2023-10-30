@@ -44,7 +44,7 @@ const AdminList = () => {
     try {
       // Make a PATCH request to update the selected cashier data
       await axios.patch(
-        `https://jcwd011003.purwadhikabootcamp.com/api/admin/update/${selectedCashier.id}`,
+        `http://localhost:8000/api/admin/update/${selectedCashier.id}`,
         {
           currentIdbranch: selectedCashier.id_branch,
           currentUsername: selectedCashier.user_name,
@@ -59,7 +59,7 @@ const AdminList = () => {
       onEditCashierClose();
 
       // Fetch the updated list of cashiers from the server and update the state
-      const response = await axios.get("https://jcwd011003.purwadhikabootcamp.com/api/admin/admin");
+      const response = await axios.get("http://localhost:8000/api/admin/admin");
       setCashiers(response.data);
     } catch (error) {
       console.log(error);
@@ -68,7 +68,7 @@ const AdminList = () => {
 
   const fetchCashiers = async () => {
     try {
-      const response = await axios.get("https://jcwd011003.purwadhikabootcamp.com/api/admin/admin");
+      const response = await axios.get("http://localhost:8000/api/admin/admin");
       setCashiers(response.data);
       onCreateCashierClose();
     } catch (error) {
@@ -79,7 +79,7 @@ const AdminList = () => {
   const deactiveCashier = async (id) => {
     try {
       const res = await axios.patch(
-        `https://jcwd011003.purwadhikabootcamp.com/api/admin/deactivate?id=${id}`
+        `http://localhost:8000/api/admin/deactivate?id=${id}`
       );
       alert(res.data.message);
       fetchCashiers();
@@ -91,7 +91,7 @@ const AdminList = () => {
   const activeCashier = async (id) => {
     try {
       const res = await axios.patch(
-        `https://jcwd011003.purwadhikabootcamp.com/api/admin/activate?id=${id}`
+        `http://localhost:8000/api/admin/activate?id=${id}`
       );
       alert(res.data.message);
       fetchCashiers();
@@ -110,21 +110,27 @@ const AdminList = () => {
   };
 
   const handleCreateAdminSuccess = () => {
-    fetchCashiers(); 
+    fetchCashiers();
     onCreateCashierClose();
   };
 
   return (
-    <Box maxW="10xl" px={{ base: 5, md: 20 }} py={"6"} maxH="730px" overflowY="auto">
+    <Box
+      maxW="10xl"
+      px={{ base: 5, md: 20 }}
+      py={"6"}
+      maxH="730px"
+      overflowY="auto"
+    >
       <Flex justify={"space-between"}>
-        <Heading size={['md','xl']}>List Admin Branch</Heading>
+        <Heading size={["md", "xl"]}>List Admin Branch</Heading>
         <Link>
           <Button
             bgColor={"teal"}
             onClick={onCreateCashierOpen}
             color={"white"}
             _hover={{ color: "black" }}
-            size={['sm','md']}
+            size={["sm", "md"]}
           >
             Create Admin
             <BiAddToQueue />
@@ -141,11 +147,11 @@ const AdminList = () => {
         <Box key={index}>
           <Stack
             direction={{ base: "column", sm: "row" }}
-            spacing={[0,10]}
+            spacing={[0, 10]}
             justify="center"
           >
             <Avatar
-              size={["xl","2xl"]}
+              size={["xl", "2xl"]}
               shadow={"dark-lg"}
               alignSelf={"center"}
               showBorder={true}

@@ -19,7 +19,7 @@ const TransactionReport = () => {
     const fetchTransactions = async () => {
       try {
         const response = await axios.get(
-          "https://jcwd011003.purwadhikabootcamp.com/api/transaction/branch",
+          "http://localhost:8000/api/transaction/branch",
           {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("token"),
@@ -41,48 +41,48 @@ const TransactionReport = () => {
         Transactions List
       </Heading>
       <Box overflowY="scroll" maxHeight="270px">
-      <Table variant="striped" colorScheme="teal">
-        <Thead position={"sticky"} top={0} bgColor={"teal.300"}>
-          <Tr>
-            <Th color={"black"}>No.</Th>
-            <Th color={"black"}>User</Th>
-            <Th color={"black"}>Total Price</Th>
-            <Th color={"black"}>Products</Th>
-            <Th color={"black"}> Date </Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {transactions.map((transaction, index) => (
-            <Tr key={transaction.id}>
-              <Td> {index + 1} </Td>
-              <Td>{transaction.User.name}</Td>
-              <Td>{transaction.totPrice}</Td>
-              <Td>
-                <VStack align="stretch">
-                  {transaction.Transaction_Stocks.map((stock) => (
-                    <Box
-                      key={stock.id}
-                      borderWidth="1px"
-                      borderRadius="md"
-                      p={2}
-                      marginBottom={2}
-                    >
-                      <p>Product Name: {stock.productName}</p>
-                      <p>Price: {stock.price}</p>
-                      <p>Quantity: {stock.qty}</p>
-                    </Box>
-                  ))}
-                </VStack>
-              </Td>
-              <Td>
-                {new Date(transaction.createdAt).toLocaleDateString("id-ID", {
-                  timeZone: "Asia/Jakarta",
-                })}
-              </Td>
+        <Table variant="striped" colorScheme="teal">
+          <Thead position={"sticky"} top={0} bgColor={"teal.300"}>
+            <Tr>
+              <Th color={"black"}>No.</Th>
+              <Th color={"black"}>User</Th>
+              <Th color={"black"}>Total Price</Th>
+              <Th color={"black"}>Products</Th>
+              <Th color={"black"}> Date </Th>
             </Tr>
-          ))}
-        </Tbody>
-      </Table>
+          </Thead>
+          <Tbody>
+            {transactions.map((transaction, index) => (
+              <Tr key={transaction.id}>
+                <Td> {index + 1} </Td>
+                <Td>{transaction.User.name}</Td>
+                <Td>{transaction.totPrice}</Td>
+                <Td>
+                  <VStack align="stretch">
+                    {transaction.Transaction_Stocks.map((stock) => (
+                      <Box
+                        key={stock.id}
+                        borderWidth="1px"
+                        borderRadius="md"
+                        p={2}
+                        marginBottom={2}
+                      >
+                        <p>Product Name: {stock.productName}</p>
+                        <p>Price: {stock.price}</p>
+                        <p>Quantity: {stock.qty}</p>
+                      </Box>
+                    ))}
+                  </VStack>
+                </Td>
+                <Td>
+                  {new Date(transaction.createdAt).toLocaleDateString("id-ID", {
+                    timeZone: "Asia/Jakarta",
+                  })}
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
       </Box>
     </VStack>
   );

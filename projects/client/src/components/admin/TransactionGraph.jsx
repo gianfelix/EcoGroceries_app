@@ -18,7 +18,8 @@ const TransactionGraph = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://jcwd011003.purwadhikabootcamp.com/api/transaction", {
+          "http://localhost:8000/api/transaction",
+          {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("token"),
             },
@@ -26,7 +27,6 @@ const TransactionGraph = () => {
         );
         const transactions = response.data.transaction;
 
-      
         const aggregatedData = aggregateSalesByDate(transactions);
 
         console.log("Aggregated Data:", aggregatedData);
@@ -65,7 +65,9 @@ const TransactionGraph = () => {
         Total Sales Per Day Graph
       </Heading>
       <Box display={"flex"} justifyContent={"center"}>
-        <LineChart width={1200} height={400} data={graphData}> {/* Reverse the data */}
+        <LineChart width={1200} height={400} data={graphData}>
+          {" "}
+          {/* Reverse the data */}
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="date" />
           <YAxis />

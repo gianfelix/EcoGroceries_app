@@ -15,18 +15,18 @@ import {
   Icon,
   useToast,
   Select,
-} from '@chakra-ui/react';
-import { HiEye, HiEyeOff } from 'react-icons/hi';
-import { useState } from 'react';
-import axios from 'axios';
+} from "@chakra-ui/react";
+import { HiEye, HiEyeOff } from "react-icons/hi";
+import { useState } from "react";
+import axios from "axios";
 
 const CreateAdmin = ({ isOpen, onClose, onCreateSuccess }) => {
-  const [id_branch, setIdbranch] = useState('');
-  const [user_name, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [id_branch, setIdbranch] = useState("");
+  const [user_name, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const toast = useToast()
+  const toast = useToast();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,7 +38,9 @@ const CreateAdmin = ({ isOpen, onClose, onCreateSuccess }) => {
     const isPasswordValid = password.length >= 6;
 
     if (!isEmailValid || !isPasswordValid) {
-      alert('Please enter a valid email and password (password should be at least 6 characters)');
+      alert(
+        "Please enter a valid email and password (password should be at least 6 characters)"
+      );
       return;
     }
     const requestBody = {
@@ -48,10 +50,13 @@ const CreateAdmin = ({ isOpen, onClose, onCreateSuccess }) => {
       password,
     };
     try {
-      const response = axios.post('https://jcwd011003.purwadhikabootcamp.com/api/admin/admin', requestBody);
-      setUsername('');
-      setEmail('');
-      setPassword('');
+      const response = axios.post(
+        "http://localhost:8000/api/admin/admin",
+        requestBody
+      );
+      setUsername("");
+      setEmail("");
+      setPassword("");
       onClose();
       onCreateSuccess();
       toast({
@@ -61,9 +66,9 @@ const CreateAdmin = ({ isOpen, onClose, onCreateSuccess }) => {
         duration: 3000,
         isClosable: true,
       });
-      setTimeout(()=>{
+      setTimeout(() => {
         window.location.reload();
-      }, 2000)
+      }, 2000);
     } catch (error) {
       console.log(error);
       toast({
@@ -73,7 +78,8 @@ const CreateAdmin = ({ isOpen, onClose, onCreateSuccess }) => {
         duration: 3000,
         isClosable: true,
       });
-    } };
+    }
+  };
 
   const handleTogglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -81,20 +87,30 @@ const CreateAdmin = ({ isOpen, onClose, onCreateSuccess }) => {
 
   return (
     <>
-      <Modal size={{ base: "xs", sm: "sm" }} isOpen={isOpen} onClose={onClose} blockScrollOnMount={false} isCentered>
+      <Modal
+        size={{ base: "xs", sm: "sm" }}
+        isOpen={isOpen}
+        onClose={onClose}
+        blockScrollOnMount={false}
+        isCentered
+      >
         <ModalOverlay />
-        <ModalContent bgColor={'rgba(0,0,0, 0.8)'} textColor="white">
+        <ModalContent bgColor={"rgba(0,0,0, 0.8)"} textColor="white">
           <ModalHeader>Create Cashier</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            <FormControl mb={'3'}>
+            <FormControl mb={"3"}>
               <FormLabel>Branch</FormLabel>
-              <Select placeholder='Select Branch' size={'md'} onChange={(e) => setIdbranch(e.target.value)}>
+              <Select
+                placeholder="Select Branch"
+                size={"md"}
+                onChange={(e) => setIdbranch(e.target.value)}
+              >
                 <option value="1">Yogyakarta EcoGroceries</option>
                 <option value="2">Jabodetabek EcoGroceries</option>
               </Select>
             </FormControl>
-            <FormControl mb={'3'}>
+            <FormControl mb={"3"}>
               <FormLabel>Username</FormLabel>
               <Input
                 type="text"
@@ -103,7 +119,7 @@ const CreateAdmin = ({ isOpen, onClose, onCreateSuccess }) => {
                 placeholder="Add username"
               />
             </FormControl>
-            <FormControl mb={'3'}>
+            <FormControl mb={"3"}>
               <FormLabel>Email</FormLabel>
               <Input
                 type="email"
@@ -112,17 +128,21 @@ const CreateAdmin = ({ isOpen, onClose, onCreateSuccess }) => {
                 placeholder="Add email"
               />
             </FormControl>
-            <FormControl mb={'3'}>
+            <FormControl mb={"3"}>
               <FormLabel>Password</FormLabel>
               <InputGroup>
                 <Input
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Add password"
                 />
                 <InputRightElement width="4.5rem">
-                  <Button h="1.75rem" size="sm" onClick={handleTogglePasswordVisibility}>
+                  <Button
+                    h="1.75rem"
+                    size="sm"
+                    onClick={handleTogglePasswordVisibility}
+                  >
                     {showPassword ? (
                       <Icon as={HiEyeOff} color="gray.500" />
                     ) : (
@@ -137,20 +157,20 @@ const CreateAdmin = ({ isOpen, onClose, onCreateSuccess }) => {
             <Button
               type="submit"
               mr={3}
-              variant={'outline'}
+              variant={"outline"}
               textColor="white"
               w="100%"
-              _hover={{ bgColor: 'teal', color: 'white' }}
+              _hover={{ bgColor: "teal", color: "white" }}
               onClick={handleSubmit}
             >
               Create Admin
             </Button>
             <Button
               onClick={onClose}
-              variant={'outline'}
+              variant={"outline"}
               textColor="white"
               w="100%"
-              _hover={{ bgColor: 'red', color: 'white' }}
+              _hover={{ bgColor: "red", color: "white" }}
             >
               Cancel
             </Button>

@@ -20,7 +20,7 @@ const TransactionListYk = () => {
       try {
         const Token = localStorage.getItem("token");
         const response = await axios.get(
-          "https://jcwd011003.purwadhikabootcamp.com/api/transaction/branch",
+          "http://localhost:8000/api/transaction/branch",
           {
             headers: {
               Authorization: `Bearer ${Token}`,

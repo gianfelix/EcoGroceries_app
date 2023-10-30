@@ -9,7 +9,7 @@ const TransactionsOrder = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://jcwd011003.purwadhikabootcamp.com/api/transaction",
+          "http://localhost:8000/api/transaction",
           {
             headers: {
               Authorization: "Bearer " + localStorage.getItem("token"),

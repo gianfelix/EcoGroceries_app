@@ -35,7 +35,8 @@ const ProductLandingDef = () => {
   };
 
   useEffect(() => {
-    axios.get("https://jcwd011003.purwadhikabootcamp.com/api/stock")
+    axios
+      .get("http://localhost:8000/api/stock")
       .then((response) => {
         const last4Products = response.data.data.slice(-6);
         setProducts(last4Products);
@@ -62,13 +63,19 @@ const ProductLandingDef = () => {
               rounded={"lg"}
               pos={"relative"}
             >
-              <Flex justifyContent={"center"} rounded={"lg"} mt={-8} pos={"relative"} height={{ base: 32, lg: 40 }}>
+              <Flex
+                justifyContent={"center"}
+                rounded={"lg"}
+                mt={-8}
+                pos={"relative"}
+                height={{ base: 32, lg: 40 }}
+              >
                 <Image
                   rounded={"lg"}
                   height={{ base: 32, lg: 40 }}
                   width={{ base: 32, lg: 40 }}
                   objectFit={"cover"}
-                  src={`https://jcwd011003.purwadhikabootcamp.com/api/${product.Product.productImg}`}
+                  src={`http://localhost:8000/api/${product.Product.productImg}`}
                   alt={product.Product.name}
                 />
               </Flex>
@@ -81,19 +88,25 @@ const ProductLandingDef = () => {
                 >
                   {product.Product.name}
                 </Heading>
-                <Stack align={"center"} justify={'center'}>
+                <Stack align={"center"} justify={"center"}>
                   <Flex>
                     <Text fontWeight={800} fontSize={"md"} color={"teal"}>
-                    {" "}
+                      {" "}
                       {formatCurrencyIDR(
                         product.Product.price -
                           (product.Product.price * product.discountPercent) /
                             100
                       )}
                     </Text>
-                    <Text color={"red"} fontSize={"xs"}>{product.discountPercent}%</Text>
+                    <Text color={"red"} fontSize={"xs"}>
+                      {product.discountPercent}%
+                    </Text>
                   </Flex>
-                  <Text textDecoration={"line-through"} color={"gray.600"} fontSize={"xs"}>
+                  <Text
+                    textDecoration={"line-through"}
+                    color={"gray.600"}
+                    fontSize={"xs"}
+                  >
                     {formatCurrencyIDR(product.Product.price)}
                   </Text>
                 </Stack>

@@ -22,16 +22,14 @@ import axios from "axios";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import LOGO from "../../assets/EcoGroceriesApp.png";
-import Swal from "sweetalert2"
-
+import Swal from "sweetalert2";
 
 const ResetPasswordPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const url = window.location.href.split("/")
+  const url = window.location.href.split("/");
   const token = url[url.length - 1];
   const navigate = useNavigate();
-
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -40,24 +38,24 @@ const ResetPasswordPage = () => {
   const handleAlertSuccess = () => {
     // Show success notification
     Swal.fire({
-      position: 'center-center',
-      icon: 'success',
+      position: "center-center",
+      icon: "success",
       title: "You've reseted your password successfully!",
       showConfirmButton: false,
-      timer: 3000
+      timer: 3000,
     });
   };
 
   const handleAlertError = () => {
     // Show error notification
     Swal.fire({
-      title: 'Make sure your password are correct😩',
+      title: "Make sure your password are correct😩",
       showClass: {
-        popup: 'animate__animated animate__fadeInDown'
+        popup: "animate__animated animate__fadeInDown",
       },
       hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      }
+        popup: "animate__animated animate__fadeOutUp",
+      },
     });
   };
 
@@ -65,7 +63,7 @@ const ResetPasswordPage = () => {
     setIsSubmitting(true);
     axios
       .patch(
-        "https://jcwd011003.purwadhikabootcamp.com/api/auth/reset",
+        "http://localhost:8000/api/auth/reset",
         {
           password: values.password,
           confirm_password: values.confirm_password,
@@ -85,27 +83,19 @@ const ResetPasswordPage = () => {
         handleAlertError();
         console.log(error);
       })
-      .finally(()=>{
-        setIsSubmitting(false); 
-        setSubmitting(false); 
+      .finally(() => {
+        setIsSubmitting(false);
+        setSubmitting(false);
       });
   };
 
   return (
     <Box>
- 
-        <Center mt={'5'}>
-           <Image 
-           src={LOGO}
-           width={{ base: "30%", md: "10%" }}
-           height="auto"/>
-        </Center>
+      <Center mt={"5"}>
+        <Image src={LOGO} width={{ base: "30%", md: "10%" }} height="auto" />
+      </Center>
       <Box>
-        <Box
-          m="auto"
-          p={6}
-          w={{ base: "100%", md: "30%" }}
-        >
+        <Box m="auto" p={6} w={{ base: "100%", md: "30%" }}>
           <Heading as="h2" size="lg" mb={6} textAlign={"center"}>
             Reset your password
           </Heading>
@@ -138,11 +128,7 @@ const ResetPasswordPage = () => {
                     placeholder="Enter your password"
                   />
                   <InputRightElement width="3rem">
-                    <Button
-                      h="1.5rem"
-                      size="sm"
-                      onClick={handleTogglePassword}
-                    >
+                    <Button h="1.5rem" size="sm" onClick={handleTogglePassword}>
                       {showPassword ? (
                         <ViewOffIcon boxSize={4} />
                       ) : (
@@ -163,11 +149,7 @@ const ResetPasswordPage = () => {
                     placeholder="Enter your password"
                   />
                   <InputRightElement width="3rem">
-                    <Button
-                      size="sm"
-                      h="1.5rem"
-                      onClick={handleTogglePassword}
-                    >
+                    <Button size="sm" h="1.5rem" onClick={handleTogglePassword}>
                       {showPassword ? (
                         <ViewOffIcon boxSize={4} />
                       ) : (
@@ -176,7 +158,11 @@ const ResetPasswordPage = () => {
                     </Button>
                   </InputRightElement>
                 </InputGroup>
-                <ErrorMessage name="confirm_password" component={Text} color="red" />
+                <ErrorMessage
+                  name="confirm_password"
+                  component={Text}
+                  color="red"
+                />
               </FormControl>
               <Button
                 type="submit"
@@ -192,7 +178,7 @@ const ResetPasswordPage = () => {
           </Formik>
           <Text>
             Remember your password?{" "}
-            <LinkChakra textColor={'teal'}>
+            <LinkChakra textColor={"teal"}>
               <Link to="/login">
                 Log in here <ExternalLinkIcon mx="2px" />
               </Link>
@@ -200,7 +186,6 @@ const ResetPasswordPage = () => {
           </Text>
         </Box>
       </Box>
-
     </Box>
   );
 };

@@ -14,34 +14,32 @@ import {
 } from "@chakra-ui/react";
 import { BsFillCartCheckFill } from "react-icons/bs";
 import React, { useState, useEffect } from "react";
-import CartModal from "./Cart"
+import CartModal from "./Cart";
 import axios from "axios";
 
-
-
 const Profile = () => {
-  const [userData, setUserData] = useState({ name: '', avatar: '' });
+  const [userData, setUserData] = useState({ name: "", avatar: "" });
   const [isCartModalOpen, setIsCartModalOpen] = useState(false);
   const navigate = useNavigate();
 
   // const openCartModal = () => {
   //   setIsCartModalOpen(true);
   // };
-  
+
   const closeCartModal = () => {
     setIsCartModalOpen(false);
   };
-  
+
   const handleLogout = () => {
     localStorage.removeItem("token");
-    window.location.href = 'https://jcwd011003.purwadhikabootcamp.com/';
+    window.location.href = "http://localhost:8000/";
   };
 
-  useEffect (() => {
+  useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const res = await axios.get('https://jcwd011003.purwadhikabootcamp.com/api/profile', {
+        const token = localStorage.getItem("token");
+        const res = await axios.get("http://localhost:8000/api/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -49,8 +47,7 @@ const Profile = () => {
 
         const { name, avatar } = res.data.data;
         setUserData({ name, avatar });
-      } catch (error) {
-      }
+      } catch (error) {}
     };
 
     fetchUserData();
@@ -58,24 +55,25 @@ const Profile = () => {
 
   return (
     <Box>
-      <Flex
-        align="center"
-        w={"100%"}
-      >
+      <Flex align="center" w={"100%"}>
         <Flex ml={"5"}>
           <Flex>
             {/* Cart */}
-            <Button variant="ghost" mr={3} _hover={'black'} >
-              <BsFillCartCheckFill color="white" size={25} onClick={() => navigate('/cart')} />
-              <CartModal
-                isOpen={isCartModalOpen}
-                onClose={closeCartModal}
+            <Button variant="ghost" mr={3} _hover={"black"}>
+              <BsFillCartCheckFill
+                color="white"
+                size={25}
+                onClick={() => navigate("/cart")}
               />
+              <CartModal isOpen={isCartModalOpen} onClose={closeCartModal} />
             </Button>
             {/* Menu Profile */}
             <Menu>
               <MenuButton as={Button} size="sm" p={0} rounded="full" mt={"1"}>
-                <Avatar size="sm" src={`https://jcwd011003.purwadhikabootcamp.com/api/${userData.avatar}`} />
+                <Avatar
+                  size="sm"
+                  src={`http://localhost:8000/api/${userData.avatar}`}
+                />
               </MenuButton>
               <MenuList
                 zIndex={5}
@@ -83,8 +81,16 @@ const Profile = () => {
                 borderColor={useColorModeValue("gray.700", "gray.100")}
                 boxShadow="4px 4px 0"
               >
-                <Box textColor={'black'}>
-                  <Text ml={3} as='u' textColor={'black'} fontWeight="400" fontSize={'lg'}>Profile</Text>
+                <Box textColor={"black"}>
+                  <Text
+                    ml={3}
+                    as="u"
+                    textColor={"black"}
+                    fontWeight="400"
+                    fontSize={"lg"}
+                  >
+                    Profile
+                  </Text>
                   <MenuItem>
                     <Link to="/UserProfile" align="start">
                       <Text fontWeight="300">{userData.name}</Text>
@@ -92,11 +98,19 @@ const Profile = () => {
                   </MenuItem>
                 </Box>
                 <MenuDivider />
-                  <Text ml={3} as='u' textColor={'black'} fontWeight="400" fontSize={'lg'}>Setting</Text>
-                <MenuItem textColor={'black'}>
-                <Link to="/changes-password">
-                  <Text fontWeight="300">Change Password</Text>
-                </Link>
+                <Text
+                  ml={3}
+                  as="u"
+                  textColor={"black"}
+                  fontWeight="400"
+                  fontSize={"lg"}
+                >
+                  Setting
+                </Text>
+                <MenuItem textColor={"black"}>
+                  <Link to="/changes-password">
+                    <Text fontWeight="300">Change Password</Text>
+                  </Link>
                 </MenuItem>
                 <MenuDivider />
                 <Link>
@@ -105,7 +119,7 @@ const Profile = () => {
                       onClick={() => handleLogout()}
                       fontWeight="bold"
                       size={"md"}
-                      textColor={'black'}
+                      textColor={"black"}
                     >
                       Sign Out
                     </Text>
@@ -121,4 +135,3 @@ const Profile = () => {
 };
 
 export default Profile;
-

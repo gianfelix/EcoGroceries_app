@@ -11,18 +11,29 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import axios from "axios";
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
 
-
-export default function PersonalData({updateUserData}) {
+export default function PersonalData({ updateUserData }) {
   const [submittingButton, setSubmittingButton] = useState(null);
-  const [userData, setUserData] = useState({name: "", email: "", phone: "", gender: "", birthday: "",});
-  const [isDataChanged, setIsDataChanged] = useState({name: false, email: false, phone: false, gender: false, birthday: false,}); 
+  const [userData, setUserData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    gender: "",
+    birthday: "",
+  });
+  const [isDataChanged, setIsDataChanged] = useState({
+    name: false,
+    email: false,
+    phone: false,
+    gender: false,
+    birthday: false,
+  });
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("https://jcwd011003.purwadhikabootcamp.com/api/profile", {
+        const res = await axios.get("http://localhost:8000/api/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -57,7 +68,6 @@ export default function PersonalData({updateUserData}) {
     }));
   };
 
-
   const isValidDate = (dateString) => {
     const regex = /^\d{4}-\d{2}-\d{2}$/;
     if (!regex.test(dateString)) return false;
@@ -65,7 +75,7 @@ export default function PersonalData({updateUserData}) {
     const date = new Date(dateString);
     const currentDate = new Date();
     const minAgeDate = new Date(currentDate);
-    minAgeDate.setFullYear(currentDate.getFullYear() - 18); 
+    minAgeDate.setFullYear(currentDate.getFullYear() - 18);
 
     return date <= minAgeDate;
   };
@@ -74,7 +84,7 @@ export default function PersonalData({updateUserData}) {
     try {
       setSubmittingButton(buttonId);
       const token = localStorage.getItem("token");
-      const url = `https://jcwd011003.purwadhikabootcamp.com/api/profile/${field}`;
+      const url = `http://localhost:8000/api/profile/${field}`;
       const data = {
         [field]: userData[field],
       };
@@ -88,18 +98,18 @@ export default function PersonalData({updateUserData}) {
           popup: "small-swal",
         },
       });
-      
+
       if (!confirmationResult.isConfirmed) {
         window.location.reload();
       }
-  
+
       if (confirmationResult.isConfirmed) {
         await axios.patch(url, data, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-  
+
         Swal.fire({
           position: "center-center",
           icon: "success",
@@ -118,13 +128,13 @@ export default function PersonalData({updateUserData}) {
       });
     } catch (error) {
       Swal.fire({
-        title: 'Please try again😩',
+        title: "Please try again😩",
         showClass: {
-          popup: 'animate__animated animate__fadeInDown'
+          popup: "animate__animated animate__fadeInDown",
         },
         hideClass: {
-          popup: 'animate__animated animate__fadeOutUp'
-        }
+          popup: "animate__animated animate__fadeOutUp",
+        },
       });
     } finally {
       setSubmittingButton(null);
@@ -151,133 +161,148 @@ export default function PersonalData({updateUserData}) {
         maxH={"500px"}
         overflowY={"scroll"}
       >
-        <FormControl id="name" >
+        <FormControl id="name">
           <FormLabel>Name</FormLabel>
-          <Flex gap={'2'}>
-          <Input
-            placeholder="name"
-            size={'sm'}
-            _placeholder={{ color: "gray.500" }}
-            type="text"
-            id="name"
-            value={userData.name}
-            onChange={handleInputChange}
-            
-          />
-          <Button
-            bg={"blue.400"}
-            size={'sm'}
-            w="20%"
-            color={"white"}
-            _hover={{
-              bg: "blue.500",
-            }}
-            onClick={() => handleSaveChanges("name", "nameButton")}
-            isDisabled={!isDataChanged['name'] || submittingButton === "nameButton"}
-          >
-            {submittingButton === "nameButton" ? "Saving..." : "Save"}
-          </Button>
+          <Flex gap={"2"}>
+            <Input
+              placeholder="name"
+              size={"sm"}
+              _placeholder={{ color: "gray.500" }}
+              type="text"
+              id="name"
+              value={userData.name}
+              onChange={handleInputChange}
+            />
+            <Button
+              bg={"blue.400"}
+              size={"sm"}
+              w="20%"
+              color={"white"}
+              _hover={{
+                bg: "blue.500",
+              }}
+              onClick={() => handleSaveChanges("name", "nameButton")}
+              isDisabled={
+                !isDataChanged["name"] || submittingButton === "nameButton"
+              }
+            >
+              {submittingButton === "nameButton" ? "Saving..." : "Save"}
+            </Button>
           </Flex>
         </FormControl>
         <FormControl id="email">
           <FormLabel>Email</FormLabel>
-          <Flex gap={'2'}>
-          <Input
-            placeholder="email"
-            size={'sm'}
-            _placeholder={{ color: "gray.500" }}
-            type="email"
-            id="email"
-            value={userData.email}
-            onChange={handleInputChange}
-          />
-          <Button
-            bg={"blue.400"}
-            color={"white"}
-            size={'sm'}
-            w="20%"
-            _hover={{
-              bg: "blue.500",
-            }}
-            onClick={() => handleSaveChanges("email", "emailButton")}
-            isDisabled={!isDataChanged['email'] || submittingButton === "emailButton"}
-          >
-            {submittingButton === "emailButton" ? "Saving..." : "Save"}
-          </Button>
+          <Flex gap={"2"}>
+            <Input
+              placeholder="email"
+              size={"sm"}
+              _placeholder={{ color: "gray.500" }}
+              type="email"
+              id="email"
+              value={userData.email}
+              onChange={handleInputChange}
+            />
+            <Button
+              bg={"blue.400"}
+              color={"white"}
+              size={"sm"}
+              w="20%"
+              _hover={{
+                bg: "blue.500",
+              }}
+              onClick={() => handleSaveChanges("email", "emailButton")}
+              isDisabled={
+                !isDataChanged["email"] || submittingButton === "emailButton"
+              }
+            >
+              {submittingButton === "emailButton" ? "Saving..." : "Save"}
+            </Button>
           </Flex>
         </FormControl>
         <FormControl id="phone">
           <FormLabel>Phone</FormLabel>
-          <Flex gap={'2'}>
-          <Input
-            placeholder="phone"
-            size={'sm'}
-            _placeholder={{ color: "gray.500" }}
-            type="text"
-            id="phone"
-            value={userData.phone}
-            onChange={handleInputChange}
-          />
-          <Button
-            bg={"blue.400"}
-            color={"white"}
-            size={'sm'}
-            w="20%"
-            _hover={{
-              bg: "blue.500",
-            }}
-            onClick={() => handleSaveChanges("phone", "phoneButton")}
-            isDisabled={!isDataChanged['phone'] || submittingButton === "phoneButton"}
-          >
-            {submittingButton === "phoneButton" ? "Saving..." : "Save"}
-          </Button>
+          <Flex gap={"2"}>
+            <Input
+              placeholder="phone"
+              size={"sm"}
+              _placeholder={{ color: "gray.500" }}
+              type="text"
+              id="phone"
+              value={userData.phone}
+              onChange={handleInputChange}
+            />
+            <Button
+              bg={"blue.400"}
+              color={"white"}
+              size={"sm"}
+              w="20%"
+              _hover={{
+                bg: "blue.500",
+              }}
+              onClick={() => handleSaveChanges("phone", "phoneButton")}
+              isDisabled={
+                !isDataChanged["phone"] || submittingButton === "phoneButton"
+              }
+            >
+              {submittingButton === "phoneButton" ? "Saving..." : "Save"}
+            </Button>
           </Flex>
         </FormControl>
         <FormControl id="gender">
           <FormLabel>Gender</FormLabel>
-          <Flex gap={'2'}>
-          <Select size={'sm'} id="gender" value={userData.gender} onChange={handleInputChange}>
-            <option value="0">Male</option>
-            <option value="1">Female</option>
-          </Select>
-          <Button
-            bg={"blue.400"}
-            color={"white"}
-            size={'sm'}
-            w="20%"
-            _hover={{
-              bg: "blue.500",
-            }}
-            onClick={() => handleSaveChanges("gender", "genderButton")}
-            isDisabled={!isDataChanged['gender'] || submittingButton === "genderButton"}
-          >
-            {submittingButton === "genderButton" ? "Saving..." : "Save"}
-          </Button>
+          <Flex gap={"2"}>
+            <Select
+              size={"sm"}
+              id="gender"
+              value={userData.gender}
+              onChange={handleInputChange}
+            >
+              <option value="0">Male</option>
+              <option value="1">Female</option>
+            </Select>
+            <Button
+              bg={"blue.400"}
+              color={"white"}
+              size={"sm"}
+              w="20%"
+              _hover={{
+                bg: "blue.500",
+              }}
+              onClick={() => handleSaveChanges("gender", "genderButton")}
+              isDisabled={
+                !isDataChanged["gender"] || submittingButton === "genderButton"
+              }
+            >
+              {submittingButton === "genderButton" ? "Saving..." : "Save"}
+            </Button>
           </Flex>
         </FormControl>
         <FormControl id="birthday">
           <FormLabel>Birthdate</FormLabel>
-          <Flex gap={'2'}>
-          <Input
-            type="date"
-            id="birthday"
-            size={'sm'}
-            value={formatDate(userData.birthday)}
-            onChange={handleInputChange}
-          />
-          <Button
-            bg={"blue.400"}
-            color={"white"}
-            size={'sm'}
-            w="20%"
-            _hover={{
-              bg: "blue.500",
-            }}
-            onClick={() => handleSaveChanges("birthday", "birthdayButton")}
-            isDisabled={!isDataChanged['birthday'] || submittingButton === "birthdayButton"}
-          >
-            {submittingButton === "birthdayButton" ? "Saving..." : "Save"}
-          </Button>
+          <Flex gap={"2"}>
+            <Input
+              type="date"
+              id="birthday"
+              size={"sm"}
+              value={formatDate(userData.birthday)}
+              onChange={handleInputChange}
+            />
+            <Button
+              bg={"blue.400"}
+              color={"white"}
+              size={"sm"}
+              w="20%"
+              _hover={{
+                bg: "blue.500",
+              }}
+              onClick={() => handleSaveChanges("birthday", "birthdayButton")}
+              isDisabled={
+                !isDataChanged["birthday"] ||
+                submittingButton === "birthdayButton"
+              }
+            >
+              {submittingButton === "birthdayButton" ? "Saving..." : "Save"}
+            </Button>
           </Flex>
         </FormControl>
       </Stack>

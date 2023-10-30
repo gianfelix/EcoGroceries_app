@@ -37,7 +37,7 @@ export default function UserAddress() {
   const updateUserAddressList = useCallback(async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get(`https://jcwd011003.purwadhikabootcamp.com/api/address/${id}`, {
+      const res = await axios.get(`http://localhost:8000/api/address/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -52,7 +52,7 @@ export default function UserAddress() {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(`https://jcwd011003.purwadhikabootcamp.com/api/address/${id}`, {
+        const res = await axios.get(`http://localhost:8000/api/address/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -69,14 +69,16 @@ export default function UserAddress() {
   const handleSetDefault = (addressId) => {
     // Create a copy of userData to avoid mutating state directly
     const updatedUserData = [...userData];
-    
+
     // Find the index of the address with the given addressId
-    const addressIndex = updatedUserData.findIndex((item) => item.id === addressId);
-    
+    const addressIndex = updatedUserData.findIndex(
+      (item) => item.id === addressId
+    );
+
     if (addressIndex !== -1) {
       // Update the isMain property for the selected address
       updatedUserData[addressIndex].isMain = true;
-      
+
       // Update the state with the new userData
       setUserData(updatedUserData);
     }
@@ -142,8 +144,16 @@ export default function UserAddress() {
                 >
                   Edit
                 </Button>
-                <DeletedAddress addressId={item.id} updateAddressCallback={updateUserAddressList} />
-                <SetDefaultAddress addressId={item.id} isDefault={item.isMain} setDefaultCallback={handleSetDefault} updateAddressCallback={updateUserAddressList} />
+                <DeletedAddress
+                  addressId={item.id}
+                  updateAddressCallback={updateUserAddressList}
+                />
+                <SetDefaultAddress
+                  addressId={item.id}
+                  isDefault={item.isMain}
+                  setDefaultCallback={handleSetDefault}
+                  updateAddressCallback={updateUserAddressList}
+                />
               </Flex>
               <Divider />
             </Box>

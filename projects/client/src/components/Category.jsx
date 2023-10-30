@@ -15,7 +15,7 @@ const Category = () => {
 
   useEffect(() => {
     axios
-      .get("https://jcwd011003.purwadhikabootcamp.com/api/category")
+      .get("http://localhost:8000/api/category")
       .then((response) => {
         setCategories(response.data.data);
       })
@@ -32,24 +32,29 @@ const Category = () => {
         <Heading as="h2" size="xl" textAlign="center" mb={8}>
           Categories
         </Heading>
-        <Wrap justify="center" spacing={[4,8]} overflowY={['scroll','']} maxH={['210px','350']} maxW={['','1500px']}>
+        <Wrap
+          justify="center"
+          spacing={[4, 8]}
+          overflowY={["scroll", ""]}
+          maxH={["210px", "350"]}
+          maxW={["", "1500px"]}
+        >
           {activeCategories.map((category) => (
             <WrapItem key={category.id}>
-            <Center
-              bg="teal.200"
-              w={{ base: "120px", md: "200px" }} // Mengatur lebar sesuai dengan tampilan mobile (base) dan desktop (md)
-              h={{ base: "50px", md: "80px" }}
-              borderRadius="lg"
-              _hover={{ bg: "teal.400", transform: "scale(1.1)" }}
-            >
-              <VStack spacing={1}>
-                <Badge colorScheme="teal" fontSize={{ base: "sm", md: "xl" }}>
-                  {category.category}
-                </Badge>
-              </VStack>
-            </Center>
-          </WrapItem>
-          
+              <Center
+                bg="teal.200"
+                w={{ base: "120px", md: "200px" }} // Mengatur lebar sesuai dengan tampilan mobile (base) dan desktop (md)
+                h={{ base: "50px", md: "80px" }}
+                borderRadius="lg"
+                _hover={{ bg: "teal.400", transform: "scale(1.1)" }}
+              >
+                <VStack spacing={1}>
+                  <Badge colorScheme="teal" fontSize={{ base: "sm", md: "xl" }}>
+                    {category.category}
+                  </Badge>
+                </VStack>
+              </Center>
+            </WrapItem>
           ))}
         </Wrap>
       </Box>

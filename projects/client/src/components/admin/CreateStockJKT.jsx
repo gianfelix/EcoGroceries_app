@@ -31,7 +31,7 @@ const CreateStockJKT = () => {
   const toast = useToast();
 
   useEffect(() => {
-    fetch("https://jcwd011003.purwadhikabootcamp.com/api/product")
+    fetch("http://localhost:8000/api/product")
       .then((response) => response.json())
       .then((data) => {
         if (data.message === "Get Product Success") {
@@ -52,7 +52,7 @@ const CreateStockJKT = () => {
 
   useEffect(() => {
     axios
-      .get("https://jcwd011003.purwadhikabootcamp.com/api/stock-promo")
+      .get("http://localhost:8000/api/stock-promo")
       .then((response) => {
         const data = response.data;
         console.log("API Response:", data);
@@ -75,7 +75,7 @@ const CreateStockJKT = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://jcwd011003.purwadhikabootcamp.com/api/stock", {
+      const response = await fetch("http://localhost:8000/api/stock", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

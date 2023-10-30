@@ -39,7 +39,7 @@ const CreateVoucherModal = ({ isOpen, onClose, setVouchers }) => {
 
   const handleCreateVoucher = () => {
     axios
-      .post("https://jcwd011003.purwadhikabootcamp.com/api/vouchers", newVoucher)
+      .post("http://localhost:8000/api/vouchers", newVoucher)
       .then((response) => {
         setVouchers((prevVouchers) => [...prevVouchers, response.data]);
 
@@ -85,7 +85,7 @@ const CreateVoucherModal = ({ isOpen, onClose, setVouchers }) => {
 
   const fetchCategories = () => {
     axios
-      .get("https://jcwd011003.purwadhikabootcamp.com/api/category")
+      .get("http://localhost:8000/api/category")
       .then((response) => {
         setCategories(response.data.data);
       })
@@ -101,7 +101,7 @@ const CreateVoucherModal = ({ isOpen, onClose, setVouchers }) => {
         <ModalHeader>Create Voucher</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <VStack >
+          <VStack>
             <FormControl>
               <FormLabel>Name</FormLabel>
               <Input
@@ -187,7 +187,7 @@ const CreateVoucherModal = ({ isOpen, onClose, setVouchers }) => {
                 }
               />
             </FormControl>
-            
+
             <FormControl>
               <FormLabel>Limit</FormLabel>
               <Input

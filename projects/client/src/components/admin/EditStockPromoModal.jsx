@@ -22,11 +22,11 @@ const EditStockPromoModal = ({ promo, onClose, onUpdate }) => {
   const [getQty, setGetQty] = useState(promo.getQty);
   const [isActive, setIsActive] = useState(promo.isActive);
 
-  const toast   = useToast();
+  const toast = useToast();
   const handleUpdatePromo = async () => {
     try {
       const response = await axios.patch(
-        `https://jcwd011003.purwadhikabootcamp.com/api/stock-promo/${promo.id}`,
+        `http://localhost:8000/api/stock-promo/${promo.id}`,
         {
           promoName,
           buyQty,
@@ -43,7 +43,7 @@ const EditStockPromoModal = ({ promo, onClose, onUpdate }) => {
           duration: 4000,
           isClosable: true,
           position: "bottom",
-        })
+        });
         setTimeout(() => {
           window.location.reload();
         }, 1000);
@@ -58,7 +58,7 @@ const EditStockPromoModal = ({ promo, onClose, onUpdate }) => {
         duration: 4000,
         isClosable: true,
         position: "bottom",
-      })
+      });
       console.error("Error updating Stock Promo:", error);
     }
   };

@@ -23,7 +23,7 @@ const BtnCreateProductModal = () => {
   const [formData, setFormData] = useState({
     name: "",
     price: "",
-    productImg: null, 
+    productImg: null,
     description: "",
     weight: "",
     isActive: true,
@@ -61,14 +61,14 @@ const BtnCreateProductModal = () => {
       formDataToSubmit.append("weight", formData.weight);
       formDataToSubmit.append("isActive", formData.isActive);
       formDataToSubmit.append("id_category", formData.id_category);
-      formDataToSubmit.append("productImg", formData.productImg); 
+      formDataToSubmit.append("productImg", formData.productImg);
 
       const response = await axios.post(
-        "https://jcwd011003.purwadhikabootcamp.com/api/product",
+        "http://localhost:8000/api/product",
         formDataToSubmit,
         {
           headers: {
-            "Content-Type": "multipart/form-data", 
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -79,7 +79,7 @@ const BtnCreateProductModal = () => {
           duration: 4000,
           isClosable: true,
           position: "bottom",
-        })
+        });
         onClose();
         window.location.reload();
       }
@@ -91,16 +91,16 @@ const BtnCreateProductModal = () => {
         status: "error",
         duration: 3000,
         isClosable: true,
-      })
+      });
     }
   };
 
   useEffect(() => {
     axios
-      .get("https://jcwd011003.purwadhikabootcamp.com/api/category")
+      .get("http://localhost:8000/api/category")
       .then((response) => {
         setCategories(response.data.data);
-        console.log(response)
+        console.log(response);
       })
       .catch((error) => {
         console.error("Error fetching categories:", error);
@@ -109,7 +109,9 @@ const BtnCreateProductModal = () => {
 
   return (
     <>
-      <Button onClick={onOpen} colorScheme="teal">Create Product</Button>
+      <Button onClick={onOpen} colorScheme="teal">
+        Create Product
+      </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -163,7 +165,7 @@ const BtnCreateProductModal = () => {
             <FormControl mt={4}>
               <FormLabel>Category</FormLabel>
               <Select
-              placeholder="Select Category"
+                placeholder="Select Category"
                 name="id_category"
                 value={formData.id_category}
                 onChange={handleChange}

@@ -30,24 +30,26 @@ const RegistrationForm = () => {
   const handleAlertSuccess = () => {
     // Show success notification
     Swal.fire({
-      position: 'center-center',
-      icon: 'success',
-      title: "Your register is successfully😉! Please check your email to verify your account",
+      position: "center-center",
+      icon: "success",
+      title:
+        "Your register is successfully😉! Please check your email to verify your account",
       showConfirmButton: false,
-      timer: 5000
+      timer: 5000,
     });
   };
 
   const handleAlertError = () => {
     // Show error notification
     Swal.fire({
-      title: 'The data you entered has been used😩, Please change it with other data',
+      title:
+        "The data you entered has been used😩, Please change it with other data",
       showClass: {
-        popup: 'animate__animated animate__fadeInDown'
+        popup: "animate__animated animate__fadeInDown",
       },
       hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      }
+        popup: "animate__animated animate__fadeOutUp",
+      },
     });
   };
 
@@ -73,7 +75,7 @@ const RegistrationForm = () => {
   const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
     try {
       const response = await axios.post(
-        "https://jcwd011003.purwadhikabootcamp.com/api/auth/register",
+        "http://localhost:8000/api/auth/register",
         values
       );
       handleAlertSuccess();
@@ -102,9 +104,12 @@ const RegistrationForm = () => {
 
   return (
     <Box>
- 
       <Center mt={5}>
-        <Image src="EcoGroceriesApp.png" width={{ base: "30%", md: "10%" }} height="auto"/>
+        <Image
+          src="EcoGroceriesApp.png"
+          width={{ base: "30%", md: "10%" }}
+          height="auto"
+        />
       </Center>
       <Box m="auto" px={6} w={{ base: "100%", md: "30%" }}>
         <Heading as="h3" size="lg" textAlign="center">
@@ -136,9 +141,7 @@ const RegistrationForm = () => {
                           id="name"
                           placeholder="Enter your name"
                         />
-                        <FormErrorMessage>
-                          {form.errors.name}
-                        </FormErrorMessage>
+                        <FormErrorMessage>{form.errors.name}</FormErrorMessage>
                       </FormControl>
                     )}
                   </Field>
@@ -153,9 +156,7 @@ const RegistrationForm = () => {
                           id="email"
                           placeholder="Enter your email address"
                         />
-                        <FormErrorMessage>
-                          {form.errors.email}
-                        </FormErrorMessage>
+                        <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                       </FormControl>
                     )}
                   </Field>
@@ -170,16 +171,16 @@ const RegistrationForm = () => {
                           id="phone"
                           placeholder="Enter your phone number"
                         />
-                        <FormErrorMessage>
-                          {form.errors.phone}
-                        </FormErrorMessage>
+                        <FormErrorMessage>{form.errors.phone}</FormErrorMessage>
                       </FormControl>
                     )}
                   </Field>
                   <Field name="password">
                     {({ field, form }) => (
                       <FormControl
-                        isInvalid={form.errors.password && form.touched.password}
+                        isInvalid={
+                          form.errors.password && form.touched.password
+                        }
                       >
                         <FormLabel htmlFor="password">Password</FormLabel>
                         <InputGroup>
@@ -195,11 +196,7 @@ const RegistrationForm = () => {
                               size="sm"
                               onClick={togglePasswordVisibility}
                             >
-                              {showPassword ? (
-                                <ViewOffIcon />
-                              ) : (
-                                <ViewIcon />
-                              )}
+                              {showPassword ? <ViewOffIcon /> : <ViewIcon />}
                             </Button>
                           </InputRightElement>
                         </InputGroup>
@@ -234,17 +231,16 @@ const RegistrationForm = () => {
               </Form>
             )}
           </Formik>
-          <Text my="4" >
+          <Text my="4">
             Already have an account?{" "}
-            <LinkChakra textColor={'teal'}>
-            <Link to="/login">
-              Login here <ExternalLinkIcon mx="2px" />
-            </Link>
+            <LinkChakra textColor={"teal"}>
+              <Link to="/login">
+                Login here <ExternalLinkIcon mx="2px" />
+              </Link>
             </LinkChakra>
           </Text>
         </Box>
       </Box>
-
     </Box>
   );
 };

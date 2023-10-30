@@ -33,7 +33,7 @@ function TransactionJKT() {
   useEffect(() => {
     const fetchTransactions = async () => {
       const response = await axios.get(
-        "https://jcwd011003.purwadhikabootcamp.com/api/transaction/branch",
+        "http://localhost:8000/api/transaction/branch",
         {
           headers: {
             Authorization: `Bearer ${token}`,
